@@ -669,6 +669,22 @@ hr {
   box-shadow: var(--shadow-1);
 }
 
+.img-box {
+  position: relative;
+  background: var(--bg-gradient-onyx);
+  border-radius: 20px;
+  box-shadow: var(--shadow-1);
+  max-width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.img-box img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .testimonials-item-title { margin-bottom: 7px; }
 
 .testimonials-text {
@@ -834,9 +850,9 @@ hr {
 
 .image-container {
   display: flex;
-  justify-content: center; /* 가로 방향으로 중앙 정렬 */
-  align-items: center; /* 세로 방향으로 중앙 정렬 */
-  height: 100%; /* 필요에 따라 설정 */
+  justify-content: center; /* 이미지 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 100%;
 }
 
 

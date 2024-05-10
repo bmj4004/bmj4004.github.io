@@ -165,7 +165,6 @@ function setLanguage(lang) {
   });
 }
 
-// 페이지 로딩 시 저장된 언어 설정을 불러와 적용
 document.addEventListener('DOMContentLoaded', function() {
   const lang = localStorage.getItem('lang') || 'en';
   setLanguage(lang);
@@ -215,4 +214,3 @@ for (const codeWrapper of codeWrappers) {
   
   codeBlock.innerHTML = codeHeader + codeBody;
 }
-

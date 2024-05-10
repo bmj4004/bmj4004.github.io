@@ -69,10 +69,6 @@
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
   --bittersweet-shimmer: hsl(0, 43%, 51%);
 
-  /**https://www.instagram.com/bmj_4004/
-   * typography
-   */
-
   /* font-family */
   --ff-poppins: 'Poppins', sans-serif;
 
@@ -1519,8 +1515,8 @@ pre[id^=code_]::after {
   .contacts-list { gap: 20px; }
 
   .contact-info {
-    max-width: calc(100% - 64px);
-    width: calc(100% - 64px);
+    max-width: calc(100% - 52px);
+    width: calc(100% - 52px);
   }
 
 

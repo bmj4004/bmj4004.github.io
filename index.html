@@ -26,17 +26,26 @@
 </head>
 
 <body>
-
   <!--
     - #MAIN
   -->
+  <div class="button-container">
+    <div>
+      <button onclick="setLanguage('ko')" class="lang-btn">
+        <span>한국어</span>
+      </button>
+    </div>
+    <div>
+      <button onclick="setLanguage('en')" class="lang-btn">
+        <span>English</span>
+      </button>
+    </div>
+  </div>
 
   <main>
-
     <!--
       - #SIDEBAR
     -->
-
     <aside class="sidebar" data-sidebar>
 
       <div class="sidebar-info">
@@ -131,6 +140,12 @@
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
+
+          <li class="social-item">
+            <a href="https://github.com/bmj4004" class="social-link">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
         </ul>
 
       </div>
@@ -186,7 +201,6 @@
       <!--
         - #ABOUT
       -->
-
       <article class="about  active" data-page="about">
 
         <header>
@@ -194,19 +208,30 @@
         </header>
 
         <section class="about-text">
-          <p>
-            I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media.
-            I enjoy
-            turning complex problems into simple, beautiful and intuitive designs.
-          </p>
+          <p
+          data-en="I'm a Creative Director..."
+          data-ko="&quot;&quot;"
+          style="font-style: italic;"
+          ></p>
+       	
+          <pre id="code_1660143004803" class="css" data-ke-language="python" data-ke-type="codeblock"><code class="hljs">def grow(knowledge = 0):
+  try:
+    learn_more()
+  except Exception as e:
+    if str(e) == 'failure':
+      do_not_give_up()
+      grow(knowledge + 1)
 
-          <p>
-            My job is to build your website so that it is functional and user-friendly but at the same time attractive.
-            Moreover, I
-            add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
-            across your
-            message and identity in the most creative way. I created web design for many famous brand companies.
-          </p>
+grow()</code></pre>
+
+          <p
+          data-en="My job is to build your website so that it is functional and user-friendly but at the same time attractive.
+          Moreover, I
+          add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
+          across your
+          message and identity in the most creative way. I created web design for many famous brand companies."
+          data-ko="저는 ..."
+          ></p>
         </section>
 
 
@@ -1166,11 +1191,20 @@
 
   </main>
 
+  <script>
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en], [data-ko]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
 
-
-
-
-
+    document.addEventListener('DOMContentLoaded', function() {
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+  
   <!--
     - custom js link
   -->
@@ -1182,6 +1216,45 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+  <!--코드블럭 언어표시-->
+  <script>
+    $("pre[data-ke-type='codeblock']").each(function() {
+      var showTxt = "펼치기", hideTxt = "접기", pre = this;
+      var code = this.dataset.keLanguage;
+      var $labelDiv = $("<div>");
+      var $labelBtn = $("<span>");
+      var $wrapBtn = $("<label><input type='checkbox'>");
+      var $code = $(this).find("code").first();
+      var codeHtml = $code.html();
+      if (codeHtml.search('&lt;hide/&gt;\n') > -1 || pre.dataset.hide) {
+        $code.html(codeHtml.replace('&lt;hide/&gt;\n',''));
+        $labelBtn.text(showTxt);
+        $wrapBtn.hide();
+        $(this).hide();
+        $(this).attr('data-hide', 1);
+      } else {
+        $labelBtn.text(hideTxt);
+        $(this).show();
+      }
+      $labelBtn.on("click", function() {
+        var txt = $(this).text();
+        $(this).text((txt==showTxt)?hideTxt:showTxt);
+        if (txt==showTxt) {
+          $wrapBtn.show();
+          $(pre).removeAttr('data-hide');
+        } else {
+          $wrapBtn.hide();
+        }
+        $(pre).toggle();
+      });
+      $labelDiv.on("click", function() {
+        $labelBtn.triggerHandler("click");
+      });
+      $labelDiv.text(code).prop('title', code+' - '+showTxt+'/'+hideTxt);
+      var $codeLabel = $('<div class="codeLabel">').append($labelDiv).append($labelBtn).append($wrapBtn);
+      $(this).before($codeLabel);
+    });
+  </script>
 </body>
 
 </html>

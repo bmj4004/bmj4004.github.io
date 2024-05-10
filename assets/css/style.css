@@ -69,7 +69,7 @@
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
   --bittersweet-shimmer: hsl(0, 43%, 51%);
 
-  /**
+  /**https://www.instagram.com/bmj_4004/
    * typography
    */
 
@@ -306,6 +306,17 @@ main {
   min-width: 259px;
 }
 
+.language-selector {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+  background-color: #ffffff; /* 밝은 배경색 */
+  border: 1px solid #000000; /* 검은색 테두리 */
+  padding: 5px; /* 내부 여백 추가 */
+  border-radius: 8px; /* 경계선 둥글게 처리 */
+}
+
 
 
 
@@ -353,6 +364,48 @@ main {
   padding: 3px 12px;
   border-radius: 8px;
 }
+
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-right: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.lang-btn {
+  position: relative;
+  top: -15px;
+  right: -15px;
+  border-radius: 0 15px;
+  font-size: 13px;
+  color: var(--orange-yellow-crayola);
+  background: var(--border-gradient-onyx);
+  padding: 10px;
+  box-shadow: var(--shadow-2);
+  transition: var(--transition-1);
+  z-index: 1;
+}
+
+.lang-btn::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--bg-gradient-jet);
+  transition: var(--transition-1);
+  z-index: -1;
+}
+
+.lang-btn:hover,
+.lang-btn:focus { background: var(--bg-gradient-yellow-1); }
+
+.lang-btn:hover::before,
+.lang-btn:focus::before { background: var(--bg-gradient-yellow-2); }
 
 .info_more-btn {
   position: absolute;
@@ -1221,6 +1274,119 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 .form-btn:disabled:hover::before { background: var(--bg-gradient-jet); }
 
+@import "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/atom-one-dark-reasonable.min.css";
+
+pre[id^=code_] {
+  position: relative;
+}
+
+pre[id^=code_]::after {
+  content: attr(data-ke-language);
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  color: #cfd2d1;
+}
+
+.hljs {
+  display: flex !important;
+  flex-direction: column;
+  padding: 0 !important;
+  font-size: 14px;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgb(0 0 0 / 40%);
+  color: #cfd2d1;
+  background-color: #343131;
+  font-family: Menlo, Courier, monospace;
+}
+
+.hljs .line {
+  counter-increment: line-idx;
+  line-height: 1.5;
+  margin: 2px 0;
+}
+
+.hljs .line:hover {
+  backdrop-filter: brightness(0.92);
+}
+
+.hljs .line:hover::before {
+  color: #cfd2d1;
+}
+
+.hljs .line::before {
+  content: counter(line-idx);
+  width: 24px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 16px;
+  font-size: 0.8rem;
+  color: #747A7A;
+}
+
+.hljs .code-header {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  background-color: #434041;
+  border-radius: 8px 8px 0 0;
+}
+
+.hljs .code-header .btn {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+}
+
+.hljs .code-header .btn.red {
+  background-color: #F5655B;
+}
+
+.hljs .code-header .btn.yellow {
+  background-color: #F6BD3B;
+}
+
+.hljs .code-header .btn.green {
+  background-color: #43C645;
+}
+
+.hljs .code-body {
+  max-height: 600px;
+  margin: 24px 8px;
+  overflow: auto;
+}
+
+.hljs .code-body::-webkit-scrollbar {
+  width: 12px;
+}
+
+.hljs .code-body::-webkit-scrollbar-thumb {
+  background-color: rgb(1 2 3 / 80%);
+  border-radius: 4px;
+}
+
+.hljs .code-body::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.hljs .copy-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: .75rem;
+  padding: 6px 0;
+  width: 80px;
+  border-radius: 4px;
+  margin-left: auto;
+  transition: .2s background-color;
+}
+
+.hljs .copy-btn:hover {
+  background-color: #555152;
+}
+
 
 
 
@@ -1878,5 +2044,5 @@ textarea.form-input::-webkit-resizer { display: none; }
 	 */
 
   .timeline-text { max-width: 700px; }
-
 }
+

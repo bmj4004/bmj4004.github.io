@@ -257,7 +257,7 @@ article.active {
 
 .has-scrollbar::-webkit-scrollbar {
   width: 5px; /* for vertical scrollbar */
-  height: 5px; /* for horizontal scrollbar */
+  height: 15px; /* for horizontal scrollbar */
 }
 
 .has-scrollbar::-webkit-scrollbar-track {
@@ -619,21 +619,20 @@ main {
 
 .testimonials-list {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 15px;
+  flex-wrap: wrap; /* 요소들이 컨테이너 너비를 초과하면 다음 줄로 넘김 */
+  gap: 30px; /* 요소 간 간격을 30px로 설정 */
   margin: 0 -15px;
   padding: 25px 15px;
   padding-bottom: 35px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: inline mandatory;
+  max-height: 500px; /* 최대 높이를 500px로 설정하여 테스트 */
+  overflow-y: auto; /* 수직 스크롤 활성화 */
 }
 
 .testimonials-item {
-  min-width: 100%;
-  scroll-snap-align: center;
+  width: calc(33.33% - 20px); /* 각 아이템 너비를 33.33%로 설정하고 gap을 고려하여 조정 */
+  scroll-snap-align: start;
+  margin-bottom: 10px;
+  height: auto;
 }
 
 .testimonials-avatar-box {
@@ -654,7 +653,7 @@ main {
   font-weight: var(--fw-300);
   line-height: 1.6;
   display: -webkit-box;
-  line-clamp: 4;
+  line-clamp: 3;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -1264,15 +1263,6 @@ textarea.form-input::-webkit-resizer { display: none; }
 .form-btn:hover { background: var(--bg-gradient-yellow-1); }
 
 .form-btn:hover::before { background: var(--bg-gradient-yellow-2); }
-
-.form-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.form-btn:disabled:hover { background: var(--border-gradient-onyx); }
-
-.form-btn:disabled:hover::before { background: var(--bg-gradient-jet); }
 
 @import "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/atom-one-dark-reasonable.min.css";
 

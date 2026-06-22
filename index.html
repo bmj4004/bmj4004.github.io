@@ -6,390 +6,246 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:image" content="./assets/images/my-avatar.png">
-  <meta name="theme-color" content="#f7f3ea">
-  <title>Bae Min Jun - Portfolio</title>
+  <meta name="theme-color" content="#f8f7f3">
+  <title>Bae Min Jun - Academic Profile</title>
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
-  <div class="site-shell">
-    <header class="topbar">
-      <a class="brand" href="#home" aria-label="Go to home">
-        <span class="brand-mark">BMJ</span>
-        <span class="brand-text">Bae Min Jun</span>
-      </a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-name" href="#top">Bae Min Jun</a>
 
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#about" data-i18n="nav.about">About</a>
-        <a href="#resume" data-i18n="nav.resume">Resume</a>
-        <a href="#experience" data-i18n="nav.experience">Experience</a>
-        <a href="#skills" data-i18n="nav.skills">Skills</a>
-        <a href="#publications" data-i18n="nav.publications">Publications</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#about" data-i18n="nav.about">소개</a>
+        <a href="#education" data-i18n="nav.resume">학력</a>
+        <a href="#experience" data-i18n="nav.experience">경험</a>
+        <a href="#interests" data-i18n="nav.skills">관심 분야</a>
+        <a href="#publications" data-i18n="nav.publications">Publication</a>
       </nav>
 
-      <div class="control-cluster" aria-label="Preferences">
-        <div class="segmented compact" role="group" aria-label="Language">
-          <button type="button" class="segment-btn" data-lang-option="ko">KO</button>
-          <button type="button" class="segment-btn" data-lang-option="en">EN</button>
+      <div class="header-actions" aria-label="Display preferences">
+        <div class="language-switch" role="group" aria-label="Language">
+          <button type="button" data-lang-option="ko">KO</button>
+          <button type="button" data-lang-option="en">EN</button>
         </div>
-
-        <div class="theme-menu">
-          <button type="button" class="icon-button" data-theme-toggle aria-label="Change theme" aria-expanded="false">
-            <ion-icon name="contrast-outline" aria-hidden="true"></ion-icon>
-          </button>
-          <div class="theme-popover" data-theme-popover>
-            <button type="button" data-theme-option="system">
-              <ion-icon name="desktop-outline" aria-hidden="true"></ion-icon>
-              <span data-i18n="theme.system">System</span>
-            </button>
-            <button type="button" data-theme-option="light">
-              <ion-icon name="sunny-outline" aria-hidden="true"></ion-icon>
-              <span data-i18n="theme.light">Light</span>
-            </button>
-            <button type="button" data-theme-option="dark">
-              <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
-              <span data-i18n="theme.dark">Dark</span>
-            </button>
-          </div>
+        <button type="button" class="theme-button" data-theme-toggle aria-label="Change theme" aria-expanded="false">
+          <span data-theme-label>System</span>
+        </button>
+        <div class="theme-popover" data-theme-popover>
+          <button type="button" data-theme-option="system" data-i18n="theme.system">시스템</button>
+          <button type="button" data-theme-option="light" data-i18n="theme.light">라이트</button>
+          <button type="button" data-theme-option="dark" data-i18n="theme.dark">다크</button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main id="home">
-      <section class="hero section-grid">
-        <aside class="profile-panel">
-          <div class="profile-card">
-            <img class="avatar" src="./assets/images/my-avatar.png" alt="Bae Min Jun profile image">
-            <div>
-              <p class="eyebrow" data-i18n="profile.role">Newbie Developer</p>
-              <h1 data-i18n="profile.name">배민준</h1>
-              <p class="profile-summary" data-i18n="profile.summary">전자전기공학과 소프트웨어학을 함께 공부하며, 하드웨어 가까이에서 동작하는 소프트웨어를 탐구합니다.</p>
-            </div>
-          </div>
+  <main id="top" class="page">
+    <section class="intro">
+      <div class="intro-main">
+        <p class="section-label" data-i18n="profile.role">Graduate Student Candidate</p>
+        <h1 data-i18n="profile.name">배민준</h1>
+        <p class="intro-title" data-i18n="hero.title">연구와 구현 사이를 잇는 소프트웨어 개발자.</p>
+        <p class="intro-copy" data-i18n="hero.copy">디지털 시스템, 컴퓨터 구조, 네트워크, 컴퓨터 비전을 기반으로 실제 장치와 연결되는 연구형 소프트웨어 경험을 쌓고 있습니다.</p>
 
-          <div class="quick-list">
-            <a href="mailto:alswns834@naver.com">
-              <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-              <span>alswns834@naver.com</span>
-            </a>
-            <a href="https://github.com/bmj4004" target="_blank" rel="noreferrer">
-              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
-              <span>github.com/bmj4004</span>
-            </a>
-            <a href="https://www.instagram.com/bmj_4004/" target="_blank" rel="noreferrer">
-              <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
-              <span>@bmj_4004</span>
-            </a>
-            <span>
-              <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
-              <span>Suwon-si, Korea</span>
-            </span>
-          </div>
-        </aside>
-
-        <div class="hero-content">
-          <p class="kicker" data-i18n="hero.kicker">Developer growing through challenges</p>
-          <h2 data-i18n="hero.title">도전으로 성장하는 임베디드 감각의 소프트웨어 개발자.</h2>
-          <p data-i18n="hero.copy">디지털 시스템, 컴퓨터 구조, 네트워크, 컴퓨터 비전을 넘나들며 실제 하드웨어와 연결되는 소프트웨어 경험을 쌓고 있습니다.</p>
-
-          <div class="hero-actions">
-            <a class="primary-action" href="#resume">
-              <span data-i18n="hero.ctaResume">이력 살펴보기</span>
-              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-            </a>
-            <a class="ghost-action" href="#publications" data-i18n="hero.ctaPublications">Publication 보기</a>
-          </div>
-
-          <div class="signal-grid" aria-label="Highlights">
-            <article>
-              <strong>4.4</strong>
-              <span data-i18n="stats.gpa">Overall GPA</span>
-            </article>
-            <article>
-              <strong>3x</strong>
-              <span data-i18n="stats.auto">Autonomous driving awards</span>
-            </article>
-            <article>
-              <strong>WHS</strong>
-              <span data-i18n="stats.security">Security education completed</span>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="section">
-        <div class="section-heading">
-          <p class="eyebrow" data-i18n="about.eyebrow">About</p>
-          <h2 data-i18n="about.title">하드웨어와 소프트웨어가 만나는 지점을 좋아합니다.</h2>
-        </div>
-
-        <div class="about-layout">
-          <div class="copy-stack">
-            <p data-i18n="about.p1">저는 성균관대학교에서 전자전기공학과 소프트웨어학을 복수전공하고 있습니다. 전공의 접점에서 디지털 회로, 시스템 구조, 네트워크 통신, 컴퓨터 비전처럼 실제 장치와 가까운 소프트웨어에 관심을 두고 있습니다.</p>
-            <p data-i18n="about.p2">아직 하나의 진로로 좁히기보다 다양한 프로젝트와 대회, 교육 경험을 통해 문제를 다루는 폭을 넓히고 있습니다. 좋은 개발자로 성장하기 위해 실패를 빠르게 배우고, 다시 구현하고, 더 나은 방향을 찾는 과정을 중요하게 생각합니다.</p>
-          </div>
-
-          <pre class="code-card" aria-label="Growth mindset code"><code>def grow(knowledge = 0):
-    try:
-        learn_more()
-    except Failure:
-        do_not_give_up()
-        grow(knowledge + 1)
-
-grow()</code></pre>
-        </div>
-      </section>
-
-      <section id="skills" class="section">
-        <div class="section-heading split-heading">
+        <dl class="quick-facts">
           <div>
-            <p class="eyebrow" data-i18n="skills.eyebrow">Focus</p>
-            <h2 data-i18n="skills.title">지금 공부하고 사용하는 것들</h2>
+            <dt>Affiliation</dt>
+            <dd>Sungkyunkwan University</dd>
           </div>
-          <p data-i18n="skills.copy">관심 분야와 도구를 분리해서 보여주되, 모바일에서도 한눈에 스캔되도록 구성했습니다.</p>
-        </div>
-
-        <div class="focus-grid">
-          <article class="focus-card">
-            <img src="./assets/images/icon-design.svg" alt="">
-            <h3>Digital System</h3>
-            <p data-i18n="focus.digital">VHDL/Verilog 기반 디지털 시스템 설계를 학습합니다.</p>
-          </article>
-          <article class="focus-card">
-            <img src="./assets/images/icon-dev.svg" alt="">
-            <h3>Computer Architecture</h3>
-            <p data-i18n="focus.arch">Intel x86 및 RISC-V ISA 기반 컴퓨터 구조를 공부합니다.</p>
-          </article>
-          <article class="focus-card">
-            <img src="./assets/images/logo-socket.svg" alt="">
-            <h3>Network Programming</h3>
-            <p data-i18n="focus.network">Socket I/O와 TCP/IP 통신에 관심을 갖고 있습니다.</p>
-          </article>
-          <article class="focus-card">
-            <img src="./assets/images/icon-photo.svg" alt="">
-            <h3>Computer Vision</h3>
-            <p data-i18n="focus.vision">자율주행과 연결되는 이미지 처리 및 비전 시스템을 탐구합니다.</p>
-          </article>
-        </div>
-
-        <div class="tool-strip" aria-label="Skill stack">
-          <article><img src="./assets/images/python.png" alt="Python"><span>Python</span></article>
-          <article><img src="./assets/images/C_logo.svg" alt="C/C++"><span>C/C++</span></article>
-          <article><img src="./assets/images/docker.png" alt="Docker"><span>Docker</span></article>
-          <article><img src="./assets/images/ubuntu1.png" alt="Ubuntu"><span>Ubuntu</span></article>
-          <article><img src="./assets/images/Arduino_Logo.png" alt="Arduino"><span>Arduino</span></article>
-          <article><img src="./assets/images/Wireshark_Icon.png" alt="Wireshark"><span>Wireshark</span></article>
-          <article><img src="./assets/images/vhdl.png" alt="VHDL"><span>VHDL</span></article>
-          <article><img src="./assets/images/Matlab_Logo.png" alt="Matlab"><span>Matlab</span></article>
-        </div>
-      </section>
-
-      <section id="publications" class="section">
-        <div class="section-heading split-heading">
           <div>
-            <p class="eyebrow" data-i18n="publications.eyebrow">Publications</p>
-            <h2 data-i18n="publications.title">연구 발표와 관련 작업</h2>
+            <dt>GPA</dt>
+            <dd>4.4 / 4.5</dd>
           </div>
-          <div class="filter-tabs" role="group" aria-label="Publication filter">
-            <button type="button" class="active" data-filter="all" data-i18n="filter.all">All</button>
-            <button type="button" data-filter="paper" data-i18n="filter.paper">Paper</button>
-            <button type="button" data-filter="research" data-i18n="filter.research">Research</button>
-            <button type="button" data-filter="project" data-i18n="filter.project">Project</button>
+          <div>
+            <dt>Location</dt>
+            <dd>Suwon-si, Korea</dd>
           </div>
-        </div>
+        </dl>
+      </div>
 
-        <div class="publication-overview">
-          <h3 data-i18n="publications.overview">Publication Overview</h3>
-          <div class="overview-group">
-            <strong data-i18n="overview.autonomous">Autonomous Driving</strong>
-            <p>
-              <a href="#pub-parking">KSAE 24 ①</a>
-              <span>·</span>
-              <a href="#pub-uart">KSAE 24 ②</a>
-              <span>·</span>
-              <a href="./portfolio-2.html" target="_blank" rel="noreferrer">SKKU ADC 23</a>
-            </p>
+      <aside class="profile-aside" aria-label="Profile summary">
+        <img class="profile-image" src="./assets/images/my-avatar.png" alt="Bae Min Jun profile image">
+        <div class="contact-list">
+          <a href="mailto:alswns834@naver.com">alswns834@naver.com</a>
+          <a href="https://github.com/bmj4004" target="_blank" rel="noreferrer">github.com/bmj4004</a>
+          <a href="https://www.instagram.com/bmj_4004/" target="_blank" rel="noreferrer">@bmj_4004</a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="content-section">
+      <div class="section-head">
+        <p class="section-label" data-i18n="about.eyebrow">About</p>
+        <h2 data-i18n="about.title">하드웨어와 소프트웨어가 만나는 지점에서 연구 주제를 찾습니다.</h2>
+      </div>
+      <div class="prose">
+        <p data-i18n="about.p1">저는 성균관대학교에서 전자전기공학과 소프트웨어학을 복수전공하고 있습니다. 전공의 접점에서 디지털 회로, 시스템 구조, 네트워크 통신, 컴퓨터 비전처럼 실제 장치와 가까운 소프트웨어에 관심을 두고 있습니다.</p>
+        <p data-i18n="about.p2">대학원 진학을 염두에 두고 연구 주제와 구현 역량을 함께 다듬고 있습니다. 실패를 빠르게 배우고, 다시 구현하고, 결과를 글과 발표로 정리하는 과정을 중요하게 생각합니다.</p>
+      </div>
+    </section>
+
+    <section id="education" class="content-section">
+      <div class="section-head">
+        <p class="section-label" data-i18n="resume.eyebrow">Education</p>
+        <h2 data-i18n="resume.title">교육</h2>
+      </div>
+      <ol class="entry-list">
+        <li>
+          <time>2023 - Now</time>
+          <div>
+            <h3 data-i18n="edu.software">소프트웨어학 복수전공</h3>
+            <p data-i18n="edu.software.desc">2023년 2학기부터 소프트웨어학과 복수전공 시작</p>
           </div>
-          <div class="overview-group">
-            <strong data-i18n="overview.systems">Embedded / Digital Systems</strong>
-            <p>
-              <a href="#pub-uart">UART Protocol 24</a>
-              <span>·</span>
-              <a href="./semi-proj1.html" target="_blank" rel="noreferrer">Logic Tetris 23</a>
-            </p>
+        </li>
+        <li>
+          <time>2020 - Now</time>
+          <div>
+            <h3 data-i18n="edu.skku">성균관대학교 전자전기공학부</h3>
+            <p data-i18n="edu.skku.desc">전자전기공학과 소프트웨어학의 접점에서 학습 중</p>
           </div>
-          <div class="overview-group">
-            <strong data-i18n="overview.security">Security & Automation</strong>
-            <p>
-              <a href="./portfolio-1.html" target="_blank" rel="noreferrer">Bug Bounty Automation</a>
-            </p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="experience" class="content-section">
+      <div class="section-head">
+        <p class="section-label" data-i18n="experience.eyebrow">Experience</p>
+        <h2 data-i18n="experience.title">수상 및 연구 경험</h2>
+      </div>
+      <ol class="entry-list compact">
+        <li>
+          <time>2025</time>
+          <div>
+            <h3 data-i18n="exp.auto3">제3회 성균관대학교 자율주행 경진대회 대상</h3>
+            <p data-i18n="exp.auto3.desc">2025.07.18 / 성균관대학교 총장상</p>
           </div>
+        </li>
+        <li>
+          <time>2024 - 2025</time>
+          <div>
+            <h3 data-i18n="exp.coop">동계 학기 CO-OP</h3>
+            <p data-i18n="exp.coop.desc">크로이스(주) AR-Guide 컴퓨터 비전 프로젝트 수행</p>
+          </div>
+        </li>
+        <li>
+          <time>2024</time>
+          <div>
+            <h3 data-i18n="exp.ksae">2024 KSAE 추계학술대회 미래형 자동차 특별세션</h3>
+            <p data-i18n="exp.ksae.desc">논문 2편 제출 및 발표, 장려상/도전상 수상</p>
+          </div>
+        </li>
+        <li>
+          <time>2024</time>
+          <div>
+            <h3 data-i18n="exp.dna">2024 DNA Hero 프로젝트</h3>
+            <p data-i18n="exp.dna.desc">SNN-ViT 혼합 구조 기반 한글 획 인식 시스템 연구</p>
+          </div>
+        </li>
+        <li>
+          <time>2023 - 2024</time>
+          <div>
+            <h3 data-i18n="exp.whs">KITRI 화이트햇 스쿨 1기 수료</h3>
+            <p data-i18n="exp.whs.desc">보안 교육 과정 수료</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="interests" class="content-section">
+      <div class="section-head">
+        <p class="section-label" data-i18n="skills.eyebrow">Research Interest</p>
+        <h2 data-i18n="skills.title">관심 연구 분야와 기술 스택</h2>
+      </div>
+      <div class="interest-grid">
+        <article>
+          <h3>Digital System</h3>
+          <p data-i18n="focus.digital">VHDL/Verilog 기반 디지털 시스템 설계를 학습합니다.</p>
+        </article>
+        <article>
+          <h3>Computer Architecture</h3>
+          <p data-i18n="focus.arch">Intel x86 및 RISC-V ISA 기반 컴퓨터 구조를 공부합니다.</p>
+        </article>
+        <article>
+          <h3>Network Programming</h3>
+          <p data-i18n="focus.network">Socket I/O와 TCP/IP 통신에 관심을 갖고 있습니다.</p>
+        </article>
+        <article>
+          <h3>Computer Vision</h3>
+          <p data-i18n="focus.vision">자율주행과 연결되는 이미지 처리 및 비전 시스템을 탐구합니다.</p>
+        </article>
+      </div>
+      <ul class="tool-list" aria-label="Technical stack">
+        <li>Python</li>
+        <li>C/C++</li>
+        <li>VHDL</li>
+        <li>Docker</li>
+        <li>Ubuntu</li>
+        <li>Arduino</li>
+        <li>Wireshark</li>
+        <li>Matlab</li>
+      </ul>
+    </section>
+
+    <section id="publications" class="publication-section">
+      <div class="publication-heading">
+        <div>
+          <p class="section-label" data-i18n="publications.eyebrow">Publications</p>
+          <h2 data-i18n="publications.title">연구 발표와 관련 작업</h2>
         </div>
-
-        <div class="publication-list">
-          <article id="pub-parking" class="publication-item" data-project-category="paper">
-            <div class="publication-index">[C2]</div>
-            <div class="publication-body">
-              <h3 data-i18n="pub.parking.title">Feedback Parking System Using Bezier Curve-Based Path Planning and Machine Learning Techniques</h3>
-              <p class="authors">Bae Min Jun, collaborators</p>
-              <p class="venue" data-i18n="pub.parking.venue">2024 KSAE Fall Conference, Special Session on Future Automobiles</p>
-              <div class="publication-links">
-                <span data-i18n="pub.type.conference">Conference</span>
-                <span>Nov 2024</span>
-                <span data-i18n="pub.status.presented">Presented</span>
-              </div>
-            </div>
-          </article>
-
-          <article id="pub-uart" class="publication-item" data-project-category="paper">
-            <div class="publication-index">[C1]</div>
-            <div class="publication-body">
-              <h3 data-i18n="pub.uart.title">Driving Stabilization and Latency Optimization via UART Communication-Based Split Byte Command Protocol</h3>
-              <p class="authors">Bae Min Jun, collaborators</p>
-              <p class="venue" data-i18n="pub.uart.venue">2024 KSAE Fall Conference, Special Session on Future Automobiles</p>
-              <div class="publication-links">
-                <span data-i18n="pub.type.conference">Conference</span>
-                <span>Nov 2024</span>
-                <span data-i18n="pub.award.ksae">Encouragement Award / Challenge Award</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="publication-item related-item" data-project-category="research">
-            <div class="publication-index">[R1]</div>
-            <div class="publication-body">
-              <h3 data-i18n="project.auto.title">성균관대학교 자율주행 SW 경진대회 연구/구현 기록</h3>
-              <p class="venue" data-i18n="related.auto.desc">Path planning, control, and embedded communication work from autonomous driving competitions.</p>
-              <div class="publication-links">
-                <a href="./portfolio-2.html" target="_blank" rel="noreferrer" data-i18n="project.open">자세히 보기</a>
-                <span>Autonomous Driving</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="publication-item related-item" data-project-category="project">
-            <div class="publication-index">[P2]</div>
-            <div class="publication-body">
-              <h3 data-i18n="project.bug.title">웹 자동화 도구 분석을 통한 버그바운티 최적화</h3>
-              <p class="venue" data-i18n="related.security.desc">Security automation project analyzing web automation tools for bug bounty workflows.</p>
-              <div class="publication-links">
-                <a href="./portfolio-1.html" target="_blank" rel="noreferrer" data-i18n="project.open">자세히 보기</a>
-                <span>Security</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="publication-item related-item" data-project-category="project">
-            <div class="publication-index">[P1]</div>
-            <div class="publication-body">
-              <h3 data-i18n="project.tetris.title">논리 회로로 테트리스 구현하기</h3>
-              <p class="venue" data-i18n="related.tetris.desc">Digital logic project implemented with Logisim-evolution.</p>
-              <div class="publication-links">
-                <a href="./semi-proj1.html" target="_blank" rel="noreferrer" data-i18n="project.open">자세히 보기</a>
-                <span>Digital Systems</span>
-              </div>
-            </div>
-          </article>
+        <div class="filter-tabs publication-tabs" role="group" aria-label="Publication filter">
+          <button type="button" class="active" data-filter="all" data-i18n="filter.all">전체</button>
+          <button type="button" data-filter="domestic" data-i18n="filter.domestic">Domestic</button>
+          <button type="button" data-filter="international" data-i18n="filter.international">International</button>
         </div>
-      </section>
+      </div>
 
-      <section id="resume" class="section resume-section">
-        <div class="section-heading">
-          <p class="eyebrow" data-i18n="resume.eyebrow">Resume</p>
-          <h2 data-i18n="resume.title">교육</h2>
-        </div>
+      <div class="publication-cards">
+        <article class="publication-card" data-publication-scope="domestic">
+          <h3 data-i18n="pub.parking.title">Feedback Parking System Using Bezier Curve-Based Path Planning and Machine Learning Techniques</h3>
+          <p class="authors">Bae Min Jun, collaborators</p>
+          <p class="venue" data-i18n="pub.parking.venue">2024 KSAE Fall Conference, Special Session on Future Automobiles</p>
+        </article>
 
-        <div class="education-grid">
-          <article class="timeline-card">
-            <h3 data-i18n="resume.education">Education</h3>
-            <ol class="timeline-list">
-              <li>
-                <time>2023 - Now</time>
-                <strong data-i18n="edu.software">소프트웨어학 복수전공</strong>
-                <span data-i18n="edu.software.desc">2023년 2학기부터 소프트웨어학과 복수전공 시작</span>
-              </li>
-              <li>
-                <time>2020 - Now</time>
-                <strong data-i18n="edu.skku">성균관대학교 전자전기공학부</strong>
-                <span data-i18n="edu.skku.desc">전자전기공학과 소프트웨어학의 접점에서 학습 중</span>
-              </li>
-            </ol>
-          </article>
-        </div>
-      </section>
+        <article class="publication-card" data-publication-scope="domestic">
+          <h3 data-i18n="pub.uart.title">Driving Stabilization and Latency Optimization via UART Communication-Based Split Byte Command Protocol</h3>
+          <p class="authors">Bae Min Jun, collaborators</p>
+          <p class="venue" data-i18n="pub.uart.venue">2024 KSAE Fall Conference, Special Session on Future Automobiles</p>
+        </article>
 
-      <section id="experience" class="section experience-section">
-        <div class="section-heading">
-          <p class="eyebrow" data-i18n="experience.eyebrow">Experience</p>
-          <h2 data-i18n="experience.title">수상 및 연구 경험</h2>
-        </div>
+        <article class="publication-card related-publication" data-publication-scope="domestic">
+          <h3 data-i18n="project.auto.title">성균관대학교 자율주행 SW 경진대회 연구/구현 기록</h3>
+          <p class="authors">Bae Min Jun</p>
+          <p class="venue"><a href="./portfolio-2.html" target="_blank" rel="noreferrer" data-i18n="project.open">자세히 보기</a> · Autonomous Driving</p>
+        </article>
 
-        <div class="experience-grid">
-          <article class="timeline-card wide">
-            <h3 data-i18n="resume.experience">Experience & Achievement</h3>
-            <ol class="timeline-list dense">
-              <li>
-                <time>2025</time>
-                <strong data-i18n="exp.auto3">제3회 성균관대학교 자율주행 경진대회 대상</strong>
-                <span data-i18n="exp.auto3.desc">2025.07.18 / 성균관대학교 총장상</span>
-              </li>
-              <li>
-                <time>2024 - 2025</time>
-                <strong data-i18n="exp.coop">동계 학기 CO-OP</strong>
-                <span data-i18n="exp.coop.desc">크로이스(주) AR-Guide 컴퓨터 비전 프로젝트 수행</span>
-              </li>
-              <li>
-                <time>2024</time>
-                <strong data-i18n="exp.ksae">2024 KSAE 추계학술대회 미래형 자동차 특별세션</strong>
-                <span data-i18n="exp.ksae.desc">논문 2편 제출 및 발표, 장려상/도전상 수상</span>
-              </li>
-              <li>
-                <time>2024</time>
-                <strong data-i18n="exp.dna">2024 DNA Hero 프로젝트</strong>
-                <span data-i18n="exp.dna.desc">SNN-ViT 혼합 구조 기반 한글 획 인식 시스템 연구</span>
-              </li>
-              <li>
-                <time>2023 - 2024</time>
-                <strong data-i18n="exp.whs">KITRI 화이트햇 스쿨 1기 수료</strong>
-                <span data-i18n="exp.whs.desc">보안 교육 과정 수료</span>
-              </li>
-            </ol>
-          </article>
-        </div>
-      </section>
-    </main>
-  </div>
+        <article class="publication-card related-publication" data-publication-scope="domestic">
+          <h3 data-i18n="project.bug.title">웹 자동화 도구 분석을 통한 버그바운티 최적화</h3>
+          <p class="authors">Bae Min Jun</p>
+          <p class="venue"><a href="./portfolio-1.html" target="_blank" rel="noreferrer" data-i18n="project.open">자세히 보기</a> · Security Automation</p>
+        </article>
 
-  <nav class="mobile-nav" aria-label="Mobile navigation">
-    <a href="#about">
-      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-      <span data-i18n="nav.about">About</span>
-    </a>
-    <a href="#resume">
-      <ion-icon name="school-outline" aria-hidden="true"></ion-icon>
-      <span data-i18n="nav.resume">Resume</span>
-    </a>
-    <a href="#experience">
-      <ion-icon name="trophy-outline" aria-hidden="true"></ion-icon>
-      <span data-i18n="nav.experienceShort">Exp</span>
-    </a>
-    <a href="#skills">
-      <ion-icon name="layers-outline" aria-hidden="true"></ion-icon>
-      <span data-i18n="nav.skills">Skills</span>
-    </a>
-    <a href="#publications">
-      <ion-icon name="folder-open-outline" aria-hidden="true"></ion-icon>
-      <span data-i18n="nav.pubs">Pubs</span>
-    </a>
-  </nav>
+        <article class="publication-card related-publication" data-publication-scope="domestic">
+          <h3 data-i18n="project.tetris.title">논리 회로로 테트리스 구현하기</h3>
+          <p class="authors">Bae Min Jun</p>
+          <p class="venue"><a href="./semi-proj1.html" target="_blank" rel="noreferrer" data-i18n="project.open">자세히 보기</a> · Digital Systems</p>
+        </article>
+
+        <article class="publication-card empty-publication" data-publication-empty>
+          <h3 data-i18n="pub.international.emptyTitle">International publications are being prepared.</h3>
+          <p class="authors" data-i18n="pub.international.emptyBody">Accepted or submitted international publications will be listed here.</p>
+          <p class="venue">International</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
   <script src="./assets/js/script.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

@@ -46,9 +46,8 @@ const translations = {
     'overview.systems': 'Embedded / Digital Systems',
     'overview.security': 'Security & Automation',
     'filter.all': '전체',
-    'filter.paper': '논문',
-    'filter.research': '연구',
-    'filter.project': '프로젝트',
+    'filter.domestic': 'Domestic',
+    'filter.international': 'International',
     'pub.parking.title': 'Bezier Curve 기반 경로 계획과 머신러닝 기법을 활용한 피드백 주차 시스템',
     'pub.parking.desc': '2024 한국자동차공학회 추계학술대회 미래형 자동차 특별세션 제출 및 발표.',
     'pub.parking.venue': '2024 한국자동차공학회 추계학술대회, 미래형 자동차 특별세션',
@@ -58,6 +57,8 @@ const translations = {
     'pub.type.conference': 'Conference',
     'pub.status.presented': 'Presented',
     'pub.award.ksae': '장려상 / 도전상',
+    'pub.international.emptyTitle': 'International publications are being prepared.',
+    'pub.international.emptyBody': 'Accepted or submitted international publications will be listed here.',
     'project.auto.title': '성균관대학교 자율주행 SW 경진대회 연구/구현 기록',
     'project.bug.title': '웹 자동화 도구 분석을 통한 버그바운티 최적화',
     'project.tetris.title': '논리 회로로 테트리스 구현하기',
@@ -126,9 +127,8 @@ const translations = {
     'overview.systems': 'Embedded / Digital Systems',
     'overview.security': 'Security & Automation',
     'filter.all': 'All',
-    'filter.paper': 'Paper',
-    'filter.research': 'Research',
-    'filter.project': 'Project',
+    'filter.domestic': 'Domestic',
+    'filter.international': 'International',
     'pub.parking.title': 'Feedback Parking System Using Bezier Curve-Based Path Planning and Machine Learning Techniques',
     'pub.parking.desc': 'Submitted and presented at the 2024 KSAE Fall Conference, Special Session on Future Automobiles.',
     'pub.parking.venue': '2024 KSAE Fall Conference, Special Session on Future Automobiles',
@@ -138,6 +138,8 @@ const translations = {
     'pub.type.conference': 'Conference',
     'pub.status.presented': 'Presented',
     'pub.award.ksae': 'Encouragement Award / Challenge Award',
+    'pub.international.emptyTitle': 'International publications are being prepared.',
+    'pub.international.emptyBody': 'Accepted or submitted international publications will be listed here.',
     'project.auto.title': 'Research and implementation notes from the SKKU Autonomous Driving SW Competition',
     'project.bug.title': 'Optimizing Bug Bounty Through Web Automation Tool Analysis',
     'project.tetris.title': 'Implementing Tetris with Logic Circuits',
@@ -171,12 +173,14 @@ const translations = {
 const root = document.documentElement;
 const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
 const themeToggle = document.querySelector('[data-theme-toggle]');
+const themeLabel = document.querySelector('[data-theme-label]');
 const themePopover = document.querySelector('[data-theme-popover]');
 const languageButtons = document.querySelectorAll('[data-lang-option]');
 const themeButtons = document.querySelectorAll('[data-theme-option]');
 const filterButtons = document.querySelectorAll('[data-filter]');
-const filterItems = document.querySelectorAll('[data-project-category]');
-const navLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
+const filterItems = document.querySelectorAll('[data-publication-scope]');
+const emptyPublication = document.querySelector('[data-publication-empty]');
+const navLinks = document.querySelectorAll('.site-nav a');
 const sections = document.querySelectorAll('main section[id]');
 
 let selectedTheme = localStorage.getItem(STORAGE_KEYS.theme) || 'system';
@@ -196,6 +200,10 @@ const applyTheme = () => {
   themeButtons.forEach((button) => {
     button.classList.toggle('active', button.dataset.themeOption === selectedTheme);
   });
+
+  if (themeLabel) {
+    themeLabel.textContent = translations[selectedLanguage]?.[`theme.${selectedTheme}`] || selectedTheme;
+  }
 };
 
 const applyLanguage = () => {
@@ -210,6 +218,8 @@ const applyLanguage = () => {
   languageButtons.forEach((button) => {
     button.classList.toggle('active', button.dataset.langOption === selectedLanguage);
   });
+
+  applyTheme();
 };
 
 const closeThemePopover = () => {
@@ -252,9 +262,13 @@ filterButtons.forEach((button) => {
     });
 
     filterItems.forEach((item) => {
-      const shouldShow = selectedFilter === 'all' || item.dataset.projectCategory === selectedFilter;
+      const shouldShow = selectedFilter === 'all' || item.dataset.publicationScope === selectedFilter;
       item.classList.toggle('hidden', !shouldShow);
     });
+
+    if (emptyPublication) {
+      emptyPublication.classList.toggle('visible', selectedFilter === 'international');
+    }
   });
 });
 

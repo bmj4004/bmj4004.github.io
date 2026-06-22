@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:image" content="./assets/images/my-avatar.png">
-  <meta name="theme-color" content="#f8f7f3">
+  <meta name="theme-color" content="#f5f7fb">
   <title>Bae Min Jun - Academic Profile</title>
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,10 +33,7 @@
           <button type="button" data-lang-option="ko">KO</button>
           <button type="button" data-lang-option="en">EN</button>
         </div>
-        <button type="button" class="theme-button" data-theme-toggle aria-label="Change theme" aria-expanded="false">
-          <span data-theme-label>System</span>
-        </button>
-        <div class="theme-popover" data-theme-popover>
+        <div class="theme-switch" role="group" aria-label="Theme">
           <button type="button" data-theme-option="system" data-i18n="theme.system">시스템</button>
           <button type="button" data-theme-option="light" data-i18n="theme.light">라이트</button>
           <button type="button" data-theme-option="dark" data-i18n="theme.dark">다크</button>
@@ -118,43 +115,89 @@
         <p class="section-label" data-i18n="experience.eyebrow">Experience</p>
         <h2 data-i18n="experience.title">수상 및 연구 경험</h2>
       </div>
-      <ol class="entry-list compact">
-        <li>
-          <time>2025</time>
-          <div>
-            <h3 data-i18n="exp.auto3">제3회 성균관대학교 자율주행 경진대회 대상</h3>
-            <p data-i18n="exp.auto3.desc">2025.07.18 / 성균관대학교 총장상</p>
-          </div>
-        </li>
-        <li>
-          <time>2024 - 2025</time>
-          <div>
-            <h3 data-i18n="exp.coop">동계 학기 CO-OP</h3>
-            <p data-i18n="exp.coop.desc">크로이스(주) AR-Guide 컴퓨터 비전 프로젝트 수행</p>
-          </div>
-        </li>
-        <li>
-          <time>2024</time>
-          <div>
-            <h3 data-i18n="exp.ksae">2024 KSAE 추계학술대회 미래형 자동차 특별세션</h3>
-            <p data-i18n="exp.ksae.desc">논문 2편 제출 및 발표, 장려상/도전상 수상</p>
-          </div>
-        </li>
-        <li>
-          <time>2024</time>
-          <div>
-            <h3 data-i18n="exp.dna">2024 DNA Hero 프로젝트</h3>
-            <p data-i18n="exp.dna.desc">SNN-ViT 혼합 구조 기반 한글 획 인식 시스템 연구</p>
-          </div>
-        </li>
-        <li>
-          <time>2023 - 2024</time>
-          <div>
-            <h3 data-i18n="exp.whs">KITRI 화이트햇 스쿨 1기 수료</h3>
-            <p data-i18n="exp.whs.desc">보안 교육 과정 수료</p>
-          </div>
-        </li>
-      </ol>
+      <div class="experience-stack">
+        <section class="experience-group">
+          <h3 data-i18n="experience.awards">Awards</h3>
+          <ol class="entry-list compact">
+            <li>
+              <time>2025</time>
+              <div>
+                <h4 data-i18n="exp.auto3">제3회 성균관대학교 자율주행 경진대회 대상</h4>
+                <p data-i18n="exp.auto3.desc">2025.07.18 / 성균관대학교 총장상</p>
+              </div>
+            </li>
+            <li>
+              <time>2024</time>
+              <div>
+                <h4 data-i18n="exp.ksaeAward">2024 KSAE 추계학술대회 미래형 자동차 특별세션 수상</h4>
+                <p data-i18n="exp.ksaeAward.desc">2024.11.21 / 장려상, 도전상 수상</p>
+              </div>
+            </li>
+            <li>
+              <time>2024</time>
+              <div>
+                <h4 data-i18n="exp.hackathon">제3회 SKKU 메이킹 해커톤 최우수상</h4>
+                <p data-i18n="exp.hackathon.desc">2024.08.01 / 최우수상 수상</p>
+              </div>
+            </li>
+            <li>
+              <time>2024</time>
+              <div>
+                <h4 data-i18n="exp.auto2">제2회 성균관대학교 자율주행 SW 경진대회 은상</h4>
+                <p data-i18n="exp.auto2.desc">2024.07.19 / 전자전기공학부장상</p>
+              </div>
+            </li>
+            <li>
+              <time>2023</time>
+              <div>
+                <h4 data-i18n="exp.auto1">제1회 성균관대학교 자율주행 SW 경진대회 금상</h4>
+                <p data-i18n="exp.auto1.desc">2023.07.21 / 정보통신대학장상</p>
+              </div>
+            </li>
+            <li>
+              <time>2020 - 2024</time>
+              <div>
+                <h4 data-i18n="exp.deansList">Dean's List</h4>
+                <p data-i18n="exp.deansList.desc">20-2, 23-1, 23-2, 24-1, 24-2학기 수상</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="experience-group">
+          <h3 data-i18n="experience.research">Research & Training</h3>
+          <ol class="entry-list compact">
+            <li>
+              <time>2024 - 2025</time>
+              <div>
+                <h4 data-i18n="exp.coop">동계 학기 CO-OP</h4>
+                <p data-i18n="exp.coop.desc">크로이스(주) AR-Guide 컴퓨터 비전 프로젝트 수행</p>
+              </div>
+            </li>
+            <li>
+              <time>2024</time>
+              <div>
+                <h4 data-i18n="exp.ksae">2024 KSAE 추계학술대회 미래형 자동차 특별세션</h4>
+                <p data-i18n="exp.ksae.desc">논문 2편 제출 및 발표, 장려상/도전상 수상</p>
+              </div>
+            </li>
+            <li>
+              <time>2024</time>
+              <div>
+                <h4 data-i18n="exp.dna">2024 DNA Hero 프로젝트</h4>
+                <p data-i18n="exp.dna.desc">SNN-ViT 혼합 구조 기반 한글 획 인식 시스템 연구</p>
+              </div>
+            </li>
+            <li>
+              <time>2023 - 2024</time>
+              <div>
+                <h4 data-i18n="exp.whs">KITRI 화이트햇 스쿨 1기 수료</h4>
+                <p data-i18n="exp.whs.desc">보안 교육 과정 수료</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
     </section>
 
     <section id="interests" class="content-section">

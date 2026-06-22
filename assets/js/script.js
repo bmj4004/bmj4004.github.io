@@ -72,6 +72,8 @@ const translations = {
     'resume.experience': 'Experience & Achievement',
     'experience.eyebrow': 'Experience',
     'experience.title': '수상 및 연구 경험',
+    'experience.awards': 'Awards',
+    'experience.research': 'Research & Training',
     'edu.software': '소프트웨어학 복수전공',
     'edu.software.desc': '2023년 2학기부터 소프트웨어학과 복수전공 시작',
     'edu.skku': '성균관대학교 전자전기공학부',
@@ -82,6 +84,16 @@ const translations = {
     'exp.coop.desc': '크로이스(주) AR-Guide 컴퓨터 비전 프로젝트 수행',
     'exp.ksae': '2024 KSAE 추계학술대회 미래형 자동차 특별세션',
     'exp.ksae.desc': '논문 2편 제출 및 발표, 장려상/도전상 수상',
+    'exp.ksaeAward': '2024 KSAE 추계학술대회 미래형 자동차 특별세션 수상',
+    'exp.ksaeAward.desc': '2024.11.21 / 장려상, 도전상 수상',
+    'exp.hackathon': '제3회 SKKU 메이킹 해커톤 최우수상',
+    'exp.hackathon.desc': '2024.08.01 / 최우수상 수상',
+    'exp.auto2': '제2회 성균관대학교 자율주행 SW 경진대회 은상',
+    'exp.auto2.desc': '2024.07.19 / 전자전기공학부장상',
+    'exp.auto1': '제1회 성균관대학교 자율주행 SW 경진대회 금상',
+    'exp.auto1.desc': '2023.07.21 / 정보통신대학장상',
+    'exp.deansList': "Dean's List",
+    'exp.deansList.desc': '20-2, 23-1, 23-2, 24-1, 24-2학기 수상',
     'exp.dna': '2024 DNA Hero 프로젝트',
     'exp.dna.desc': 'SNN-ViT 혼합 구조 기반 한글 획 인식 시스템 연구',
     'exp.whs': 'KITRI 화이트햇 스쿨 1기 수료',
@@ -153,6 +165,8 @@ const translations = {
     'resume.experience': 'Experience & Achievement',
     'experience.eyebrow': 'Experience',
     'experience.title': 'Awards and research experience',
+    'experience.awards': 'Awards',
+    'experience.research': 'Research & Training',
     'edu.software': 'Double major in Software Engineering',
     'edu.software.desc': 'Started double majoring in Software Engineering from the fall semester of 2023.',
     'edu.skku': 'Sungkyunkwan University, Electronic & Electrical Engineering',
@@ -163,6 +177,16 @@ const translations = {
     'exp.coop.desc': 'Computer vision project, AR-Guide, at Crois Inc.',
     'exp.ksae': '2024 KSAE Fall Conference, Special Session on Future Automobiles',
     'exp.ksae.desc': 'Submitted and presented two papers. Received Encouragement Award and Challenge Award.',
+    'exp.ksaeAward': '2024 KSAE Fall Conference, Special Session on Future Automobiles Awards',
+    'exp.ksaeAward.desc': 'Nov 21, 2024 / Encouragement Award and Challenge Award',
+    'exp.hackathon': 'The 3rd SKKU Making Hackathon, Grand Prize',
+    'exp.hackathon.desc': 'Aug 1, 2024 / Grand Prize',
+    'exp.auto2': 'The 2nd SKKU Autonomous Driving SW Competition, Silver Prize',
+    'exp.auto2.desc': 'July 19, 2024 / Dean Award of the School of Electronic and Electrical Engineering',
+    'exp.auto1': 'The 1st SKKU Autonomous Driving SW Competition, Gold Prize',
+    'exp.auto1.desc': 'July 21, 2023 / Dean Award of the College of Information and Communication Engineering',
+    'exp.deansList': "Dean's List",
+    'exp.deansList.desc': 'Awarded for 20-Fall, 23-Spring, 23-Fall, 24-Spring, and 24-Fall semesters',
     'exp.dna': '2024 DNA Hero Project',
     'exp.dna.desc': 'Research on a Korean stroke recognition system based on an SNN-ViT hybrid structure.',
     'exp.whs': 'Completed KITRI White Hat School, 1st session',
@@ -172,9 +196,6 @@ const translations = {
 
 const root = document.documentElement;
 const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-const themeToggle = document.querySelector('[data-theme-toggle]');
-const themeLabel = document.querySelector('[data-theme-label]');
-const themePopover = document.querySelector('[data-theme-popover]');
 const languageButtons = document.querySelectorAll('[data-lang-option]');
 const themeButtons = document.querySelectorAll('[data-theme-option]');
 const filterButtons = document.querySelectorAll('[data-filter]');
@@ -194,16 +215,12 @@ const applyTheme = () => {
   root.dataset.theme = resolvedTheme;
   document.querySelector('meta[name="theme-color"]')?.setAttribute(
     'content',
-    resolvedTheme === 'dark' ? '#101416' : '#f7f3ea',
+    resolvedTheme === 'dark' ? '#0f1419' : '#f5f7fb',
   );
 
   themeButtons.forEach((button) => {
     button.classList.toggle('active', button.dataset.themeOption === selectedTheme);
   });
-
-  if (themeLabel) {
-    themeLabel.textContent = translations[selectedLanguage]?.[`theme.${selectedTheme}`] || selectedTheme;
-  }
 };
 
 const applyLanguage = () => {
@@ -222,26 +239,11 @@ const applyLanguage = () => {
   applyTheme();
 };
 
-const closeThemePopover = () => {
-  themePopover?.classList.remove('open');
-  themeToggle?.setAttribute('aria-expanded', 'false');
-};
-
-themeToggle?.addEventListener('click', () => {
-  const isOpen = themePopover.classList.toggle('open');
-  themeToggle.setAttribute('aria-expanded', String(isOpen));
-});
-
-document.addEventListener('click', (event) => {
-  if (!event.target.closest('.theme-menu')) closeThemePopover();
-});
-
 themeButtons.forEach((button) => {
   button.addEventListener('click', () => {
     selectedTheme = button.dataset.themeOption;
     localStorage.setItem(STORAGE_KEYS.theme, selectedTheme);
     applyTheme();
-    closeThemePopover();
   });
 });
 

@@ -31,9 +31,9 @@
 
   /* ink / text */
   --ink: #393450;
-  --ink-soft: #5b566f;
-  --muted: #6f6a87;
-  --muted-2: #aaa4c1;
+  --ink-soft: #463f5c;
+  --muted: #5b5677;
+  --muted-2: #9a93b4;
 
   /* hairlines */
   --line: #ece6f7;
@@ -1599,6 +1599,15 @@ hr {
   color: var(--muted);
   font-size: var(--fs-5);
   line-height: 1.6;
+}
+
+.pub-filters-label {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: var(--fs-8);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .pub-filters {

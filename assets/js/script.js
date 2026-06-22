@@ -263,16 +263,22 @@ applyTheme();
 
 
 
-// ===== publications: filter by scope (all / domestic / international) =====
-const pubFilterBtns = document.querySelectorAll('[data-pub-filter]');
-const pubItems = document.querySelectorAll('.pub-item[data-pub-scope]');
+// ===== publications: multi-dimensional filter (scope / type / field / venue) =====
+const pubItems = document.querySelectorAll('.pub-item');
 const pubGroups = document.querySelectorAll('[data-pub-group]');
 const pubEmpty = document.querySelector('[data-pub-empty]');
+const pubFilterRows = document.querySelectorAll('.pub-filter-row[data-filter-group]');
+const pubSelected = { scope: 'all', type: 'all', field: 'all', venue: 'all' };
 
-const applyPubFilter = (value) => {
+const applyPubFilters = () => {
   let anyVisible = false;
   pubItems.forEach((item) => {
-    const show = value === 'all' || item.dataset.pubScope === value;
+    const fields = (item.dataset.pubField || '').split(/\s+/);
+    const show =
+      (pubSelected.scope === 'all' || item.dataset.pubScope === pubSelected.scope) &&
+      (pubSelected.type === 'all' || item.dataset.pubType === pubSelected.type) &&
+      (pubSelected.field === 'all' || fields.includes(pubSelected.field)) &&
+      (pubSelected.venue === 'all' || item.dataset.pubVenue === pubSelected.venue);
     item.classList.toggle('hidden', !show);
     if (show) anyVisible = true;
   });
@@ -282,9 +288,24 @@ const applyPubFilter = (value) => {
   if (pubEmpty) pubEmpty.classList.toggle('visible', !anyVisible);
 };
 
-pubFilterBtns.forEach((btn) => {
+pubFilterRows.forEach((row) => {
+  const group = row.dataset.filterGroup;
+  row.querySelectorAll('button[data-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      row.querySelectorAll('button[data-filter]').forEach((b) => b.classList.toggle('active', b === btn));
+      pubSelected[group] = btn.dataset.filter;
+      applyPubFilters();
+    });
+  });
+});
+
+
+
+// ===== "Go to Publications" button in About → activate the Publications tab =====
+document.querySelectorAll('[data-go-publications]').forEach((btn) => {
   btn.addEventListener('click', () => {
-    pubFilterBtns.forEach((b) => b.classList.toggle('active', b === btn));
-    applyPubFilter(btn.dataset.pubFilter);
+    const navBtn = [...document.querySelectorAll('.navbar [data-nav-link]')]
+      .find((b) => b.textContent.trim().toLowerCase() === 'publications');
+    if (navBtn) navBtn.click();
   });
 });

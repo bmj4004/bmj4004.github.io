@@ -28,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=7">
+  <link rel="stylesheet" href="./assets/css/style.css?v=8">
 
   <!--
     - google font link
@@ -350,10 +350,18 @@ grow()</code></pre>
             <li class="paper-item">
               <h4 class="paper-title">Feedback Parking System Using Bezier Curve-Based Path Planning and Machine Learning Techniques</h4>
               <p class="paper-authors"><strong>Minjun Bae</strong>, Jihae Ju, Jaejun An, Joonhyuk Park, Moonsoo Kim, Byungsung Kim</p>
-              <p class="paper-venue" data-en="KSAE 2024 Fall Conference · Nov 2024" data-ko="2024 한국자동차공학회 추계학술대회 · 2024.11"></p>
+              <div class="pub-meta">
+                <span class="pub-venue-chip" data-en="KSAE Fall Conference" data-ko="한국자동차공학회 추계학술대회"></span>
+                <span class="pub-date" data-en="Nov 2024" data-ko="2024.11"></span>
+              </div>
             </li>
 
           </ul>
+
+          <button class="papers-link" type="button" data-go-publications>
+            <span data-en="Go to Full Publications" data-ko="전체 논문 보기"></span>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </button>
 
         </section>
 
@@ -364,13 +372,19 @@ grow()</code></pre>
 
         <section class="clients">
 
-          <h3 class="h3 clients-title">organization</h3>
+          <h3 class="h3 clients-title">Organization</h3>
 
-          <ul class="clients-list has-scrollbar">
+          <ul class="clients-list">
 
             <li class="clients-item">
-              <a href="https://whsedu.kr/home/kor/main.do" target="_blank" rel="noreferrer">
-                <img src="./assets/images/whitehatschool.png" alt="client logo", width="200" height="200">
+              <a href="https://whsedu.kr/home/kor/main.do" target="_blank" rel="noreferrer" title="White Hat School">
+                <img src="./assets/images/whitehatschool.png" alt="White Hat School" loading="lazy">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="https://sites.google.com/g.skku.edu/syslab" target="_blank" rel="noreferrer" title="SYSLAB @ SKKU">
+                <img src="./assets/images/syslab-logo.jpg" alt="SYSLAB @ SKKU" loading="lazy">
               </a>
             </li>
 
@@ -524,42 +538,88 @@ grow()</code></pre>
 
         <p class="pub-subtitle" data-en="Peer-reviewed papers." data-ko="동료 심사를 거친 논문입니다."></p>
 
-        <ul class="pub-filter-list">
-          <li><button class="active" data-pub-filter="all" data-en="All" data-ko="전체"></button></li>
-          <li><button data-pub-filter="domestic" data-en="Domestic" data-ko="국내"></button></li>
-          <li><button data-pub-filter="international" data-en="International" data-ko="국제"></button></li>
-        </ul>
+        <div class="pub-filters">
+
+          <div class="pub-filter-row" data-filter-group="scope">
+            <span class="pub-filter-label" data-en="Scope" data-ko="국내·국제"></span>
+            <div class="pub-filter-btns">
+              <button class="active" data-filter="all" data-en="All" data-ko="전체"></button>
+              <button data-filter="domestic" data-en="Domestic" data-ko="국내"></button>
+              <button data-filter="international" data-en="International" data-ko="국제"></button>
+            </div>
+          </div>
+
+          <div class="pub-filter-row" data-filter-group="type">
+            <span class="pub-filter-label" data-en="Type" data-ko="유형"></span>
+            <div class="pub-filter-btns">
+              <button class="active" data-filter="all" data-en="All" data-ko="전체"></button>
+              <button data-filter="conference" data-en="Conference" data-ko="컨퍼런스"></button>
+              <button data-filter="journal" data-en="Journal" data-ko="저널"></button>
+            </div>
+          </div>
+
+          <div class="pub-filter-row" data-filter-group="field">
+            <span class="pub-filter-label" data-en="Field" data-ko="분야"></span>
+            <div class="pub-filter-btns">
+              <button class="active" data-filter="all" data-en="All" data-ko="전체"></button>
+              <button data-filter="autonomous-driving" data-en="Autonomous Driving" data-ko="자율주행"></button>
+              <button data-filter="machine-learning" data-en="Machine Learning" data-ko="머신러닝"></button>
+              <button data-filter="security" data-en="Security" data-ko="보안"></button>
+              <button data-filter="systems" data-en="Systems" data-ko="시스템"></button>
+            </div>
+          </div>
+
+          <div class="pub-filter-row" data-filter-group="venue">
+            <span class="pub-filter-label" data-en="Venue" data-ko="학회"></span>
+            <div class="pub-filter-btns">
+              <button class="active" data-filter="all" data-en="All" data-ko="전체"></button>
+              <button data-filter="ksae" data-en="KSAE" data-ko="KSAE"></button>
+              <button data-filter="kics" data-en="KICS" data-ko="KICS"></button>
+              <button data-filter="ack" data-en="ACK" data-ko="ACK"></button>
+            </div>
+          </div>
+
+        </div>
 
         <div class="pub-year-group" data-pub-group>
           <h3 class="pub-year">2024</h3>
           <ul class="pub-list">
 
-            <li class="pub-item" data-pub-scope="domestic">
+            <li class="pub-item" data-pub-scope="domestic" data-pub-type="conference" data-pub-field="autonomous-driving machine-learning" data-pub-venue="ksae">
               <h4 class="pub-title"><span class="pub-id">[C4]</span>Feedback Parking System Using Bezier Curve-Based Path Planning and Machine Learning Techniques</h4>
               <p class="pub-authors"><strong>Minjun Bae</strong>, Jihae Ju, Jaejun An, Joonhyuk Park, Moonsoo Kim, Byungsung Kim</p>
-              <p class="pub-venue" data-en="KSAE 2024 Fall Conference · Nov 2024" data-ko="2024 한국자동차공학회 추계학술대회 · 2024.11"></p>
+              <div class="pub-meta">
+                <span class="pub-venue-chip" data-en="KSAE Fall Conference" data-ko="한국자동차공학회 추계학술대회"></span>
+                <span class="pub-date" data-en="Nov 2024" data-ko="2024.11"></span>
+              </div>
               <ul class="pub-tags">
-                <li data-tag="autonomous-driving">Autonomous Driving</li>
-                <li data-tag="machine-learning">Machine Learning</li>
+                <li data-tag="autonomous-driving" data-en="Autonomous Driving" data-ko="자율주행"></li>
+                <li data-tag="machine-learning" data-en="Machine Learning" data-ko="머신러닝"></li>
               </ul>
             </li>
 
-            <li class="pub-item" data-pub-scope="domestic">
+            <li class="pub-item" data-pub-scope="domestic" data-pub-type="conference" data-pub-field="autonomous-driving systems" data-pub-venue="ksae">
               <h4 class="pub-title"><span class="pub-id">[C3]</span>Driving Stabilization and Latency Optimization via UART Communication-Based Split Byte Command Protocol</h4>
               <p class="pub-authors">Jihae Ju, <strong>Minjun Bae</strong>, Jaejun An, Joonhyuk Park, Moonsoo Kim, Byungsung Kim</p>
-              <p class="pub-venue" data-en="KSAE 2024 Fall Conference · Nov 2024" data-ko="2024 한국자동차공학회 추계학술대회 · 2024.11"></p>
+              <div class="pub-meta">
+                <span class="pub-venue-chip" data-en="KSAE Fall Conference" data-ko="한국자동차공학회 추계학술대회"></span>
+                <span class="pub-date" data-en="Nov 2024" data-ko="2024.11"></span>
+              </div>
               <ul class="pub-tags">
-                <li data-tag="autonomous-driving">Autonomous Driving</li>
-                <li data-tag="systems">Systems</li>
+                <li data-tag="autonomous-driving" data-en="Autonomous Driving" data-ko="자율주행"></li>
+                <li data-tag="systems" data-en="Systems" data-ko="시스템"></li>
               </ul>
             </li>
 
-            <li class="pub-item" data-pub-scope="domestic">
+            <li class="pub-item" data-pub-scope="domestic" data-pub-type="conference" data-pub-field="security" data-pub-venue="kics">
               <h4 class="pub-title"><span class="pub-id">[C2]</span>Proposal of an Effective Detection Framework through Analysis of XSS Vulnerability Scanning Tools</h4>
               <p class="pub-authors">Hongjun Seo, Jungwoo Lee, Seongmin Yoon, Seunghwan Lee, Yeonjun Park, <strong>Minjun Bae</strong>, Joowon Kim</p>
-              <p class="pub-venue" data-en="KICS Winter Conference · Jan 2024" data-ko="한국통신학회 동계종합학술발표회 · 2024.01"></p>
+              <div class="pub-meta">
+                <span class="pub-venue-chip" data-en="KICS Winter Conference" data-ko="한국통신학회 동계학술대회"></span>
+                <span class="pub-date" data-en="Jan 2024" data-ko="2024.01"></span>
+              </div>
               <ul class="pub-tags">
-                <li data-tag="security">Security</li>
+                <li data-tag="security" data-en="Security" data-ko="보안"></li>
               </ul>
             </li>
 
@@ -570,19 +630,22 @@ grow()</code></pre>
           <h3 class="pub-year">2023</h3>
           <ul class="pub-list">
 
-            <li class="pub-item" data-pub-scope="domestic">
+            <li class="pub-item" data-pub-scope="domestic" data-pub-type="conference" data-pub-field="autonomous-driving" data-pub-venue="ack">
               <h4 class="pub-title"><span class="pub-id">[C1]</span>Enhancing the Reliability of Autonomous Driving Software: A Study on Driving Safety</h4>
               <p class="pub-authors">Jaejun An, <strong>Minjun Bae</strong>, Siwoo Lee, Jaewook Jeon</p>
-              <p class="pub-venue" data-en="ACK 2023 (Vol. 30, No. 2) · Nov 2023" data-ko="ACK 2023 학술발표논문집 (제30권 2호) · 2023.11"></p>
+              <div class="pub-meta">
+                <span class="pub-venue-chip" data-en="ACK 2023" data-ko="ACK 2023"></span>
+                <span class="pub-date" data-en="Nov 2023" data-ko="2023.11"></span>
+              </div>
               <ul class="pub-tags">
-                <li data-tag="autonomous-driving">Autonomous Driving</li>
+                <li data-tag="autonomous-driving" data-en="Autonomous Driving" data-ko="자율주행"></li>
               </ul>
             </li>
 
           </ul>
         </div>
 
-        <p class="pub-empty" data-pub-empty data-en="No international publications yet — coming soon." data-ko="아직 국제 논문이 없습니다 — 추가될 예정입니다."></p>
+        <p class="pub-empty" data-pub-empty data-en="No publications match this filter." data-ko="해당 조건에 맞는 논문이 없습니다."></p>
 
       </article>
 
@@ -730,7 +793,7 @@ grow()</code></pre>
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js?v=7"></script>
+  <script src="./assets/js/script.js?v=8"></script>
 
   <!--
     - ionicon link

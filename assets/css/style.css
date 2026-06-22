@@ -752,6 +752,73 @@ hr {
 .service-list .service-item:nth-child(3) .service-icon-box ion-icon { background: var(--mint-soft); color: var(--mint-ink); }
 .service-list .service-item:nth-child(4) .service-icon-box ion-icon { background: var(--sky-soft); color: var(--sky-ink); }
 
+/* research-interest sub-labels + current-research highlight */
+.service-sublabel {
+  margin: 0 0 14px;
+  color: var(--accent-ink);
+  font-size: var(--fs-8);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.service-sublabel-now { margin-top: 28px; }
+
+.focus-now {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
+    var(--surface-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.focus-now-icon ion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  font-size: 26px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  --ionicon-stroke-width: 32px;
+}
+
+.focus-now-body { flex: 1; min-width: 0; }
+
+.focus-now-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.focus-now-head h4 { margin: 0; }
+
+.focus-now-badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-fill);
+  color: var(--accent-on);
+  font-size: var(--fs-8);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.focus-now-body p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: var(--fs-6);
+  line-height: 1.65;
+}
+
 .service-content-box { text-align: center; }
 
 .service-item-title { margin-bottom: 7px; }

@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- set theme before paint (follows system unless the visitor chose one) -->
+  <script>
+    (function () {
+      try {
+        var s = localStorage.getItem('bmj-theme');
+        var dark = s === 'dark' || (s !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {}
+    })();
+  </script>
   <meta property="og:image" content="./assets/images/my-avatar.png">
   <meta name="theme-color" content="#f6f3fb">
   <meta name="description" content="Bae Min Jun — portfolio. A developer growing through challenges, exploring software close to hardware.">
@@ -18,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=2">
+  <link rel="stylesheet" href="./assets/css/style.css?v=3">
 
   <!--
     - google font link
@@ -43,6 +53,9 @@
         <span>English</span>
       </button>
     </div>
+      <button class="theme-btn" type="button" data-theme-toggle aria-label="테마 전환" title="테마 전환">
+        <ion-icon name="sunny-outline" data-theme-icon></ion-icon>
+      </button>
   </div>
 
   <main>
@@ -54,15 +67,15 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
+          <img src="./assets/images/my-avatar.png" alt="Bae Min Jun" width="80">
         </figure>
 
         <div class="info-content">
-          <h1 class="name" title="Richard hanrick"
+          <h1 class="name" title="Bae Min Jun"
           data-en="Bae Min Jun"
           data-ko="배민준"></h1>
 
-          <p class="title">Newbie Developer</p>
+          <p class="title" data-en="Integrated MS–PhD" data-ko="석박통합과정"></p>
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
@@ -88,7 +101,7 @@
             <div class="contact-info">
               <p class="contact-title">Email</p>
 
-              <a href="mailto:richard@example.com" class="contact-link">alswns834@naver.com</a>
+              <a href="mailto:alswns834@g.skku.edu" class="contact-link">alswns834@g.skku.edu</a>
             </div>
 
           </li>
@@ -96,13 +109,13 @@
           <li class="contact-item">
 
             <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
+              <ion-icon name="school-outline"></ion-icon>
             </div>
 
             <div class="contact-info">
-              <p class="contact-title">Phone</p>
+              <p class="contact-title">School</p>
 
-              <a href="tel:+12133522795" class="contact-link">(+82) 010-XXXX-XXXX</a>
+              <p class="contact-link" data-en="Sungkyunkwan University" data-ko="성균관대학교"></p>
             </div>
 
           </li>
@@ -110,13 +123,13 @@
           <li class="contact-item">
 
             <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
+              <ion-icon name="flask-outline"></ion-icon>
             </div>
 
             <div class="contact-info">
-              <p class="contact-title">Birthday</p>
+              <p class="contact-title">Lab</p>
 
-              <time datetime="1982-06-23">Sep 11, 2001</time>
+              <a href="https://sites.google.com/g.skku.edu/syslab" class="contact-link" target="_blank" rel="noreferrer">SYSLAB</a>
             </div>
 
           </li>
@@ -226,19 +239,13 @@
 grow()</code></pre>
           <br>
           <p
-          data-en="I am a university student double majoring in Electronic & Electrical
-                  Engineering and Software Engineering.
-                  Similar to the nature of my studies, 
-                  I am interested in software applications closely related to hardwares."
-          data-ko="저는 전자/전기공학과 소프트웨어학을 복수전공하고 있는 대학생입니다.  공부하고 있는 전공의 특성과 비슷하게, H/W와 근접한 영역에 적용되는 소프트웨어에 대해 관심이 많습니다. "
+          data-en="I am an integrated MS–PhD student at Sungkyunkwan University, conducting research at SYSLAB. With a background in Electronic & Electrical Engineering and Software Engineering, I focus on software that runs close to hardware — systems, computer architecture, and the layers where the two meet."
+          data-ko="저는 성균관대학교 석박통합과정에 재학 중이며, SYSLAB에서 연구하고 있습니다. 전자/전기공학과 소프트웨어학을 기반으로, 하드웨어에 가까운 소프트웨어 — 시스템과 컴퓨터 구조, 그리고 그 둘이 만나는 영역 — 에 관심을 두고 있습니다."
           ></p>
 
           <p
-          data-en="However, as I have not yet determined a definite career path,
-                  I am in the process of gaining experiences in various fields.
-                  My current goal is to acquire valuable experiences through
-                  diverse challenges and grow into a proficient developer."
-          data-ko="그러나 아직 확실한 진로가 정해지지 않았기에, 다양한 분야에 대한 경험을 쌓아가는 단계입니다. 다양한 도전에서 양질의 경험을 얻어 좋은 개발자로 성장하는 것이 저의 현재의 목표입니다."
+          data-en="Across coursework, competitions, and research, I have built experience in digital systems, computer architecture, networking, and computer vision. I value learning quickly from failure, rebuilding, and turning the results into solid research and engineering."
+          data-ko="수업과 대회, 연구를 거치며 디지털 시스템, 컴퓨터 구조, 네트워크, 컴퓨터 비전 전반의 경험을 쌓아왔습니다. 실패에서 빠르게 배우고 다시 구현하며, 그 결과를 견고한 연구와 엔지니어링으로 정리하는 과정을 중요하게 생각합니다."
           ></p>
         </section>
 
@@ -960,7 +967,7 @@ grow()</code></pre>
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js?v=2"></script>
+  <script src="./assets/js/script.js?v=3"></script>
 
   <!--
     - ionicon link

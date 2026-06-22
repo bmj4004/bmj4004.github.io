@@ -14,6 +14,8 @@
 
 :root {
 
+  color-scheme: light;
+
   /**
    * colors — soft pastel system
    */
@@ -25,6 +27,7 @@
   --surface: #ffffff;
   --surface-soft: #faf8ff;
   --surface-chip: #f1ecfb;
+  --nav-bg: hsla(0, 0%, 100%, 0.78);
 
   /* ink / text */
   --ink: #393450;
@@ -38,8 +41,10 @@
 
   /* accents (lavender / periwinkle primary) */
   --accent: #7c6cf0;          /* brand, decorative */
-  --accent-ink: #6149c9;      /* text / icons on light (AA) */
+  --accent-ink: #6149c9;      /* text / icons on a surface (AA) */
   --accent-soft: #efebfe;     /* tint surface */
+  --accent-fill: #6149c9;     /* solid fill for filled controls */
+  --accent-on: #ffffff;       /* text/icon ON an accent fill */
 
   /* secondary pastels */
   --peach: #f4a6c0;
@@ -91,6 +96,67 @@
   --transition-2: 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 
 }
+
+
+/*-----------------------------------*\
+  #DARK THEME  (soft pastel on deep plum)
+\*-----------------------------------*/
+
+[data-theme="dark"] {
+
+  color-scheme: dark;
+
+  --bg: #15131d;
+
+  --surface: #1e1b2b;
+  --surface-soft: #232032;
+  --surface-chip: #2b2740;
+  --nav-bg: hsla(255, 22%, 11%, 0.72);
+
+  --ink: #ece9f7;
+  --ink-soft: #c2bcda;
+  --muted: #9b95bd;
+  --muted-2: #6f6a8c;
+
+  --line: #2f2b41;
+  --line-strong: #3b3656;
+
+  --accent: #a08ff5;
+  --accent-ink: #c5b8ff;
+  --accent-soft: #2a2348;
+  --accent-fill: #b4a5f7;
+  --accent-on: #181527;
+
+  --peach: #f0a8c0;
+  --peach-ink: #f6b3ca;
+  --peach-soft: #3a2733;
+  --mint: #8fd9c5;
+  --mint-soft: #1d3330;
+  --sky: #9cc0f5;
+  --sky-soft: #1e2c43;
+
+  --grad-accent: linear-gradient(135deg, #a08ff5 0%, #8fb0ff 100%);
+  --grad-warm: linear-gradient(135deg, #5b4d96 0%, #9c5f78 100%);
+  --grad-sheen: linear-gradient(135deg, hsla(255, 80%, 78%, 0.06) 0%, hsla(330, 80%, 80%, 0) 55%);
+
+  --shadow-1: 0 12px 30px -14px hsla(0, 0%, 0%, 0.55);
+  --shadow-2: 0 18px 44px -20px hsla(0, 0%, 0%, 0.60);
+  --shadow-3: 0 22px 50px -22px hsla(0, 0%, 0%, 0.62);
+  --shadow-4: 0 26px 60px -24px hsla(0, 0%, 0%, 0.65);
+  --shadow-5: 0 30px 70px -26px hsla(0, 0%, 0%, 0.70);
+  --shadow-sm: 0 4px 14px -6px hsla(0, 0%, 0%, 0.50);
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(1100px 560px at 12% -8%, #221b3a 0%, transparent 58%),
+    radial-gradient(960px 520px at 112% 4%, #2a1c30 0%, transparent 52%),
+    radial-gradient(900px 700px at 50% 120%, #182437 0%, transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+[data-theme="dark"] .overlay { background: hsla(0, 0%, 0%, 0.62); }
 
 
 /*-----------------------------------*\
@@ -396,6 +462,39 @@ main {
   transform: translateY(-1px);
 }
 
+/* sun / moon theme toggle — sits beside the language buttons */
+.theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  font-size: 17px;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-1);
+}
+
+.theme-btn:hover,
+.theme-btn:focus-visible {
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.theme-btn ion-icon {
+  --ionicon-stroke-width: 34px;
+  transition: transform var(--transition-2);
+}
+
+.theme-btn:hover ion-icon { transform: rotate(35deg); }
+
+[data-theme="dark"] .theme-btn:hover ion-icon { transform: rotate(-25deg); }
+
 .info_more-btn {
   position: absolute;
   top: -15px;
@@ -412,7 +511,7 @@ main {
 }
 
 .info_more-btn:hover,
-.info_more-btn:focus-visible { background: var(--accent-ink); color: #fff; }
+.info_more-btn:focus-visible { background: var(--accent-fill); color: var(--accent-on); }
 
 .info_more-btn span { display: none; }
 
@@ -487,8 +586,8 @@ main {
 }
 
 .social-item .social-link:hover {
-  color: #fff;
-  background: var(--accent-ink);
+  color: var(--accent-on);
+  background: var(--accent-fill);
   transform: translateY(-2px);
 }
 
@@ -530,7 +629,7 @@ hr {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: hsla(0, 0%, 100%, 0.78);
+  background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--line);
@@ -1116,8 +1215,8 @@ hr {
 
 .project-item-icon-box {
   --scale: 0.8;
-  background: var(--accent-ink);
-  color: #fff;
+  background: var(--accent-fill);
+  color: var(--accent-on);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1319,8 +1418,8 @@ textarea.form-input::-webkit-resizer { display: none; }
 .form-btn {
   position: relative;
   width: 100%;
-  background: var(--accent-ink);
-  color: #fff;
+  background: var(--accent-fill);
+  color: var(--accent-on);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1728,9 +1827,9 @@ pre[id^=code_] {
   }
 
   .filter-item button.active {
-    color: #fff;
-    background: var(--accent-ink);
-    border-color: var(--accent-ink);
+    color: var(--accent-on);
+    background: var(--accent-fill);
+    border-color: var(--accent-fill);
   }
 
   /* grids */
@@ -1775,7 +1874,7 @@ pre[id^=code_] {
     width: max-content;
     border-radius: 0 24px;
     padding: 0 18px;
-    background: hsla(0, 0%, 100%, 0.7);
+    background: var(--nav-bg);
     box-shadow: none;
     border-color: transparent;
     border-bottom-color: var(--line);

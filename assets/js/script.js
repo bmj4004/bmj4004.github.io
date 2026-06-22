@@ -214,3 +214,46 @@ for (const codeWrapper of codeWrappers) {
   
   codeBlock.innerHTML = codeHeader + codeBody;
 }
+
+
+
+// ===== theme: follows the system by default, sun/moon manual toggle =====
+const THEME_KEY = 'bmj-theme';
+const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+const themeToggleBtns = document.querySelectorAll('[data-theme-toggle]');
+
+// stored value is 'light' | 'dark' | null (null = follow the system)
+const storedTheme = () => localStorage.getItem(THEME_KEY);
+const resolvedTheme = () => {
+  const s = storedTheme();
+  return (s === 'light' || s === 'dark') ? s : (themeMedia.matches ? 'dark' : 'light');
+};
+
+const applyTheme = () => {
+  const resolved = resolvedTheme();
+  document.documentElement.dataset.theme = resolved;
+
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', resolved === 'dark' ? '#15131d' : '#f6f3fb');
+
+  themeToggleBtns.forEach((btn) => {
+    const icon = btn.querySelector('[data-theme-icon]');
+    if (icon) icon.setAttribute('name', resolved === 'dark' ? 'moon-outline' : 'sunny-outline');
+    const label = resolved === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+  });
+};
+
+themeToggleBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const next = resolvedTheme() === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme();
+  });
+});
+
+// keep tracking the OS setting until the visitor picks a theme explicitly
+themeMedia.addEventListener('change', () => { if (!storedTheme()) applyTheme(); });
+
+applyTheme();

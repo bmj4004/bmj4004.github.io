@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- set theme before paint (follows system unless the visitor chose one) -->
+  <script>
+    (function () {
+      try {
+        var s = localStorage.getItem('bmj-theme');
+        var dark = s === 'dark' || (s !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {}
+    })();
+  </script>
   <meta property="og:image" content="./assets/images/my-avatar.png">
   <title>bmj4004 - Portfolio</title>
 
@@ -16,7 +26,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=2">
+  <link rel="stylesheet" href="./assets/css/style.css?v=3">
 
   <!--
     - google font link
@@ -38,6 +48,9 @@
             <span>English</span>
           </button>
         </div>
+      <button class="theme-btn" type="button" data-theme-toggle aria-label="테마 전환" title="테마 전환">
+        <ion-icon name="sunny-outline" data-theme-icon></ion-icon>
+      </button>
     </div>
 
     <main>
@@ -49,15 +62,15 @@
           <div class="sidebar-info">
     
             <figure class="avatar-box">
-              <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
+              <img src="./assets/images/my-avatar.png" alt="Bae Min Jun" width="80">
             </figure>
     
             <div class="info-content">
-              <h1 class="name" title="Richard hanrick"
+              <h1 class="name" title="Bae Min Jun"
               data-en="Bae Min Jun"
               data-ko="배민준"></h1>
     
-              <p class="title">Newbie Developer</p>
+              <p class="title" data-en="Integrated MS–PhD" data-ko="석박통합과정"></p>
             </div>
     
             <button class="info_more-btn" data-sidebar-btn>
@@ -73,64 +86,64 @@
             <div class="separator"></div>
     
             <ul class="contacts-list">
-    
-              <li class="contact-item">
-    
-                <div class="icon-box">
-                  <ion-icon name="mail-outline"></ion-icon>
-                </div>
-    
-                <div class="contact-info">
-                  <p class="contact-title">Email</p>
-    
-                  <a href="mailto:richard@example.com" class="contact-link">alswns834@naver.com</a>
-                </div>
-    
-              </li>
-    
-              <li class="contact-item">
-    
-                <div class="icon-box">
-                  <ion-icon name="phone-portrait-outline"></ion-icon>
-                </div>
-    
-                <div class="contact-info">
-                  <p class="contact-title">Phone</p>
-    
-                  <a href="tel:+12133522795" class="contact-link">(+82) 010-XXXX-XXXX</a>
-                </div>
-    
-              </li>
-    
-              <li class="contact-item">
-    
-                <div class="icon-box">
-                  <ion-icon name="calendar-outline"></ion-icon>
-                </div>
-    
-                <div class="contact-info">
-                  <p class="contact-title">Birthday</p>
-    
-                  <time datetime="1982-06-23">Sep 11, 2001</time>
-                </div>
-    
-              </li>
-    
-              <li class="contact-item">
-    
-                <div class="icon-box">
-                  <ion-icon name="location-outline"></ion-icon>
-                </div>
-    
-                <div class="contact-info">
-                  <p class="contact-title">Location</p>
-    
-                  <address>SUWON-SI, GYEONGGI-DO, KOREA</address>
-                </div>
-    
-              </li>
-    
-            </ul>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:alswns834@g.skku.edu" class="contact-link">alswns834@g.skku.edu</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="school-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">School</p>
+
+              <p class="contact-link" data-en="Sungkyunkwan University" data-ko="성균관대학교"></p>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="flask-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Lab</p>
+
+              <a href="https://sites.google.com/g.skku.edu/syslab" class="contact-link" target="_blank" rel="noreferrer">SYSLAB</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>SUWON-SI, GYEONGGI-DO, KOREA</address>
+            </div>
+
+          </li>
+
+        </ul>
     
             <div class="separator"></div>
     
@@ -232,7 +245,7 @@
     <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js?v=2"></script>
+  <script src="./assets/js/script.js?v=3"></script>
 
   <!--
     - ionicon link

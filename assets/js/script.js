@@ -161,7 +161,10 @@ for (let i = 0; i < navigationLinks.length; i++) {
 function setLanguage(lang) {
   localStorage.setItem('lang', lang);
   document.querySelectorAll('[data-en], [data-ko]').forEach(el => {
-    el.textContent = el.getAttribute(`data-${lang}`);
+    const text = el.getAttribute(`data-${lang}`);
+    if (text !== null) el.textContent = text;
+    const href = el.getAttribute(`data-href-${lang}`);
+    if (href) el.setAttribute('href', href);
   });
 }
 

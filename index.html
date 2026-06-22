@@ -28,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=4">
+  <link rel="stylesheet" href="./assets/css/style.css?v=5">
 
   <!--
     - google font link
@@ -115,7 +115,7 @@
             <div class="contact-info">
               <p class="contact-title">School</p>
 
-              <p class="contact-link" data-en="Sungkyunkwan University" data-ko="성균관대학교"></p>
+              <a class="contact-link school-link" href="https://www.skku.edu/eng/" target="_blank" rel="noreferrer" data-en="Sungkyunkwan University" data-ko="성균관대학교" data-href-en="https://www.skku.edu/eng/" data-href-ko="https://www.skku.edu/skku/index.do"></a>
             </div>
 
           </li>
@@ -386,15 +386,24 @@ grow()</code></pre>
           <ol class="timeline-list">
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title" data-en="B.S. in Electrical &amp; Electronic Engineering, Sungkyunkwan University" data-ko="성균관대학교 전자전기공학부 학사"></h4>
+              <h4 class="h4 timeline-item-title" data-en="B.S. in Electrical &amp; Electronic Engineering" data-ko="전자전기공학 학사"></h4>
+              <p class="timeline-org" data-en="Sungkyunkwan University" data-ko="성균관대학교"></p>
               <span>Mar 2020 – Aug 2026</span>
-              <p class="timeline-text" data-en="Graduated · Major GPA 4.46 / 4.5 · Overall GPA 4.4 / 4.5" data-ko="졸업 · 전공 학점 4.46 / 4.5 · 전체 학점 4.4 / 4.5"></p>
+              <ul class="edu-tags">
+                <li class="edu-tag edu-major" data-en="Primary Major" data-ko="원전공"></li>
+                <li class="edu-tag edu-gpa" data-en="Major GPA 4.46 / 4.5" data-ko="전공 학점 4.46 / 4.5"></li>
+                <li class="edu-tag edu-overall" data-en="Overall GPA 4.4 / 4.5" data-ko="전체 학점 4.4 / 4.5"></li>
+              </ul>
             </li>
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title" data-en="B.S. in Software Engineering (Double Major), Sungkyunkwan University" data-ko="성균관대학교 소프트웨어학과 학사 (복수전공)"></h4>
+              <h4 class="h4 timeline-item-title" data-en="B.S. in Software Engineering" data-ko="소프트웨어학 학사"></h4>
+              <p class="timeline-org" data-en="Sungkyunkwan University" data-ko="성균관대학교"></p>
               <span>Sep 2023 – Aug 2026</span>
-              <p class="timeline-text" data-en="Graduated · Major GPA 4.50 / 4.5" data-ko="졸업 · 전공 학점 4.50 / 4.5"></p>
+              <ul class="edu-tags">
+                <li class="edu-tag edu-double" data-en="Double Major" data-ko="복수전공"></li>
+                <li class="edu-tag edu-gpa" data-en="Major GPA 4.50 / 4.5" data-ko="전공 학점 4.50 / 4.5"></li>
+              </ul>
             </li>
 
           </ol>
@@ -413,21 +422,24 @@ grow()</code></pre>
           <ol class="timeline-list">
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title" data-en="Research Student · SYSLAB @ SKKU" data-ko="연구생 · SYSLAB @ SKKU"></h4>
+              <h4 class="h4 timeline-item-title" data-en="Research Student" data-ko="연구생"></h4>
+              <p class="timeline-org" data-en="SYSLAB, Sungkyunkwan University" data-ko="SYSLAB, 성균관대학교"></p>
               <span>Sep 2025 – Present</span>
-              <p class="timeline-text" data-en="Systems software research at SYSLAB, Sungkyunkwan University." data-ko="성균관대학교 SYSLAB에서 시스템 소프트웨어를 연구하고 있습니다."></p>
+              <p class="timeline-text" data-en="Systems software research." data-ko="시스템 소프트웨어 연구."></p>
             </li>
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title" data-en="Winter Semester CO-OP · Crois Inc." data-ko="동계 학기 CO-OP · 크로이스(주)"></h4>
+              <h4 class="h4 timeline-item-title" data-en="Winter Semester CO-OP" data-ko="동계 학기 CO-OP"></h4>
+              <p class="timeline-org" data-en="Crois Inc." data-ko="크로이스(주)"></p>
               <span>Dec 2024 – Feb 2025</span>
-              <p class="timeline-text" data-en="Computer Vision project: AR-Guide." data-ko="컴퓨터 비전 프로젝트: AR-Guide 수행."></p>
+              <p class="timeline-text" data-en="Computer Vision project: AR-Guide." data-ko="컴퓨터 비전 프로젝트: AR-Guide."></p>
             </li>
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title" data-en="White Hat School · KITRI" data-ko="화이트햇 스쿨 · KITRI"></h4>
+              <h4 class="h4 timeline-item-title" data-en="White Hat School (1st Cohort)" data-ko="화이트햇 스쿨 (1기)"></h4>
+              <p class="timeline-org" data-en="KITRI" data-ko="KITRI"></p>
               <span>Sep 2023 – Mar 2024</span>
-              <p class="timeline-text" data-en="1st Cohort — Advanced Cybersecurity &amp; Ethical Hacking Training Program." data-ko="1기 — 고급 사이버보안·윤리적 해킹 교육 과정 수료."></p>
+              <p class="timeline-text" data-en="Advanced Cybersecurity &amp; Ethical Hacking Training Program." data-ko="고급 사이버보안·윤리적 해킹 교육 과정 수료."></p>
             </li>
 
           </ol>
@@ -467,8 +479,8 @@ grow()</code></pre>
 
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title" data-en="Dean's List" data-ko="Dean's List (성적우수)"></h4>
-              <span>2020 – 2024</span>
-              <p class="timeline-text" data-en="Awarded for 5 semesters (Fall 2020, Spring/Fall 2023, Spring/Fall 2024)." data-ko="20-2, 23-1, 23-2, 24-1, 24-2학기 수상 (5개 학기)."></p>
+              <span>2020 – 2025</span>
+              <p class="timeline-text" data-en="Awarded for 6 semesters (Fall 2020, Spring/Fall 2023, Spring/Fall 2024, Spring 2025)." data-ko="20-2, 23-1, 23-2, 24-1, 24-2, 25-1학기 수상 (6개 학기)."></p>
             </li>
 
           </ol>
@@ -486,11 +498,11 @@ grow()</code></pre>
       <article class="publications" data-page="publications">
 
         <header>
-          <p class="pub-eyebrow">Conference Papers</p>
+          <p class="pub-eyebrow">Papers</p>
           <h2 class="h2 article-title">Publications</h2>
         </header>
 
-        <p class="pub-subtitle" data-en="Peer-reviewed papers presented at academic conferences." data-ko="학술 학회에서 발표한 동료 심사 논문입니다."></p>
+        <p class="pub-subtitle" data-en="Peer-reviewed papers." data-ko="동료 심사를 거친 논문입니다."></p>
 
         <ul class="pub-filter-list">
           <li><button class="active" data-pub-filter="all" data-en="All" data-ko="전체"></button></li>
@@ -682,7 +694,10 @@ grow()</code></pre>
     function setLanguage(lang) {
       localStorage.setItem('lang', lang);
       document.querySelectorAll('[data-en], [data-ko]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
+        const text = el.getAttribute(`data-${lang}`);
+        if (text !== null) el.textContent = text;
+        const href = el.getAttribute(`data-href-${lang}`);
+        if (href) el.setAttribute('href', href);
       });
     }
 
@@ -695,7 +710,7 @@ grow()</code></pre>
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js?v=4"></script>
+  <script src="./assets/js/script.js?v=5"></script>
 
   <!--
     - ionicon link

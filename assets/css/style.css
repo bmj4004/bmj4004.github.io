@@ -567,6 +567,13 @@ main {
 
 .contact-info address { font-style: normal; }
 
+/* let the school name wrap to the next line instead of truncating with an ellipsis */
+.contact-info a.school-link {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
 .social-list {
   display: flex;
   justify-content: flex-start;
@@ -1111,10 +1118,17 @@ hr {
 }
 
 .timeline-list span {
-  color: var(--accent-ink);
-  font-weight: var(--fw-600);
+  color: var(--muted);
+  font-weight: var(--fw-500);
   font-size: var(--fs-7);
   line-height: 1.6;
+}
+
+.timeline-org {
+  margin: 0 0 5px;
+  color: var(--accent-ink);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-600);
 }
 
 .timeline-item:not(:last-child)::before {
@@ -1143,6 +1157,29 @@ hr {
   color: var(--ink-soft);
   line-height: 1.65;
 }
+
+/* education badges — distinguish major type and each GPA */
+.edu-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.edu-tag {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-chip);
+  color: var(--ink-soft);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-600);
+}
+
+.edu-tag.edu-major   { background: var(--accent-soft); color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 38%, transparent); }
+.edu-tag.edu-double  { background: var(--peach-soft);  color: var(--peach-ink);  border-color: color-mix(in srgb, var(--peach) 52%, transparent); }
+.edu-tag.edu-gpa     { background: var(--sky-soft);    color: var(--sky-ink);    border-color: color-mix(in srgb, var(--sky) 52%, transparent); }
+.edu-tag.edu-overall { background: var(--mint-soft);   color: var(--mint-ink);   border-color: color-mix(in srgb, var(--mint) 48%, transparent); }
 
 
 /**

@@ -57,6 +57,18 @@
   --sky-ink: #3366bb;
   --sky-soft: #ebf2fd;
 
+  /* extended chip palette — dark text on light tints, mutually distinct (AA) */
+  --c-violet-soft: #efebfe; --c-violet-ink: #5b43c4;
+  --c-blue-soft:   #e7f0fe; --c-blue-ink:   #2f60c4;
+  --c-teal-soft:   #d9f3ee; --c-teal-ink:   #0f7a64;
+  --c-rose-soft:   #fde8f0; --c-rose-ink:   #c23a6e;
+  --c-amber-soft:  #fbedd0; --c-amber-ink:  #8a5a08;
+  --c-cyan-soft:   #d9f1f6; --c-cyan-ink:   #0c6f81;
+  --c-indigo-soft: #e7e7fb; --c-indigo-ink: #4a44bf;
+  --c-lime-soft:   #e9f4d8; --c-lime-ink:   #4f7a12;
+  --c-red-soft:    #fde7e4; --c-red-ink:    #c1372d;
+  --c-slate-soft:  #eaedf3; --c-slate-ink:  #4f5d76;
+
   /* gradients */
   --grad-accent: linear-gradient(135deg, #9a86f5 0%, #8aa6f6 100%);
   --grad-warm: linear-gradient(135deg, #c7b6f4 0%, #f6b8c9 100%);
@@ -124,20 +136,32 @@
   --line-strong: #3b3656;
 
   --accent: #a08ff5;
-  --accent-ink: #c5b8ff;
+  --accent-ink: #c3acff;
   --accent-soft: #2a2348;
   --accent-fill: #b4a5f7;
   --accent-on: #181527;
 
   --peach: #f0a8c0;
-  --peach-ink: #f6b3ca;
+  --peach-ink: #ff9ec4;
   --peach-soft: #3a2733;
   --mint: #8fd9c5;
-  --mint-ink: #8fd9c5;
-  --mint-soft: #1d3330;
+  --mint-ink: #57d6a0;
+  --mint-soft: #163330;
   --sky: #9cc0f5;
-  --sky-ink: #9cc0f5;
-  --sky-soft: #1e2c43;
+  --sky-ink: #84b6ff;
+  --sky-soft: #1c2a44;
+
+  /* extended chip palette — light text on dark tints, mutually distinct (AA) */
+  --c-violet-soft: #281f47; --c-violet-ink: #c3acff;
+  --c-blue-soft:   #1c2a44; --c-blue-ink:   #88b6ff;
+  --c-teal-soft:   #103330; --c-teal-ink:   #57d6a8;
+  --c-rose-soft:   #3a2130; --c-rose-ink:   #ff9ec4;
+  --c-amber-soft:  #352a15; --c-amber-ink:  #f3c264;
+  --c-cyan-soft:   #103137; --c-cyan-ink:   #5fd2e6;
+  --c-indigo-soft: #20204c; --c-indigo-ink: #b6b2ff;
+  --c-lime-soft:   #25331a; --c-lime-ink:   #b7da8b;
+  --c-red-soft:    #3a201d; --c-red-ink:    #f5a39a;
+  --c-slate-soft:  #232a3a; --c-slate-ink:  #abb5c9;
 
   --grad-accent: linear-gradient(135deg, #a08ff5 0%, #8fb0ff 100%);
   --grad-warm: linear-gradient(135deg, #5b4d96 0%, #9c5f78 100%);
@@ -256,6 +280,7 @@ article::before {
 
 .icon-box {
   position: relative;
+  flex-shrink: 0;
   background: var(--accent-soft);
   width: 30px;
   height: 30px;
@@ -270,8 +295,11 @@ article::before {
 
 .icon-box ion-icon { --ionicon-stroke-width: 38px; }
 
-/* normalize the envelope icon so it matches the other contact icons' size */
-.contact-item .icon-box ion-icon[name="mail-outline"] { font-size: 0.9em; }
+/* normalize the contact icons to one consistent visual size (the envelope and
+   pin glyphs render larger/smaller than the rest, so nudge them into line) */
+.contact-item .icon-box ion-icon { font-size: 18px; }
+.contact-item .icon-box ion-icon[name="mail-outline"] { font-size: 16px; }
+.contact-item .icon-box ion-icon[name="location-outline"] { font-size: 19px; }
 
 article { display: none; }
 
@@ -710,6 +738,28 @@ hr {
 
 .service-title { margin-bottom: 20px; }
 
+/* accent marker to clearly delineate each About sub-section */
+.service-title,
+.papers-title,
+.clients-title {
+  position: relative;
+  padding-left: 15px;
+}
+
+.service-title::before,
+.papers-title::before,
+.clients-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 0.78em;
+  border-radius: 4px;
+  background: var(--grad-accent);
+}
+
 .service-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -787,7 +837,7 @@ hr {
   justify-content: center;
   width: 60px;
   height: 60px;
-  padding: 11px;
+  padding: 6px;
   border-radius: 14px;
   background: #ffffff;
   border: 1px solid var(--line);
@@ -850,6 +900,18 @@ hr {
 .papers { margin-bottom: 35px; }
 
 .papers-title { margin-bottom: 18px; }
+
+.papers-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.papers-head .papers-title { margin-bottom: 0; }
+.papers-head .papers-link { margin-top: 0; }
 
 .papers-list { display: grid; gap: 14px; }
 
@@ -1567,6 +1629,8 @@ hr {
   border-color: var(--accent-fill);
 }
 
+.pub-filter-btns button[hidden] { display: none; }
+
 .pub-year-group { margin-bottom: 32px; }
 .pub-year-group.hidden { display: none; }
 
@@ -1651,9 +1715,9 @@ hr {
 .pub-venue-chip {
   padding: 5px 12px;
   border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: var(--c-slate-soft);
+  color: var(--c-slate-ink);
+  border: 1px solid color-mix(in srgb, var(--c-slate-ink) 32%, transparent);
   font-size: var(--fs-8);
   font-weight: var(--fw-600);
 }
@@ -1681,10 +1745,22 @@ hr {
   color: var(--ink-soft);
 }
 
-.pub-tags li[data-tag="autonomous-driving"] { background: var(--accent-soft); color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 32%, transparent); }
-.pub-tags li[data-tag="machine-learning"] { background: var(--mint-soft); color: var(--mint-ink); border-color: color-mix(in srgb, var(--mint) 42%, transparent); }
-.pub-tags li[data-tag="security"] { background: var(--peach-soft); color: var(--peach-ink); border-color: color-mix(in srgb, var(--peach) 48%, transparent); }
-.pub-tags li[data-tag="systems"] { background: var(--sky-soft); color: var(--sky-ink); border-color: color-mix(in srgb, var(--sky) 48%, transparent); }
+.pub-tags li[data-tag="autonomous-driving"] { background: var(--c-violet-soft); color: var(--c-violet-ink); border-color: color-mix(in srgb, var(--c-violet-ink) 34%, transparent); }
+.pub-tags li[data-tag="machine-learning"] { background: var(--c-teal-soft); color: var(--c-teal-ink); border-color: color-mix(in srgb, var(--c-teal-ink) 34%, transparent); }
+.pub-tags li[data-tag="security"] { background: var(--c-rose-soft); color: var(--c-rose-ink); border-color: color-mix(in srgb, var(--c-rose-ink) 34%, transparent); }
+.pub-tags li[data-tag="systems"] { background: var(--c-blue-soft); color: var(--c-blue-ink); border-color: color-mix(in srgb, var(--c-blue-ink) 34%, transparent); }
+
+/* reusable chip colours — give any future tag/badge a distinct, theme-aware colour */
+.c-violet { background: var(--c-violet-soft); color: var(--c-violet-ink); border-color: color-mix(in srgb, var(--c-violet-ink) 34%, transparent); }
+.c-blue   { background: var(--c-blue-soft);   color: var(--c-blue-ink);   border-color: color-mix(in srgb, var(--c-blue-ink) 34%, transparent); }
+.c-teal   { background: var(--c-teal-soft);   color: var(--c-teal-ink);   border-color: color-mix(in srgb, var(--c-teal-ink) 34%, transparent); }
+.c-rose   { background: var(--c-rose-soft);   color: var(--c-rose-ink);   border-color: color-mix(in srgb, var(--c-rose-ink) 34%, transparent); }
+.c-amber  { background: var(--c-amber-soft);  color: var(--c-amber-ink);  border-color: color-mix(in srgb, var(--c-amber-ink) 34%, transparent); }
+.c-cyan   { background: var(--c-cyan-soft);   color: var(--c-cyan-ink);   border-color: color-mix(in srgb, var(--c-cyan-ink) 34%, transparent); }
+.c-indigo { background: var(--c-indigo-soft); color: var(--c-indigo-ink); border-color: color-mix(in srgb, var(--c-indigo-ink) 34%, transparent); }
+.c-lime   { background: var(--c-lime-soft);   color: var(--c-lime-ink);   border-color: color-mix(in srgb, var(--c-lime-ink) 34%, transparent); }
+.c-red    { background: var(--c-red-soft);    color: var(--c-red-ink);    border-color: color-mix(in srgb, var(--c-red-ink) 34%, transparent); }
+.c-slate  { background: var(--c-slate-soft);  color: var(--c-slate-ink);  border-color: color-mix(in srgb, var(--c-slate-ink) 34%, transparent); }
 
 .pub-pdf {
   display: inline-block;

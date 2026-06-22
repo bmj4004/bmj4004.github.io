@@ -268,16 +268,37 @@ const pubItems = document.querySelectorAll('.pub-item');
 const pubGroups = document.querySelectorAll('[data-pub-group]');
 const pubEmpty = document.querySelector('[data-pub-empty]');
 const pubFilterRows = document.querySelectorAll('.pub-filter-row[data-filter-group]');
+const pubVenueRow = document.querySelector('.pub-filter-row[data-filter-group="venue"]');
 const pubSelected = { scope: 'all', type: 'all', field: 'all', venue: 'all' };
+
+const pubMatchesField = (item, value) =>
+  value === 'all' || (item.dataset.pubField || '').split(/\s+/).includes(value);
+
+// only show venue options that still have papers under the current scope/type/field
+const updatePubVenueOptions = () => {
+  if (!pubVenueRow) return;
+  const matchesBase = (item) =>
+    (pubSelected.scope === 'all' || item.dataset.pubScope === pubSelected.scope) &&
+    (pubSelected.type === 'all' || item.dataset.pubType === pubSelected.type) &&
+    pubMatchesField(item, pubSelected.field);
+  pubVenueRow.querySelectorAll('button[data-filter]').forEach((btn) => {
+    const v = btn.dataset.filter;
+    btn.hidden = v !== 'all' && ![...pubItems].some((item) => item.dataset.pubVenue === v && matchesBase(item));
+  });
+  const activeVenue = pubVenueRow.querySelector('button[data-filter].active');
+  if (activeVenue && activeVenue.hidden) {
+    pubSelected.venue = 'all';
+    pubVenueRow.querySelectorAll('button[data-filter]').forEach((b) => b.classList.toggle('active', b.dataset.filter === 'all'));
+  }
+};
 
 const applyPubFilters = () => {
   let anyVisible = false;
   pubItems.forEach((item) => {
-    const fields = (item.dataset.pubField || '').split(/\s+/);
     const show =
       (pubSelected.scope === 'all' || item.dataset.pubScope === pubSelected.scope) &&
       (pubSelected.type === 'all' || item.dataset.pubType === pubSelected.type) &&
-      (pubSelected.field === 'all' || fields.includes(pubSelected.field)) &&
+      pubMatchesField(item, pubSelected.field) &&
       (pubSelected.venue === 'all' || item.dataset.pubVenue === pubSelected.venue);
     item.classList.toggle('hidden', !show);
     if (show) anyVisible = true;
@@ -294,10 +315,13 @@ pubFilterRows.forEach((row) => {
     btn.addEventListener('click', () => {
       row.querySelectorAll('button[data-filter]').forEach((b) => b.classList.toggle('active', b === btn));
       pubSelected[group] = btn.dataset.filter;
+      updatePubVenueOptions();
       applyPubFilters();
     });
   });
 });
+
+updatePubVenueOptions();
 
 
 

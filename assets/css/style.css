@@ -777,17 +777,23 @@ hr {
   box-shadow: var(--shadow-sm);
 }
 
-.focus-now-icon ion-icon {
+.focus-now-icon {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 15px;
-  font-size: 26px;
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-  --ionicon-stroke-width: 32px;
+  height: 56px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.focus-now-icon img {
+  height: 100%;
+  width: auto;
+  display: block;
 }
 
 .focus-now-body { flex: 1; min-width: 0; }

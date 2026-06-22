@@ -1,44 +1,29 @@
-# vCard - Personal portfolio
+# bmj4004.github.io
 
-![GitHub repo size](https://img.shields.io/github/repo-size/codewithsadee/vcard-personal-portfolio)
-![GitHub stars](https://img.shields.io/github/stars/codewithsadee/vcard-personal-portfolio?style=social)
-![GitHub forks](https://img.shields.io/github/forks/codewithsadee/vcard-personal-portfolio?style=social)
-[![Twitter Follow](https://img.shields.io/twitter/follow/codewithsadee_?style=social)](https://twitter.com/intent/follow?screen_name=codewithsadee_)
-[![YouTube Video Views](https://img.shields.io/youtube/views/SoxmIlgf2zM?style=social)](https://youtu.be/SoxmIlgf2zM)
+Personal academic homepage of **Bae Min Jun (배민준)** — graduate (integrated MS–PhD) student
+at Sungkyunkwan University, researching systems software at
+[SYSLAB](https://sites.google.com/g.skku.edu/syslab).
 
-vCard is a fully responsive personal portfolio website, responsive for all devices, built using HTML, CSS, and JavaScript.
+🔗 Live: https://bmj4004.github.io
 
-## Demo
+## Features
 
-![vCard Desktop Demo](./website-demo-image/desktop.png "Desktop Demo")
-![vCard Mobile Demo](./website-demo-image/mobile.png "Mobile Demo")
+- Single page with tabs: **About · Resume · Publications · Extra**
+- Bilingual UI (Korean / English)
+- Light / dark theme that follows the system setting, with a manual sun·moon toggle
+- Publication list filterable by **Domestic / International**, grouped by year
 
-## Prerequisites
+## Tech
 
-Before you begin, ensure you have met the following requirements:
+Static **HTML + CSS + vanilla JavaScript**, hosted on GitHub Pages — no build step.
 
-* [Git](https://git-scm.com/downloads "Download Git") must be installed on your operating system.
+## Structure
 
-## Installing vCard
-
-To install **vCard**, follow these steps:
-
-Linux and macOS:
-
-```bash
-sudo git clone https://github.com/codewithsadee/vcard-personal-portfolio.git
-```
-
-Windows:
-
-```bash
-git clone https://github.com/codewithsadee/vcard-personal-portfolio.git
-```
-
-## Contact
-
-If you want to contact me you can reach me at [Twitter](https://www.twitter.com/codewithsadee).
+- `index.html` — main page
+- `assets/css/style.css` — soft pastel theme (light + dark)
+- `assets/js/script.js` — tab navigation, language toggle, theme switch, publication filter
+- `portfolio-1.html`, `portfolio-2.html`, `semi-proj1.html` — project detail pages
 
 ## License
 
-MIT
+[MIT](./LICENSE)

@@ -257,3 +257,31 @@ themeToggleBtns.forEach((btn) => {
 themeMedia.addEventListener('change', () => { if (!storedTheme()) applyTheme(); });
 
 applyTheme();
+
+
+
+// ===== publications: filter by scope (all / domestic / international) =====
+const pubFilterBtns = document.querySelectorAll('[data-pub-filter]');
+const pubItems = document.querySelectorAll('.pub-item[data-pub-scope]');
+const pubGroups = document.querySelectorAll('[data-pub-group]');
+const pubEmpty = document.querySelector('[data-pub-empty]');
+
+const applyPubFilter = (value) => {
+  let anyVisible = false;
+  pubItems.forEach((item) => {
+    const show = value === 'all' || item.dataset.pubScope === value;
+    item.classList.toggle('hidden', !show);
+    if (show) anyVisible = true;
+  });
+  pubGroups.forEach((group) => {
+    group.classList.toggle('hidden', !group.querySelector('.pub-item:not(.hidden)'));
+  });
+  if (pubEmpty) pubEmpty.classList.toggle('visible', !anyVisible);
+};
+
+pubFilterBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    pubFilterBtns.forEach((b) => b.classList.toggle('active', b === btn));
+    applyPubFilter(btn.dataset.pubFilter);
+  });
+});

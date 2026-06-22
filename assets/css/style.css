@@ -1213,7 +1213,7 @@ hr {
  * #clients  (organization)
  */
 
-.clients { margin-bottom: 15px; }
+.clients { margin-bottom: 32px; }
 
 .clients .clients-list {
   display: flex;

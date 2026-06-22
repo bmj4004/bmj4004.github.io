@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="./assets/images/my-avatar.png">
+  <title>bmj4004 - Portfolio</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="button-container">
+        <div>
+          <button onclick="setLanguage('ko')" class="lang-btn">
+            <span>한국어</span>
+          </button>
+        </div>
+        <div>
+          <button onclick="setLanguage('en')" class="lang-btn">
+            <span>English</span>
+          </button>
+        </div>
+    </div>
+
+    <main>
+        <!--
+          - #SIDEBAR
+        -->
+        <aside class="sidebar" data-sidebar>
+    
+          <div class="sidebar-info">
+    
+            <figure class="avatar-box">
+              <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
+            </figure>
+    
+            <div class="info-content">
+              <h1 class="name" title="Richard hanrick"
+              data-en="Bae Min Jun"
+              data-ko="배민준"></h1>
+    
+              <p class="title">Newbie Developer</p>
+            </div>
+    
+            <button class="info_more-btn" data-sidebar-btn>
+              <span>Show Contacts</span>
+    
+              <ion-icon name="chevron-down"></ion-icon>
+            </button>
+    
+          </div>
+    
+          <div class="sidebar-info_more">
+    
+            <div class="separator"></div>
+    
+            <ul class="contacts-list">
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="mail-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Email</p>
+    
+                  <a href="mailto:richard@example.com" class="contact-link">alswns834@naver.com</a>
+                </div>
+    
+              </li>
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="phone-portrait-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Phone</p>
+    
+                  <a href="tel:+12133522795" class="contact-link">(+82) 010-XXXX-XXXX</a>
+                </div>
+    
+              </li>
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Birthday</p>
+    
+                  <time datetime="1982-06-23">Sep 11, 2001</time>
+                </div>
+    
+              </li>
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="location-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Location</p>
+    
+                  <address>SUWON-SI, GYEONGGI-DO, KOREA</address>
+                </div>
+    
+              </li>
+    
+            </ul>
+    
+            <div class="separator"></div>
+    
+            <ul class="social-list">
+              <li class="social-item">
+                <a href="https://www.instagram.com/bmj_4004/" class="social-link">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+              </li>
+    
+              <li class="social-item">
+                <a href="https://github.com/bmj4004" class="social-link">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+              </li>
+            </ul>
+    
+          </div>
+    
+        </aside>
+    
+    
+
+        <!--
+          - #main-content
+        -->
+    
+        <div class="main-content">
+    
+          <!--
+            - #PORTFOLIO
+          -->
+    
+          <article class="about  active" data-page="about">
+            <section class="about-text">
+            <header>
+                <h3 class="h3 article-title" 
+                data-en="The 1st SKKU Autonomous Driving SW Competition" 
+                data-ko="제1회 성균관대학교 자율주행 SW 경진대회">
+                </h3>
+            </header>
+
+            <p class="title-item-text"
+            data-en="I participated in the 1st Autonomous Driving Software Competition
+            at Sungkyunkwan University held on July 21, 2023."
+            data-ko="2023년 7월 21일에 개최된 제1회 성균관대학교 자율주행 SW 경진대회에 참가했다.">
+            </p>
+            <br>
+            <p class="title-item-text"
+            data-en="The competition consisted of track and mission driving.
+            The track driving part required participants to complete laps
+            as quickly as possible without departing from the lane.
+            The mission driving section was divided into tasks involving
+            traffic lights, obstacles, and parking, where successfully
+            completing each mission could earn high scores."
+            data-ko="해당 대회는 트랙 주행과 미션 수행으로 구성되었다. 트랙 주행은 시간을 차선을
+            이탈하지 않고, 주행 시간을 최소화 해야하는 파트였다. 그리고 미션 수행 부문은 신호등,
+            장애물, 주차로 세분화되어 각 미션을 성공적으로 수행할 때 높은 점수를 얻을 수 있었다.">
+            </p>
+            <br>
+            <p class="title-item-text"
+            data-en="It was a great experience that allowed for
+            considerable reflection on image processing and control
+            for implementing autonomous driving, and I achieved
+            high success by winning the gold prize."
+            data-ko="자율 주행을 구현하기 위한 이미지 처리 및 제어에 대한 많은 고민을 해볼 수 있는 좋은 경험이었고,
+            금상을 수상함으로써 높은 성과를 냈다.">
+            </p>
+
+            <hr><br>
+            <div class="video-responsive">
+              <iframe width="560" height="315" 
+              src="https://www.youtube.com/embed/g6M9_985Jl4?si=Czi3u4u3xdt7EStD"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <br><hr><br>
+            <img src="./assets/images/portfolio-2-award.png" class="img-box">
+            <br><hr><br>
+
+            <div class="title-content">
+                <p class="title-item-text"
+                data-en="Enhancing the Reliability of Autonomous Driving Software: A Study on Driving Safety [ACK Paper] :"
+                data-ko="자율주행 소프트웨어의 신뢰성 향상: 주행 안전에 관한 연구 [ACK 학술대회] :">
+                </p>
+                <a href="https://kiss.kstudy.com/Detail/Ar?key=4059614" class="white-icon" target="_blank">
+                    <ion-icon name="document-outline"></ion-icon>
+                </a>
+            </div>
+            <br>
+            <hr>
+            </section>
+          </article>
+        </div>
+    </main>
+
+    <!--
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en], [data-ko]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+
+</body>

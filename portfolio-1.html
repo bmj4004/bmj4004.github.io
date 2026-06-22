@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="./assets/images/my-avatar.png">
+  <title>bmj4004 - Portfolio</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="button-container">
+        <div>
+          <button onclick="setLanguage('ko')" class="lang-btn">
+            <span>한국어</span>
+          </button>
+        </div>
+        <div>
+          <button onclick="setLanguage('en')" class="lang-btn">
+            <span>English</span>
+          </button>
+        </div>
+    </div>
+
+    <main>
+        <!--
+          - #SIDEBAR
+        -->
+        <aside class="sidebar" data-sidebar>
+    
+          <div class="sidebar-info">
+    
+            <figure class="avatar-box">
+              <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
+            </figure>
+    
+            <div class="info-content">
+              <h1 class="name" title="Richard hanrick"
+              data-en="Bae Min Jun"
+              data-ko="배민준"></h1>
+    
+              <p class="title">Newbie Developer</p>
+            </div>
+    
+            <button class="info_more-btn" data-sidebar-btn>
+              <span>Show Contacts</span>
+    
+              <ion-icon name="chevron-down"></ion-icon>
+            </button>
+    
+          </div>
+    
+          <div class="sidebar-info_more">
+    
+            <div class="separator"></div>
+    
+            <ul class="contacts-list">
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="mail-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Email</p>
+    
+                  <a href="mailto:richard@example.com" class="contact-link">alswns834@naver.com</a>
+                </div>
+    
+              </li>
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="phone-portrait-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Phone</p>
+    
+                  <a href="tel:+12133522795" class="contact-link">(+82) 010-XXXX-XXXX</a>
+                </div>
+    
+              </li>
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Birthday</p>
+    
+                  <time datetime="1982-06-23">Sep 11, 2001</time>
+                </div>
+    
+              </li>
+    
+              <li class="contact-item">
+    
+                <div class="icon-box">
+                  <ion-icon name="location-outline"></ion-icon>
+                </div>
+    
+                <div class="contact-info">
+                  <p class="contact-title">Location</p>
+    
+                  <address>SUWON-SI, GYEONGGI-DO, KOREA</address>
+                </div>
+    
+              </li>
+    
+            </ul>
+    
+            <div class="separator"></div>
+    
+            <ul class="social-list">
+              <li class="social-item">
+                <a href="https://www.instagram.com/bmj_4004/" class="social-link">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+              </li>
+    
+              <li class="social-item">
+                <a href="https://github.com/bmj4004" class="social-link">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+              </li>
+            </ul>
+    
+          </div>
+    
+        </aside>
+    
+    
+
+        <!--
+          - #main-content
+        -->
+    
+        <div class="main-content">
+    
+          <!--
+            - #PORTFOLIO
+          -->
+    
+          <article class="about  active" data-page="about">
+            <section class="about-text">
+            <header>
+                <h3 class="h3 article-title" 
+                data-en="Optimizing Bug Bounty Through Web Automation Tool Analysis" 
+                data-ko="웹 자동화 도구 분석을 통한 버그바운티 최적화">
+                </h3>
+            </header>
+
+            <p class="title-item-text"
+            data-en="This project aimed to increase the efficiency of bug
+             bounties by analyzing the characteristics of publicly 
+             available XSS vulnerability detection tools, 
+             and by proposing a methodology that improves the detection 
+             methods that were lacking in existing tools."
+            data-ko="해당 프로젝트에서는 공개된 XSS 취약점 탐지 도구들로부터 각 특징들을 분석을 수행하고,
+            이를 바탕으로 기존의 미흡한 탐지 방법을 개선하는 방법론을 제시함으로써
+            버그바운티의 효율성을 증가시키는 것을 목표로 삼았다.">
+            </p>
+            <br>
+            <p class="title-item-text"
+            data-en="We identified the strengths and weaknesses of 
+            various automated tools, including XSS fuzzers like [XSStrike,
+             Xsser, Xspear, Dalfox], and asset collection tools such as 
+             [Katana, Paramspider, subfinder, and httpx]. Our team
+             participated in bug bounties on various domestic and 
+             international platforms such as HackerOne and BugCamp."
+            data-ko="XSStrike, Xsser, Xspear, Dalfox 등의 XSS fuzzer와 
+            자산 수집 도구인 Katana, Paramspider, subfinder, httpx 등 
+            여러 자동화 도구의 장단점을 파악해가며 직접 HackerOne, BugCamp 등 국내외의 다양한 플랫폼에서
+            버그바운티를 시도하였다.">
+            </p>
+            <br>
+            <p class="title-item-text"
+            data-en="Based on the experience accumulated through 
+            bug bounties, the project involved contemplating ways 
+            to address the shortcomings of existing tools and 
+            constructing a framework by integrating tools that 
+            performed well."
+            data-ko="버그바운티를 통해 적립한 경험을 바탕으로 기존의 도구들의 문제점을 보완하는 방법을
+            고민하고, 성능이 좋았던 도구들을 엮어 프레임워크를 제작하는 프로젝트를 수행했다.">
+            </p>
+
+            <br>
+            <img src="./assets/images/proj1.png" class="img-box">
+
+            <br>
+            <hr>
+            <br>
+            <div class="title-content">
+                <p class="title-item-text"
+                data-en="GitHub repo of this project :"
+                data-ko="본 프로젝트의 깃헙 레포지토리 :">
+                </p>
+                <a href="https://github.com/WHS-BugBug/XBBUG" class="white-icon" target="_blank">
+                    <ion-icon name="logo-github"></ion-icon>
+                </a>
+            </div>
+
+            <br>
+            <div class="title-content">
+                <p class="title-item-text"
+                data-en="Proposal of an Effective Detection Framework through Analysis of XSS Vulnerability Scanning Tools [Paper] :"
+                data-ko="XSS 취약점 스캔 도구 분석을 통한 효과적인 탐지 프레임워크 제안 [학술대회] :">
+                </p>
+                <a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11737615" class="white-icon" target="_blank">
+                    <ion-icon name="document-outline"></ion-icon>
+                </a>
+            </div>
+            <br>
+            <hr>
+            </section>
+          </article>
+        </div>
+    </main>
+
+    <!--
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    function setLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en], [data-ko]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const lang = localStorage.getItem('lang') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+
+</body>

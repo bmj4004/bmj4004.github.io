@@ -729,6 +729,35 @@ hr {
 
 .about-text p { margin-bottom: 15px; }
 
+.about-list {
+  margin: 0 0 15px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  list-style: none;
+}
+
+.about-list li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--ink-soft);
+  font-size: var(--fs-6);
+  line-height: 1.6;
+}
+
+.about-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--grad-accent);
+}
+
+.about-list strong { color: var(--ink); font-weight: var(--fw-600); }
+
 
 /**
  * #service

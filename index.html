@@ -28,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=12">
+  <link rel="stylesheet" href="./assets/css/style.css?v=13">
 
   <!--
     - google font link
@@ -189,19 +189,24 @@
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
+            <button class="navbar-link  active" data-nav-link data-nav-target="about">About</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
+            <button class="navbar-link" data-nav-link data-nav-target="resume">Resume</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Publications</button>
+            <button class="navbar-link" data-nav-link data-nav-target="publications">Publications</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Extra</button>
+            <button class="navbar-link" data-nav-link data-nav-target="extra">Extra</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link data-nav-target="conferences"
+              data-en="Deadlines" data-ko="학회 일정"></button>
           </li>
 
         </ul>
@@ -773,6 +778,174 @@ grow()</code></pre>
 
       </article>
 
+
+
+
+
+      <!--
+        - #SYSTEMS CONFERENCES
+      -->
+
+      <article class="conferences" data-page="conferences">
+
+        <header class="conference-header">
+          <div>
+            <h2 class="h2 article-title"
+              data-en="Systems Conferences" data-ko="시스템 학회 일정"></h2>
+            <p class="conference-intro"
+              data-en="Submission deadlines and event dates for 16 selected systems venues."
+              data-ko="선별한 16개 시스템 분야 학회의 논문 제출 마감일과 개최 일정입니다."></p>
+          </div>
+          <button type="button" class="conference-admin-open" data-conference-admin-open>
+            <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+            <span data-en="Manage" data-ko="관리"></span>
+          </button>
+        </header>
+
+        <section class="conference-controls" aria-label="Conference table controls">
+          <div class="conference-view-switch" role="group" aria-label="Sort conference schedule">
+            <button type="button" class="conference-view-btn active" data-conference-view="deadline"
+              data-en="By deadline" data-ko="마감일순"></button>
+            <button type="button" class="conference-view-btn" data-conference-view="date"
+              data-en="By event date" data-ko="개최일순"></button>
+          </div>
+          <label class="conference-search">
+            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+            <span class="sr-only" data-en="Search conferences" data-ko="학회 검색"></span>
+            <input type="search" data-conference-search
+              placeholder="Search venue or location"
+              data-placeholder-en="Search venue or location"
+              data-placeholder-ko="학회명 또는 개최지 검색">
+          </label>
+        </section>
+
+        <p class="conference-help"
+          data-en="Scroll horizontally to explore earlier years. Hover or focus a cell for notification and event details."
+          data-ko="가로로 스크롤하면 이전 연도를 볼 수 있습니다. 셀에 마우스를 올리거나 초점을 맞추면 통지일과 행사 정보를 확인할 수 있습니다."></p>
+
+        <div class="conference-table-shell">
+          <div class="conference-table-scroll has-scrollbar" tabindex="0"
+            role="region" aria-label="Systems conference schedule">
+            <table class="conference-table" data-conference-table></table>
+          </div>
+          <p class="conference-status" data-conference-status role="status"
+            data-en="Loading conference schedule…" data-ko="학회 일정을 불러오는 중…"></p>
+        </div>
+
+        <footer class="conference-source">
+          <p>
+            <span data-en="Data adapted from" data-ko="데이터 출처:"></span>
+            <a href="https://dants.github.io/index_sysvenues_deadline.html"
+              target="_blank" rel="noreferrer">Dan Tsafrir’s Systems Conferences</a>.
+            <span data-conference-snapshot></span>
+            <span data-en="Always verify a deadline on the official venue website."
+              data-ko="제출 전 반드시 각 학회 공식 웹사이트에서 마감일을 확인하세요."></span>
+          </p>
+        </footer>
+
+      </article>
+
+      <dialog class="conference-admin-dialog" data-conference-admin-dialog>
+        <div class="conference-admin-card">
+          <header class="conference-admin-header">
+            <div>
+              <p class="conference-admin-eyebrow">ADMIN</p>
+              <h2 class="h2" data-en="Manage conference data" data-ko="학회 데이터 관리"></h2>
+            </div>
+            <button type="button" class="conference-admin-close" data-conference-admin-close
+              aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
+          </header>
+
+          <section class="conference-login" data-conference-login>
+            <div class="conference-login-icon"><ion-icon name="logo-github"></ion-icon></div>
+            <p data-en="Sign in with the authorized GitHub account to add, update, and publish conference information."
+              data-ko="승인된 GitHub 계정으로 로그인하면 학회 정보를 추가·수정하고 바로 게시할 수 있습니다."></p>
+            <button type="button" class="conference-primary-btn" data-conference-login-btn>
+              <ion-icon name="logo-github"></ion-icon>
+              <span data-en="Sign in with GitHub" data-ko="GitHub로 로그인"></span>
+            </button>
+            <p class="conference-admin-message" data-conference-login-message role="status"></p>
+          </section>
+
+          <section class="conference-editor" data-conference-editor hidden>
+            <div class="conference-editor-session">
+              <p><span data-en="Signed in as" data-ko="로그인 계정"></span>
+                <strong data-conference-admin-user></strong></p>
+              <button type="button" data-conference-logout
+                data-en="Sign out" data-ko="로그아웃"></button>
+            </div>
+
+            <p class="conference-editor-help"
+              data-en="Choose an existing venue to update it, or type a new name. Adding a new year automatically creates an empty column for every venue."
+              data-ko="기존 학회를 선택하면 정보를 수정하고, 새 이름을 입력하면 학회를 추가합니다. 새 연도를 입력하면 모든 학회에 빈 연도 열이 자동 생성됩니다."></p>
+
+            <form class="conference-editor-form" data-conference-editor-form>
+              <label>
+                <span data-en="Schedule view" data-ko="일정 보기"></span>
+                <select name="mode" required>
+                  <option value="deadline" data-en="By deadline" data-ko="마감일순">By deadline</option>
+                  <option value="date" data-en="By event date" data-ko="개최일순">By event date</option>
+                </select>
+              </label>
+              <label>
+                <span data-en="Venue" data-ko="학회명"></span>
+                <input name="venue" list="conference-venues" maxlength="80" required placeholder="e.g. OSDI">
+                <datalist id="conference-venues" data-conference-venues></datalist>
+              </label>
+              <label class="conference-field-wide">
+                <span data-en="Full name" data-ko="학회 정식 명칭"></span>
+                <input name="fullName" maxlength="180" placeholder="e.g. USENIX Symposium on Operating Systems Design and Implementation">
+              </label>
+              <label>
+                <span data-en="Cycle / track" data-ko="차수 / 트랙"></span>
+                <input name="cycle" maxlength="60" placeholder="e.g. Fall">
+              </label>
+              <label>
+                <span data-en="Month group" data-ko="월 구분"></span>
+                <select name="month" required>
+                  <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
+                  <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
+                  <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
+                </select>
+              </label>
+              <label>
+                <span data-en="Year" data-ko="연도"></span>
+                <input name="year" type="number" inputmode="numeric" min="2010" max="2100" required placeholder="2027">
+              </label>
+              <label>
+                <span data-en="Displayed date" data-ko="표시할 날짜"></span>
+                <input name="value" maxlength="40" required placeholder="2027-04-15">
+              </label>
+              <label class="conference-field-wide">
+                <span data-en="Official URL" data-ko="공식 URL"></span>
+                <input name="url" type="url" maxlength="500" placeholder="https://…">
+              </label>
+              <label>
+                <span data-en="Location" data-ko="개최지"></span>
+                <input name="location" maxlength="120" placeholder="Seoul, South Korea">
+              </label>
+              <label class="conference-field-wide">
+                <span data-en="Hover details" data-ko="툴팁 상세 정보"></span>
+                <input name="details" maxlength="240" placeholder="date: 2027-… (notify: 2027-…)">
+              </label>
+
+              <div class="conference-editor-actions conference-field-wide">
+                <button type="submit" class="conference-secondary-btn">
+                  <ion-icon name="add-circle-outline"></ion-icon>
+                  <span data-en="Add or update entry" data-ko="항목 추가 또는 수정"></span>
+                </button>
+                <button type="button" class="conference-primary-btn" data-conference-publish disabled>
+                  <ion-icon name="cloud-upload-outline"></ion-icon>
+                  <span data-en="Publish changes" data-ko="변경 사항 게시"></span>
+                </button>
+              </div>
+            </form>
+
+            <p class="conference-admin-message" data-conference-editor-message role="status"></p>
+          </section>
+        </div>
+      </dialog>
+
     </div>
 
   </main>
@@ -797,7 +970,8 @@ grow()</code></pre>
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js?v=12"></script>
+  <script src="./assets/js/conference-admin-config.js?v=1"></script>
+  <script src="./assets/js/script.js?v=13"></script>
 
   <!--
     - ionicon link

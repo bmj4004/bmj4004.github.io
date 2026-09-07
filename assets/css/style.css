@@ -2429,10 +2429,19 @@ pre[id^=code_] {
 
 .conference-controls {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 14px;
+}
+
+.conference-controls-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: min(290px, 100%);
+  gap: 8px;
+  margin-left: auto;
 }
 
 .conference-view-switch {
@@ -2455,6 +2464,7 @@ pre[id^=code_] {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
   min-width: min(290px, 100%);
 }
 
@@ -2535,7 +2545,7 @@ pre[id^=code_] {
   height: 48px;
   color: var(--conference-text);
   background: var(--conference-head-bg);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: var(--fw-600);
   letter-spacing: 0.035em;
   text-transform: uppercase;
@@ -2552,14 +2562,14 @@ pre[id^=code_] {
 
 .conference-table .conference-month-column {
   left: 0;
-  min-width: 68px;
-  width: 68px;
-  max-width: 68px;
+  min-width: 84px;
+  width: 84px;
+  max-width: 84px;
   text-align: center;
 }
 
 .conference-table .conference-venue-column {
-  left: 68px;
+  left: 84px;
   min-width: 142px;
   width: 142px;
   max-width: 142px;
@@ -2574,6 +2584,11 @@ pre[id^=code_] {
 
 .conference-table thead .conference-month-column,
 .conference-table thead .conference-venue-column { z-index: 5; }
+
+.conference-table thead .conference-month-column {
+  padding-inline: 6px;
+  white-space: nowrap;
+}
 
 .conference-month-column {
   color: var(--conference-accent);
@@ -2787,7 +2802,8 @@ pre[id^=code_] {
 @media (max-width: 650px) {
   .conference-header,
   .conference-controls { flex-direction: column; align-items: stretch; }
-  .conference-admin-open { align-self: flex-start; }
+  .conference-controls-right { width: 100%; margin-left: 0; }
+  .conference-admin-open { align-self: flex-end; }
   .conference-view-switch { align-self: flex-start; }
   .conference-search { width: 100%; }
   .conference-editor-form { grid-template-columns: 1fr; }
@@ -3055,30 +3071,31 @@ body.conference-layout .conferences {
 
   body.conference-layout .conference-table {
     width: 100%;
-    min-width: 1020px;
+    min-width: 1320px;
     table-layout: fixed;
-    font-size: 11px;
+    font-size: 12px;
+    line-height: 1.35;
   }
 
   body.conference-layout .conference-table :is(th, td) {
     min-width: 0;
-    padding: 9px 8px;
+    padding: 10px 9px;
   }
 
   body.conference-layout .conference-table .conference-month-column {
     left: 0;
-    width: 68px;
-    min-width: 68px;
-    max-width: 68px;
+    width: 84px;
+    min-width: 84px;
+    max-width: 84px;
   }
 
   body.conference-layout .conference-table .conference-venue-column {
-    left: 68px;
-    width: 118px;
-    min-width: 118px;
-    max-width: 118px;
+    left: 84px;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
   }
 
   body.conference-layout .conference-location,
-  body.conference-layout .conference-cycle { font-size: 10px; }
+  body.conference-layout .conference-cycle { font-size: 11px; }
 }

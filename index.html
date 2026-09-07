@@ -28,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=14">
+  <link rel="stylesheet" href="./assets/css/style.css?v=15">
 
   <!--
     - google font link
@@ -802,18 +802,20 @@ grow()</code></pre>
             <button type="button" class="conference-view-btn" data-conference-view="date"
               data-en="By event date" data-ko="개최일순"></button>
           </div>
-          <label class="conference-search">
-            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-            <span class="sr-only" data-en="Search conferences" data-ko="학회 검색"></span>
-            <input type="search" data-conference-search
-              placeholder="Search venue or location"
-              data-placeholder-en="Search venue or location"
-              data-placeholder-ko="학회명 또는 개최지 검색">
-          </label>
-          <button type="button" class="conference-admin-open" data-conference-admin-open>
-            <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
-            <span data-en="Manage" data-ko="관리"></span>
-          </button>
+          <div class="conference-controls-right">
+            <button type="button" class="conference-admin-open" data-conference-admin-open>
+              <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+              <span data-en="Manage" data-ko="관리"></span>
+            </button>
+            <label class="conference-search">
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+              <span class="sr-only" data-en="Search conferences" data-ko="학회 검색"></span>
+              <input type="search" data-conference-search
+                placeholder="Search venue or location"
+                data-placeholder-en="Search venue or location"
+                data-placeholder-ko="학회명 또는 개최지 검색">
+            </label>
+          </div>
         </section>
 
         <div class="conference-table-shell">

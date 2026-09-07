@@ -2366,7 +2366,6 @@ pre[id^=code_] {
 
 .conference-intro,
 .conference-help,
-.conference-source,
 .conference-status,
 .conference-editor-help {
   color: var(--muted);
@@ -2517,8 +2516,10 @@ pre[id^=code_] {
 }
 
 .conference-table tr { --conference-row-bg: var(--surface); }
-.conference-table tbody tr:nth-child(even) { --conference-row-bg: var(--surface-soft); }
+.conference-table tr.conference-month-group-b { --conference-row-bg: var(--accent-soft); }
 .conference-table td { position: relative; background: var(--conference-row-bg); }
+.conference-table .conference-month-start td { border-top: 2px solid var(--line-strong); }
+.conference-table tbody tr:first-child td { border-top: 0; }
 .conference-table tr:last-child td { border-bottom: 0; }
 .conference-table :is(th, td):last-child { border-right: 0; }
 
@@ -2607,15 +2608,6 @@ pre[id^=code_] {
 }
 
 .conference-status:empty { display: none; }
-
-.conference-source {
-  margin-top: 14px;
-  padding: 13px 15px;
-  border-radius: 12px;
-  background: var(--surface-chip);
-}
-
-.conference-source a { display: inline; color: var(--accent-ink); font-weight: var(--fw-600); }
 
 /* Admin editor */
 .conference-admin-dialog {
@@ -3003,4 +2995,60 @@ pre[id^=code_] {
   .social-list { justify-content: center; }
 
   .timeline-text { max-width: 700px; }
+}
+
+
+/* Give the data-heavy conference page the full canvas. Other tabs retain the
+   profile/sidebar composition above. */
+body.conference-layout .conferences {
+  width: min(1720px, calc(100vw - 24px));
+}
+
+@media (min-width: 900px) {
+
+  body.conference-layout main {
+    display: block;
+    width: calc(100% - 32px);
+    max-width: 1720px;
+    margin-inline: auto;
+  }
+
+  body.conference-layout .sidebar { display: none; }
+
+  body.conference-layout .main-content {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  body.conference-layout .conferences { width: 100%; }
+
+  body.conference-layout .conference-table {
+    width: 100%;
+    min-width: 1020px;
+    table-layout: fixed;
+    font-size: 11px;
+  }
+
+  body.conference-layout .conference-table :is(th, td) {
+    min-width: 0;
+    padding: 9px 8px;
+  }
+
+  body.conference-layout .conference-table .conference-month-column {
+    left: 0;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+  }
+
+  body.conference-layout .conference-table .conference-venue-column {
+    left: 50px;
+    width: 118px;
+    min-width: 118px;
+    max-width: 118px;
+  }
+
+  body.conference-layout .conference-location,
+  body.conference-layout .conference-cycle { font-size: 9px; }
 }

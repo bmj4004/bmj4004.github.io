@@ -144,8 +144,9 @@ const pages = document.querySelectorAll("[data-page]");
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
 
+    const target = this.dataset.navTarget || this.textContent.trim().toLowerCase();
+
     for (let i = 0; i < pages.length; i++) {
-      const target = this.dataset.navTarget || this.textContent.trim().toLowerCase();
       if (target === pages[i].dataset.page) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
@@ -155,6 +156,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
         navigationLinks[i].classList.remove("active");
       }
     }
+
+    document.body.classList.toggle("conference-layout", target === "conferences");
 
   });
 }
@@ -447,10 +450,15 @@ const renderConferenceTable = () => {
   const body = document.createElement('tbody');
   const rows = conferenceRowsForDisplay(view);
   let previousMonth = '';
+  let monthGroupIndex = -1;
 
   rows.forEach((row) => {
     const tr = document.createElement('tr');
-    const month = row.month !== previousMonth ? row.month : '';
+    const startsMonth = row.month !== previousMonth;
+    if (startsMonth) monthGroupIndex += 1;
+    tr.classList.add(monthGroupIndex % 2 === 0 ? 'conference-month-group-a' : 'conference-month-group-b');
+    if (startsMonth) tr.classList.add('conference-month-start');
+    const month = startsMonth ? row.month : '';
     previousMonth = row.month;
     tr.append(createConferenceElement('td', 'conference-month-column', month));
 

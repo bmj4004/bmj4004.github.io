@@ -400,6 +400,47 @@ const createConferenceElement = (tag, className, text) => {
   return element;
 };
 
+const conferenceScheduleForRow = (row) => {
+  const schedules = (row.events || []).flatMap((event) => {
+    const match = String(event.value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) return [];
+    const monthIndex = Number(match[2]) - 1;
+    if (monthIndex < 0 || monthIndex >= conferenceMonths.length) return [];
+    const parsedDay = Number(match[3]);
+    return [{
+      month: conferenceMonths[monthIndex],
+      monthIndex,
+      day: parsedDay >= 1 && parsedDay <= 31 ? parsedDay : 32,
+      year: Number(event.year) || Number(match[1]) || 0,
+    }];
+  }).sort((a, b) => b.year - a.year);
+
+  if (schedules.length) return schedules[0];
+  const fallbackIndex = conferenceMonths.indexOf(row.month);
+  return {
+    month: fallbackIndex >= 0 ? row.month : conferenceMonths[0],
+    monthIndex: fallbackIndex >= 0 ? fallbackIndex : 0,
+    day: 32,
+    year: 0,
+  };
+};
+
+const compareConferenceRows = (a, b) => {
+  const scheduleA = conferenceScheduleForRow(a);
+  const scheduleB = conferenceScheduleForRow(b);
+  return scheduleA.monthIndex - scheduleB.monthIndex
+    || scheduleA.day - scheduleB.day
+    || a.venue.localeCompare(b.venue)
+    || (a.cycle || '').localeCompare(b.cycle || '');
+};
+
+const synchronizeConferenceMonths = (view) => {
+  view.rows.forEach((row) => {
+    row.month = conferenceScheduleForRow(row).month;
+  });
+  view.rows.sort(compareConferenceRows);
+};
+
 const formatConferenceSnapshot = () => {
   if (!conferenceSnapshot || !conferenceData?.snapshot) return;
   const date = new Date(`${conferenceData.snapshot}T00:00:00Z`);
@@ -414,11 +455,11 @@ const formatConferenceSnapshot = () => {
 
 const conferenceRowsForDisplay = (view) => {
   const query = conferenceQuery.trim().toLocaleLowerCase();
-  if (!query) return view.rows;
-  return view.rows.filter((row) => {
+  const rows = query ? view.rows.filter((row) => {
     const eventText = row.events.map((event) => `${event.value} ${event.location} ${event.details}`).join(' ');
     return `${row.venue} ${row.fullName} ${row.cycle} ${eventText}`.toLocaleLowerCase().includes(query);
-  });
+  }) : view.rows;
+  return [...rows].sort(compareConferenceRows);
 };
 
 const renderConferenceTable = () => {
@@ -454,12 +495,13 @@ const renderConferenceTable = () => {
 
   rows.forEach((row) => {
     const tr = document.createElement('tr');
-    const startsMonth = row.month !== previousMonth;
+    const rowMonth = conferenceScheduleForRow(row).month;
+    const startsMonth = rowMonth !== previousMonth;
     if (startsMonth) monthGroupIndex += 1;
     tr.classList.add(monthGroupIndex % 2 === 0 ? 'conference-month-group-a' : 'conference-month-group-b');
     if (startsMonth) tr.classList.add('conference-month-start');
-    const month = startsMonth ? row.month : '';
-    previousMonth = row.month;
+    const month = startsMonth ? rowMonth : '';
+    previousMonth = rowMonth;
     tr.append(createConferenceElement('td', 'conference-month-column', month));
 
     const venueCell = createConferenceElement('td', 'conference-venue-column');
@@ -644,7 +686,6 @@ const populateConferenceEditor = (row, event, mode) => {
   conferenceEditorForm.elements.venue.value = row.venue || '';
   conferenceEditorForm.elements.fullName.value = row.fullName || '';
   conferenceEditorForm.elements.cycle.value = row.cycle || '';
-  conferenceEditorForm.elements.month.value = row.month || 'Jan';
   conferenceEditorForm.elements.year.value = event.year || '';
   conferenceEditorForm.elements.value.value = event.value === '-' ? '' : event.value || '';
   conferenceEditorForm.elements.url.value = event.url || '';
@@ -688,7 +729,7 @@ if (conferenceEditorForm) {
     );
     if (!row) {
       row = {
-        month: String(form.get('month')),
+        month: conferenceMonths[0],
         venue,
         fullName: String(form.get('fullName')).trim(),
         cycle,
@@ -699,7 +740,6 @@ if (conferenceEditorForm) {
       view.rows.push(row);
     }
 
-    row.month = String(form.get('month'));
     row.fullName = String(form.get('fullName')).trim();
     row.cycle = cycle;
     const entry = row.events.find((candidate) => String(candidate.year) === year);
@@ -711,7 +751,7 @@ if (conferenceEditorForm) {
       details: String(form.get('details')).trim(),
     });
 
-    view.rows.sort((a, b) => conferenceMonths.indexOf(a.month) - conferenceMonths.indexOf(b.month));
+    synchronizeConferenceMonths(view);
     conferenceDirty = true;
     if (conferencePublishButton) conferencePublishButton.disabled = false;
     conferenceMode = mode;
@@ -733,6 +773,7 @@ if (conferencePublishButton) {
     conferencePublishButton.disabled = true;
     setConferenceMessage(conferenceEditorMessage, conferenceText('Publishing…', '게시하는 중…'));
     try {
+      Object.values(conferenceData.views).forEach(synchronizeConferenceMonths);
       conferenceData.snapshot = new Date().toISOString().slice(0, 10);
       const payload = await conferenceApi('/api/data', {
         method: 'PUT',

@@ -865,8 +865,8 @@ grow()</code></pre>
             </div>
 
             <p class="conference-editor-help"
-              data-en="Choose an existing venue to update it, or type a new name. Adding a new year automatically creates an empty column for every venue."
-              data-ko="기존 학회를 선택하면 정보를 수정하고, 새 이름을 입력하면 학회를 추가합니다. 새 연도를 입력하면 모든 학회에 빈 연도 열이 자동 생성됩니다."></p>
+              data-en="Choose an existing venue to update it, or type a new name. Adding a year creates an empty column for every venue, and each row is grouped automatically by the newest dated entry."
+              data-ko="기존 학회를 선택하면 정보를 수정하고, 새 이름을 입력하면 학회를 추가합니다. 새 연도를 추가하면 모든 학회에 빈 열이 생성되며, 각 행의 월은 날짜가 있는 가장 최신 연도 일정을 기준으로 자동 분류됩니다."></p>
 
             <form class="conference-editor-form" data-conference-editor-form>
               <label>
@@ -890,20 +890,13 @@ grow()</code></pre>
                 <input name="cycle" maxlength="60" placeholder="e.g. Fall">
               </label>
               <label>
-                <span data-en="Month group" data-ko="월 구분"></span>
-                <select name="month" required>
-                  <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
-                  <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
-                  <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
-                </select>
-              </label>
-              <label>
                 <span data-en="Year" data-ko="연도"></span>
                 <input name="year" type="number" inputmode="numeric" min="2010" max="2100" required placeholder="2027">
               </label>
               <label>
                 <span data-en="Displayed date" data-ko="표시할 날짜"></span>
-                <input name="value" maxlength="40" required placeholder="2027-04-15">
+                <input name="value" maxlength="40" required pattern="[0-9]{4}-(0[1-9]|1[0-2])-.+" placeholder="2027-04-15"
+                  title="Use YYYY-MM-DD or YYYY-MM-DD..DD format">
               </label>
               <label class="conference-field-wide">
                 <span data-en="Official URL" data-ko="공식 URL"></span>

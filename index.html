@@ -28,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=16">
+  <link rel="stylesheet" href="./assets/css/style.css?v=17">
 
   <!--
     - google font link
@@ -842,61 +842,72 @@ grow()</code></pre>
 
           <section class="conference-editor" data-conference-editor>
             <p class="conference-editor-help"
-              data-en="Anyone with a GitHub account may submit a request. The data changes only after the repository owner reviews the Issue and approves it."
-              data-ko="GitHub 계정이 있으면 누구나 수정 요청을 제출할 수 있습니다. 저장소 소유자가 Issue를 검토하고 승인한 경우에만 실제 데이터가 변경됩니다."></p>
+              data-en="Choose the schedule view, venue, year, and cycle in order. Existing data is shown before editing; a missing entry opens an empty form automatically. The data changes only after owner approval."
+              data-ko="보기 방식, 학회, 연도, 차수 순서로 선택하세요. 기존 정보는 수정 전에 먼저 표시되고, 정보가 없으면 빈 입력란이 자동으로 열립니다. 소유자가 승인한 경우에만 실제 데이터가 변경됩니다."></p>
 
             <form class="conference-editor-form" data-conference-editor-form>
-              <label>
-                <span data-en="Schedule view" data-ko="일정 보기"></span>
-                <select name="mode" required>
-                  <option value="deadline" data-en="By deadline" data-ko="마감일순">By deadline</option>
-                  <option value="date" data-en="By event date" data-ko="개최일순">By event date</option>
-                </select>
-              </label>
-              <label>
-                <span data-en="Venue" data-ko="학회명"></span>
-                <input name="venue" list="conference-venues" maxlength="80" required placeholder="e.g. OSDI">
-                <datalist id="conference-venues" data-conference-venues></datalist>
-              </label>
-              <label class="conference-field-wide">
-                <span data-en="Full name" data-ko="학회 정식 명칭"></span>
-                <input name="fullName" maxlength="180" placeholder="e.g. USENIX Symposium on Operating Systems Design and Implementation">
-              </label>
-              <label>
-                <span data-en="Cycle / track" data-ko="차수 / 트랙"></span>
-                <input name="cycle" maxlength="60" placeholder="e.g. Fall">
-              </label>
-              <label>
-                <span data-en="Year" data-ko="연도"></span>
-                <input name="year" type="number" inputmode="numeric" min="2010" max="2100" required placeholder="2027">
-              </label>
-              <label>
-                <span data-en="Displayed date" data-ko="표시할 날짜"></span>
-                <input name="value" maxlength="40" required pattern="[0-9]{4}-(0[1-9]|1[0-2])-.+" placeholder="2027-04-15"
-                  title="Use YYYY-MM-DD or YYYY-MM-DD..DD format">
-              </label>
-              <label class="conference-field-wide">
-                <span data-en="Official URL" data-ko="공식 URL"></span>
-                <input name="url" type="url" maxlength="500" placeholder="https://…">
-              </label>
-              <label>
-                <span data-en="Location" data-ko="개최지"></span>
-                <input name="location" maxlength="120" placeholder="Seoul, South Korea">
-              </label>
-              <label class="conference-field-wide">
-                <span data-en="Hover details" data-ko="툴팁 상세 정보"></span>
-                <input name="details" maxlength="240" placeholder="date: 2027-… (notify: 2027-…)">
-              </label>
+              <div class="conference-selector-grid conference-field-wide">
+                <label>
+                  <span data-en="Schedule view" data-ko="일정 보기"></span>
+                  <select name="mode" required>
+                    <option value="" selected disabled data-en="Choose a view" data-ko="보기 방식을 선택하세요">Choose a view</option>
+                    <option value="deadline" data-en="By deadline" data-ko="마감일순">By deadline</option>
+                    <option value="date" data-en="By event date" data-ko="개최일순">By event date</option>
+                  </select>
+                </label>
+                <label data-conference-venue-field>
+                  <span data-en="Venue" data-ko="학회명"></span>
+                  <select name="venue" data-conference-venues required disabled>
+                    <option value="" data-en="Choose a venue" data-ko="학회를 선택하세요">Choose a venue</option>
+                  </select>
+                </label>
+                <label data-conference-year-field hidden>
+                  <span data-en="Year" data-ko="연도"></span>
+                  <select name="year" data-conference-years required disabled></select>
+                </label>
+                <label data-conference-cycle-field hidden>
+                  <span data-en="Cycle / track" data-ko="차수 / 트랙"></span>
+                  <select name="cycle" data-conference-cycles required disabled>
+                    <option value="" data-en="Choose a cycle" data-ko="차수 또는 트랙을 선택하세요">Choose a cycle</option>
+                  </select>
+                </label>
+              </div>
 
-              <div class="conference-editor-actions conference-field-wide">
-                <button type="submit" class="conference-secondary-btn">
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  <span data-en="Add to request" data-ko="요청에 변경 추가"></span>
-                </button>
-                <button type="button" class="conference-primary-btn" data-conference-publish disabled>
-                  <ion-icon name="logo-github"></ion-icon>
-                  <span data-en="Open GitHub request" data-ko="GitHub 요청 열기"></span>
-                </button>
+              <section class="conference-current-data conference-field-wide" data-conference-current-data
+                aria-live="polite" hidden></section>
+
+              <div class="conference-edit-fields conference-field-wide" data-conference-edit-fields hidden>
+                <label>
+                  <span data-en="Start date" data-ko="시작일"></span>
+                  <input name="startDate" type="date" required>
+                </label>
+                <label>
+                  <span data-en="End date (optional)" data-ko="종료일 (선택)"></span>
+                  <input name="endDate" type="date">
+                </label>
+                <label class="conference-field-wide">
+                  <span data-en="Official URL" data-ko="공식 URL"></span>
+                  <input name="url" type="url" maxlength="500" placeholder="https://…">
+                </label>
+                <label class="conference-field-wide">
+                  <span data-en="Location" data-ko="개최지"></span>
+                  <input name="location" maxlength="120" placeholder="Seoul, South Korea">
+                </label>
+                <label class="conference-field-wide">
+                  <span data-en="Hover details" data-ko="툴팁 상세 정보"></span>
+                  <input name="details" maxlength="240" placeholder="date: 2027-… (notify: 2027-…)">
+                </label>
+
+                <div class="conference-editor-actions conference-field-wide">
+                  <button type="submit" class="conference-secondary-btn">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                    <span data-en="Add to request" data-ko="요청에 변경 추가"></span>
+                  </button>
+                  <button type="button" class="conference-primary-btn" data-conference-publish disabled>
+                    <ion-icon name="logo-github"></ion-icon>
+                    <span data-en="Open GitHub request" data-ko="GitHub 요청 열기"></span>
+                  </button>
+                </div>
               </div>
             </form>
 
@@ -929,7 +940,7 @@ grow()</code></pre>
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js?v=16"></script>
+  <script src="./assets/js/script.js?v=17"></script>
 
   <!--
     - ionicon link

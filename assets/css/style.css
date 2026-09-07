@@ -2500,6 +2500,11 @@ pre[id^=code_] {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+.conference-editor-form select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .conference-help { margin-bottom: 12px; }
 
 .conference-table-shell {
@@ -2775,6 +2780,62 @@ pre[id^=code_] {
   gap: 15px;
 }
 
+.conference-selector-grid,
+.conference-edit-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.conference-selector-grid[hidden],
+.conference-edit-fields[hidden],
+.conference-current-data[hidden] { display: none; }
+
+.conference-current-data {
+  position: relative;
+  padding: 16px;
+  border: 1px solid var(--conference-line-strong);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.conference-current-heading {
+  margin-bottom: 12px;
+  color: var(--conference-text);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-600);
+}
+
+.conference-current-empty {
+  color: var(--conference-muted);
+  font-size: var(--fs-8);
+}
+
+.conference-current-list {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.3fr) 1fr;
+  gap: 8px 14px;
+  margin-bottom: 14px;
+  font-size: var(--fs-8);
+  line-height: 1.45;
+}
+
+.conference-current-list dt { color: var(--conference-muted); }
+.conference-current-list dd { color: var(--conference-text); overflow-wrap: anywhere; }
+.conference-current-list a { color: var(--conference-accent); text-decoration: underline; }
+
+.conference-current-edit {
+  padding: 8px 12px;
+  border: 1px solid var(--conference-line-strong);
+  border-radius: 999px;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-600);
+}
+
+.conference-current-edit:hover { border-color: var(--accent); }
+
 .conference-editor-form label > span {
   margin-bottom: 7px;
   color: var(--ink-soft);
@@ -2812,8 +2873,12 @@ pre[id^=code_] {
   .conference-admin-open { align-self: flex-end; }
   .conference-view-switch { align-self: flex-start; }
   .conference-search { width: 100%; }
-  .conference-editor-form { grid-template-columns: 1fr; }
+  .conference-editor-form,
+  .conference-selector-grid,
+  .conference-edit-fields { grid-template-columns: 1fr; }
   .conference-field-wide { grid-column: auto; }
+  .conference-current-list { grid-template-columns: 1fr; gap: 3px; }
+  .conference-current-list dd { margin-bottom: 7px; }
   .conference-editor-actions { flex-direction: column; align-items: stretch; }
   .conference-admin-card { padding: 20px 16px; }
 }

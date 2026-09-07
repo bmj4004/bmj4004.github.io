@@ -155,9 +155,14 @@ export const applyConferenceRequest = (sourceData, request, snapshot) => {
   const validated = validateConferenceRequest(request);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(snapshot)) fail('Snapshot must use YYYY-MM-DD.');
   const data = JSON.parse(JSON.stringify(sourceData));
+  const currentYear = Number(snapshot.slice(0, 4));
 
   for (const change of validated.changes) {
     const view = data.views[change.mode];
+    const isExistingYear = view.years.map(String).includes(change.year);
+    if (!isExistingYear && (Number(change.year) < currentYear || Number(change.year) > currentYear + 2)) {
+      fail(`New year ${change.year} is outside the allowed current-year-through-plus-two range.`);
+    }
     if (!view.years.map(String).includes(change.year)) view.years.push(change.year);
     normalizeView(view);
     let row = view.rows.find((candidate) =>

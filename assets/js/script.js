@@ -354,6 +354,12 @@ const conferenceDialog = document.querySelector('[data-conference-admin-dialog]'
 const conferenceEditorMessage = document.querySelector('[data-conference-editor-message]');
 const conferenceEditorForm = document.querySelector('[data-conference-editor-form]');
 const conferenceVenueList = document.querySelector('[data-conference-venues]');
+const conferenceCycleList = document.querySelector('[data-conference-cycles]');
+const conferenceYearList = document.querySelector('[data-conference-years]');
+const conferenceCycleField = document.querySelector('[data-conference-cycle-field]');
+const conferenceYearField = document.querySelector('[data-conference-year-field]');
+const conferenceCurrentData = document.querySelector('[data-conference-current-data]');
+const conferenceEditFields = document.querySelector('[data-conference-edit-fields]');
 const conferencePublishButton = document.querySelector('[data-conference-publish]');
 const CONFERENCE_REPOSITORY = 'bmj4004/bmj4004.github.io';
 const CONFERENCE_ISSUE_URL = `https://github.com/${CONFERENCE_REPOSITORY}/issues/new`;
@@ -603,32 +609,236 @@ const closeConferenceDialog = () => {
   conferenceDialog.close();
 };
 
-const rebuildConferenceVenueList = () => {
+const findConferenceRow = (data, mode, venue, cycle) => data?.views?.[mode]?.rows.find((row) =>
+  row.venue.toLocaleLowerCase() === venue.toLocaleLowerCase()
+  && (row.cycle || '').toLocaleLowerCase() === cycle.toLocaleLowerCase()
+);
+
+const CONFERENCE_MAIN_CYCLE = '__main__';
+const selectedConferenceCycle = () => {
+  const selected = conferenceEditorForm?.elements.cycle.value || '';
+  if (!selected) return null;
+  return selected === CONFERENCE_MAIN_CYCLE ? '' : selected;
+};
+
+const rebuildConferenceVenueList = (preferredVenue) => {
   if (!conferenceVenueList || !conferenceData) return;
+  const mode = conferenceEditorForm?.elements.mode.value || '';
+  const selected = preferredVenue === undefined ? conferenceVenueList.value : preferredVenue;
   const names = new Set();
-  Object.values(conferenceData.views).forEach((view) => {
-    view.rows.forEach((row) => names.add(row.venue));
-  });
+  (conferenceData.views[mode]?.rows || []).forEach((row) => names.add(row.venue));
+  const placeholder = createConferenceElement('option', '', conferenceText('Choose a venue', '학회를 선택하세요'));
+  placeholder.value = '';
+  placeholder.disabled = true;
   const options = [...names].sort((a, b) => a.localeCompare(b)).map((name) => {
-    const option = document.createElement('option');
+    const option = createConferenceElement('option', '', name);
     option.value = name;
     return option;
   });
-  conferenceVenueList.replaceChildren(...options);
+  conferenceVenueList.replaceChildren(placeholder, ...options);
+  conferenceVenueList.value = names.has(selected) ? selected : '';
+  conferenceVenueList.disabled = !mode;
 };
 
+const rebuildConferenceYearList = (preferredYear = '') => {
+  if (!conferenceYearList || !conferenceData || !conferenceEditorForm) return;
+  const mode = conferenceEditorForm.elements.mode.value;
+  const selected = String(preferredYear || '');
+  const currentYear = new Date().getFullYear();
+  const years = new Set((conferenceData.views[mode]?.years || []).map(String));
+  for (let year = currentYear; year <= currentYear + 2; year += 1) years.add(String(year));
+  if (selected) years.add(selected);
+  const placeholder = createConferenceElement('option', '', conferenceText('Choose a year', '연도를 선택하세요'));
+  placeholder.value = '';
+  placeholder.disabled = true;
+  const options = [...years]
+    .filter((year) => /^\d{4}$/.test(year))
+    .sort((a, b) => Number(b) - Number(a))
+    .map((year) => {
+      const option = createConferenceElement('option', '', year);
+      option.value = year;
+      return option;
+    });
+  conferenceYearList.replaceChildren(placeholder, ...options);
+  conferenceYearList.value = selected;
+  conferenceYearList.disabled = !conferenceEditorForm.elements.venue.value;
+};
+
+const rebuildConferenceCycleList = (preferredCycle) => {
+  if (!conferenceCycleList || !conferenceEditorForm || !conferenceData) return;
+  const mode = conferenceEditorForm.elements.mode.value;
+  const venue = conferenceEditorForm.elements.venue.value;
+  const year = conferenceEditorForm.elements.year.value;
+  const selected = preferredCycle === undefined ? null : String(preferredCycle || '');
+  if (!venue) {
+    const option = createConferenceElement('option', '', conferenceText('Choose a cycle', '차수 또는 트랙을 선택하세요'));
+    option.value = '';
+    conferenceCycleList.replaceChildren(option);
+    conferenceCycleList.disabled = true;
+    if (conferenceCycleField) conferenceCycleField.hidden = true;
+    if (conferenceYearField) conferenceYearField.hidden = true;
+    return;
+  }
+
+  if (conferenceCycleField) conferenceCycleField.hidden = false;
+  if (conferenceYearField) conferenceYearField.hidden = false;
+  if (!year) {
+    const option = createConferenceElement('option', '', conferenceText('Choose a year first', '연도를 먼저 선택하세요'));
+    option.value = '';
+    conferenceCycleList.replaceChildren(option);
+    conferenceCycleList.disabled = true;
+    return;
+  }
+
+  const rows = conferenceData.views[mode].rows.filter((row) => row.venue === venue);
+  const cycles = [...new Set(rows.map((row) => row.cycle || ''))];
+  if (!cycles.length) cycles.push('');
+  cycles.sort((cycleA, cycleB) => {
+    const hasData = (cycle) => rows.some((row) => (row.cycle || '') === cycle
+      && row.events.some((event) => String(event.year) === year && event.value !== '-'));
+    return Number(hasData(cycleB)) - Number(hasData(cycleA)) || cycleA.localeCompare(cycleB);
+  });
+  const placeholder = createConferenceElement('option', '', conferenceText('Choose a cycle', '차수 또는 트랙을 선택하세요'));
+  placeholder.value = '';
+  placeholder.disabled = true;
+  const options = cycles.map((cycle) => {
+    const label = cycle || conferenceText('Main', '기본');
+    const option = createConferenceElement('option', '', label);
+    option.value = cycle || CONFERENCE_MAIN_CYCLE;
+    return option;
+  });
+  conferenceCycleList.replaceChildren(placeholder, ...options);
+  conferenceCycleList.disabled = false;
+  conferenceCycleList.value = selected !== null && cycles.includes(selected)
+    ? (selected || CONFERENCE_MAIN_CYCLE)
+    : '';
+};
+
+const conferenceDateParts = (value) => {
+  const match = String(value || '').match(/^(\d{4}-\d{2}-\d{2})(?:\.\.([0-3]\d))?$/);
+  if (!match) return { start: '', end: '' };
+  if (!match[2]) return { start: match[1], end: '' };
+  const start = new Date(`${match[1]}T00:00:00Z`);
+  let endMonth = start.getUTCMonth();
+  const endDay = Number(match[2]);
+  if (endDay < start.getUTCDate()) endMonth += 1;
+  const end = new Date(Date.UTC(start.getUTCFullYear(), endMonth, endDay));
+  return { start: match[1], end: end.toISOString().slice(0, 10) };
+};
+
+const addConferenceCurrentItem = (list, label, value, url = '') => {
+  const term = createConferenceElement('dt', '', label);
+  const detail = document.createElement('dd');
+  if (url) {
+    const link = createConferenceElement('a', '', value);
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noreferrer';
+    detail.append(link);
+  } else {
+    detail.textContent = value;
+  }
+  list.append(term, detail);
+};
+
+const renderConferenceCurrentData = () => {
+  if (!conferenceCurrentData || !conferenceEditorForm) return false;
+  const mode = conferenceEditorForm.elements.mode.value;
+  const venue = conferenceEditorForm.elements.venue.value;
+  const cycle = selectedConferenceCycle();
+  const year = conferenceEditorForm.elements.year.value;
+  conferenceCurrentData.replaceChildren();
+  conferenceCurrentData.hidden = !venue || !year || cycle === null;
+
+  const heading = createConferenceElement('p', 'conference-current-heading', conferenceText('Current saved data', '현재 저장된 데이터'));
+  conferenceCurrentData.append(heading);
+  if (!venue || !year || cycle === null) return false;
+
+  const row = findConferenceRow(conferencePublicData, mode, venue, cycle);
+  const event = row?.events.find((candidate) => String(candidate.year) === year);
+  const hasData = event && (event.value !== '-' || event.url || event.location || event.details);
+  if (!hasData) {
+    conferenceCurrentData.append(createConferenceElement('p', 'conference-current-empty', conferenceText(
+      'No saved data exists for this selection.',
+      '이 선택 조합에는 저장된 데이터가 없습니다.'
+    )));
+    return false;
+  }
+
+  const list = createConferenceElement('dl', 'conference-current-list');
+  addConferenceCurrentItem(list, conferenceText('Date', '날짜'), event.value || '-');
+  if (event.url) addConferenceCurrentItem(list, conferenceText('Official URL', '공식 URL'), event.url, safeConferenceUrl(event.url));
+  if (event.location) addConferenceCurrentItem(list, conferenceText('Location', '개최지'), event.location);
+  if (event.details) addConferenceCurrentItem(list, conferenceText('Details', '상세 정보'), event.details);
+  conferenceCurrentData.append(list);
+  const editButton = createConferenceElement('button', 'conference-current-edit', conferenceText('Edit this information', '이 정보 수정'));
+  editButton.type = 'button';
+  editButton.addEventListener('click', () => {
+    if (conferenceEditFields) conferenceEditFields.hidden = false;
+    conferenceEditorForm.elements.startDate.focus();
+  });
+  conferenceCurrentData.append(editButton);
+  return true;
+};
+
+const selectedConferenceEntry = () => {
+  if (!conferenceEditorForm || !conferenceData) return null;
+  const mode = conferenceEditorForm.elements.mode.value;
+  const venue = conferenceEditorForm.elements.venue.value;
+  const cycle = selectedConferenceCycle();
+  const year = conferenceEditorForm.elements.year.value;
+  if (!venue || !year || cycle === null) return null;
+  const pending = conferencePendingChanges.get(conferenceChangeKey({ mode, venue, cycle, year }));
+  if (pending) return pending;
+  const row = findConferenceRow(conferencePublicData, mode, venue, cycle);
+  return row?.events.find((event) => String(event.year) === year) || null;
+};
+
+const updateConferenceDateBounds = () => {
+  if (!conferenceEditorForm) return;
+  const year = conferenceEditorForm.elements.year.value;
+  const startInput = conferenceEditorForm.elements.startDate;
+  const endInput = conferenceEditorForm.elements.endDate;
+  startInput.min = year ? `${year}-01-01` : '';
+  startInput.max = year ? `${year}-12-31` : '';
+  endInput.min = startInput.value || (year ? `${year}-01-01` : '');
+  if (startInput.value) {
+    const maximumEnd = new Date(`${startInput.value}T00:00:00Z`);
+    maximumEnd.setUTCDate(maximumEnd.getUTCDate() + 31);
+    endInput.max = maximumEnd.toISOString().slice(0, 10);
+  } else {
+    endInput.max = '';
+  }
+};
+
+const syncConferenceEditorSelection = () => {
+  if (!conferenceEditorForm) return;
+  const mode = conferenceEditorForm.elements.mode.value;
+  const venue = conferenceEditorForm.elements.venue.value;
+  const cycle = selectedConferenceCycle();
+  const year = conferenceEditorForm.elements.year.value;
+  const selectionComplete = Boolean(venue && year && cycle !== null);
+  const entry = selectedConferenceEntry();
+  const dates = conferenceDateParts(entry?.value === '-' ? '' : entry?.value);
+  conferenceEditorForm.elements.startDate.value = dates.start;
+  conferenceEditorForm.elements.endDate.value = dates.end;
+  conferenceEditorForm.elements.url.value = entry?.url || '';
+  conferenceEditorForm.elements.location.value = entry?.location || '';
+  conferenceEditorForm.elements.details.value = entry?.details || '';
+  updateConferenceDateBounds();
+  const hasSavedData = renderConferenceCurrentData();
+  const hasPendingChange = selectionComplete && conferencePendingChanges.has(conferenceChangeKey({ mode, venue, cycle, year }));
+  if (conferenceEditFields) conferenceEditFields.hidden = !selectionComplete || (hasSavedData && !hasPendingChange);
+};
 
 const populateConferenceEditor = (row, event, mode) => {
   if (!conferenceEditorForm) return;
   conferenceEditorForm.elements.mode.value = mode;
-  conferenceEditorForm.elements.venue.value = row.venue || '';
-  conferenceEditorForm.elements.fullName.value = row.fullName || '';
-  conferenceEditorForm.elements.cycle.value = row.cycle || '';
-  conferenceEditorForm.elements.year.value = event.year || '';
-  conferenceEditorForm.elements.value.value = event.value === '-' ? '' : event.value || '';
-  conferenceEditorForm.elements.url.value = event.url || '';
-  conferenceEditorForm.elements.location.value = event.location || '';
-  conferenceEditorForm.elements.details.value = event.details || '';
+  rebuildConferenceVenueList(row.venue || '');
+  rebuildConferenceYearList(event.year || '');
+  rebuildConferenceCycleList(row.cycle || '');
+  syncConferenceEditorSelection();
+  if (conferenceEditFields) conferenceEditFields.hidden = false;
   setConferenceMessage(conferenceEditorMessage, conferenceText(
     `Editing ${row.venue} ${event.year}.`,
     `${row.venue} ${event.year} 항목을 수정합니다.`
@@ -644,6 +854,37 @@ const normalizeConferenceYears = (view) => {
     });
   });
 };
+
+if (conferenceEditorForm) {
+  conferenceEditorForm.elements.mode.addEventListener('change', () => {
+    rebuildConferenceVenueList('');
+    rebuildConferenceYearList('');
+    rebuildConferenceCycleList();
+    syncConferenceEditorSelection();
+    setConferenceMessage(conferenceEditorMessage);
+  });
+  conferenceEditorForm.elements.venue.addEventListener('change', () => {
+    rebuildConferenceYearList('');
+    rebuildConferenceCycleList();
+    syncConferenceEditorSelection();
+    setConferenceMessage(conferenceEditorMessage);
+  });
+  conferenceEditorForm.elements.year.addEventListener('change', () => {
+    rebuildConferenceCycleList();
+    syncConferenceEditorSelection();
+    setConferenceMessage(conferenceEditorMessage);
+  });
+  conferenceEditorForm.elements.cycle.addEventListener('change', () => {
+    syncConferenceEditorSelection();
+    setConferenceMessage(conferenceEditorMessage);
+  });
+  conferenceEditorForm.elements.startDate.addEventListener('change', () => {
+    updateConferenceDateBounds();
+    if (conferenceEditorForm.elements.endDate.value < conferenceEditorForm.elements.startDate.value) {
+      conferenceEditorForm.elements.endDate.value = '';
+    }
+  });
+}
 
 const conferenceChangeKey = (change) => JSON.stringify([
   change.mode,
@@ -707,15 +948,40 @@ if (conferenceEditorForm) {
     const view = conferenceData.views[mode];
     const year = String(form.get('year')).trim();
     const venue = String(form.get('venue')).trim();
-    const cycle = String(form.get('cycle')).trim();
-    const value = String(form.get('value')).trim();
+    const cycle = selectedConferenceCycle();
+    const startDate = String(form.get('startDate')).trim();
+    const endDate = String(form.get('endDate')).trim();
     const rawUrl = String(form.get('url')).trim();
     const url = safeConferenceUrl(rawUrl);
-    if (!view || !year || !venue) return;
+    if (!view || !year || !venue || cycle === null) return;
+    if (!startDate || startDate.slice(0, 4) !== year) {
+      setConferenceMessage(conferenceEditorMessage, conferenceText(
+        'Choose a start date in the selected year.',
+        '선택한 연도에 해당하는 시작일을 선택하세요.'
+      ), 'error');
+      return;
+    }
+
+    let value = startDate;
+    if (endDate) {
+      const startTime = new Date(`${startDate}T00:00:00Z`).getTime();
+      const endTime = new Date(`${endDate}T00:00:00Z`).getTime();
+      const durationDays = (endTime - startTime) / 86400000;
+      const startMonth = Number(startDate.slice(0, 4)) * 12 + Number(startDate.slice(5, 7));
+      const endMonth = Number(endDate.slice(0, 4)) * 12 + Number(endDate.slice(5, 7));
+      if (!Number.isFinite(durationDays) || durationDays < 0 || durationDays > 31 || endMonth - startMonth > 1) {
+        setConferenceMessage(conferenceEditorMessage, conferenceText(
+          'The end date must be on or after the start date and within 31 days.',
+          '종료일은 시작일 이후이며 31일 이내여야 합니다.'
+        ), 'error');
+        return;
+      }
+      if (durationDays > 0) value = `${startDate}..${endDate.slice(-2)}`;
+    }
     if (!validConferenceDate(value, year)) {
       setConferenceMessage(conferenceEditorMessage, conferenceText(
-        'Enter a valid date in YYYY-MM-DD or YYYY-MM-DD..DD format. Its year must match the Year field.',
-        'YYYY-MM-DD 또는 YYYY-MM-DD..DD 형식의 올바른 날짜를 입력하세요. 날짜의 연도와 연도 입력값도 같아야 합니다.'
+        'Choose valid calendar dates for the selected year.',
+        '선택한 연도에 해당하는 올바른 날짜를 선택하세요.'
       ), 'error');
       return;
     }
@@ -727,10 +993,14 @@ if (conferenceEditorForm) {
       return;
     }
 
+    const existingRow = findConferenceRow(conferenceData, mode, venue, cycle);
+    const metadataRow = existingRow || Object.values(conferenceData.views)
+      .flatMap((candidateView) => candidateView.rows)
+      .find((candidate) => candidate.venue === venue);
     const change = {
       mode,
       venue,
-      fullName: String(form.get('fullName')).trim(),
+      fullName: metadataRow?.fullName || '',
       cycle,
       year,
       value,
@@ -823,6 +1093,10 @@ document.querySelectorAll('[data-conference-admin-open]').forEach((button) => {
   button.addEventListener('click', () => {
     openConferenceDialog();
     rebuildConferenceVenueList();
+    rebuildConferenceYearList(conferenceEditorForm?.elements.year.value || '');
+    const selectedCycle = selectedConferenceCycle();
+    rebuildConferenceCycleList(selectedCycle === null ? undefined : selectedCycle);
+    syncConferenceEditorSelection();
   });
 });
 
@@ -840,6 +1114,9 @@ const initializeConferencePage = async () => {
   if (!conferenceTable) return;
   await loadPublicConferenceData();
   rebuildConferenceVenueList();
+  rebuildConferenceYearList();
+  rebuildConferenceCycleList();
+  syncConferenceEditorSelection();
 };
 
 initializeConferencePage();

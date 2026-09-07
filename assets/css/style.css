@@ -2525,14 +2525,14 @@ pre[id^=code_] {
 
 .conference-table .conference-month-column {
   left: 0;
-  min-width: 58px;
-  width: 58px;
-  max-width: 58px;
+  min-width: 68px;
+  width: 68px;
+  max-width: 68px;
   text-align: center;
 }
 
 .conference-table .conference-venue-column {
-  left: 58px;
+  left: 68px;
   min-width: 142px;
   width: 142px;
   max-width: 142px;
@@ -3037,13 +3037,13 @@ body.conference-layout .conferences {
 
   body.conference-layout .conference-table .conference-month-column {
     left: 0;
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
+    width: 68px;
+    min-width: 68px;
+    max-width: 68px;
   }
 
   body.conference-layout .conference-table .conference-venue-column {
-    left: 50px;
+    left: 68px;
     width: 118px;
     min-width: 118px;
     max-width: 118px;

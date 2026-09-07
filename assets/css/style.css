@@ -46,6 +46,19 @@
   --accent-fill: #6149c9;     /* solid fill for filled controls */
   --accent-on: #ffffff;       /* text/icon ON an accent fill */
 
+  /* conference table — higher-contrast variants of the site palette */
+  --conference-text: #342e49;
+  --conference-muted: #625b7c;
+  --conference-empty: #817997;
+  --conference-line: #ddd5ed;
+  --conference-line-strong: #c8bce2;
+  --conference-head-bg: #e9e3f7;
+  --conference-head-current: #ded5fb;
+  --conference-row: #ffffff;
+  --conference-row-alt: #f2edfc;
+  --conference-row-hover: #e8e0fa;
+  --conference-accent: #5640bd;
+
   /* secondary pastels */
   --peach: #f4a6c0;
   --peach-ink: #b23e6c;
@@ -140,6 +153,19 @@
   --accent-soft: #2a2348;
   --accent-fill: #b4a5f7;
   --accent-on: #181527;
+
+  /* conference table — brighter ink and clearer row boundaries */
+  --conference-text: #f1eef9;
+  --conference-muted: #bab3d2;
+  --conference-empty: #8982a3;
+  --conference-line: #45405d;
+  --conference-line-strong: #625a80;
+  --conference-head-bg: #332e48;
+  --conference-head-current: #463b68;
+  --conference-row: #1e1b2b;
+  --conference-row-alt: #2c254b;
+  --conference-row-hover: #3a315e;
+  --conference-accent: #d0bdff;
 
   --peach: #f0a8c0;
   --peach-ink: #ff9ec4;
@@ -2368,7 +2394,7 @@ pre[id^=code_] {
 .conference-help,
 .conference-status,
 .conference-editor-help {
-  color: var(--muted);
+  color: var(--conference-muted);
   font-size: var(--fs-7);
   line-height: 1.65;
 }
@@ -2381,9 +2407,9 @@ pre[id^=code_] {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--conference-line);
   border-radius: 999px;
-  color: var(--ink-soft);
+  color: var(--conference-text);
   background: var(--surface);
   font-size: var(--fs-8);
   font-weight: var(--fw-600);
@@ -2435,7 +2461,7 @@ pre[id^=code_] {
 .conference-search ion-icon {
   position: absolute;
   left: 13px;
-  color: var(--muted);
+  color: var(--conference-muted);
   font-size: 17px;
   pointer-events: none;
 }
@@ -2443,9 +2469,9 @@ pre[id^=code_] {
 .conference-search input,
 .conference-editor-form :is(input, select) {
   width: 100%;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--conference-line-strong);
   border-radius: 12px;
-  color: var(--ink);
+  color: var(--conference-text);
   background: var(--surface);
   font: inherit;
   font-size: var(--fs-7);
@@ -2456,7 +2482,7 @@ pre[id^=code_] {
 .conference-search input { padding: 10px 13px 10px 39px; }
 
 .conference-search input::placeholder,
-.conference-editor-form input::placeholder { color: var(--muted-2); }
+.conference-editor-form input::placeholder { color: var(--conference-muted); }
 
 .conference-search input:focus,
 .conference-editor-form :is(input, select):focus {
@@ -2469,7 +2495,7 @@ pre[id^=code_] {
 .conference-table-shell {
   position: relative;
   min-height: 180px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--conference-line);
   border-radius: 16px;
   background: var(--surface-soft);
   overflow: hidden;
@@ -2487,7 +2513,7 @@ pre[id^=code_] {
   min-width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  color: var(--ink-soft);
+  color: var(--conference-text);
   font-size: 12px;
 }
 
@@ -2496,8 +2522,8 @@ pre[id^=code_] {
   min-width: 150px;
   height: 66px;
   padding: 10px 12px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--conference-line);
+  border-bottom: 1px solid var(--conference-line);
   text-align: left;
   vertical-align: middle;
 }
@@ -2507,18 +2533,19 @@ pre[id^=code_] {
   top: 0;
   z-index: 3;
   height: 48px;
-  color: var(--ink);
-  background: var(--surface-chip);
+  color: var(--conference-text);
+  background: var(--conference-head-bg);
   font-size: 11px;
   font-weight: var(--fw-600);
   letter-spacing: 0.035em;
   text-transform: uppercase;
 }
 
-.conference-table tr { --conference-row-bg: var(--surface); }
-.conference-table tr.conference-month-group-b { --conference-row-bg: var(--accent-soft); }
+.conference-table tr { --conference-row-bg: var(--conference-row); }
+.conference-table tr.conference-month-group-b { --conference-row-bg: var(--conference-row-alt); }
+.conference-table tbody tr:hover { --conference-row-bg: var(--conference-row-hover); }
 .conference-table td { position: relative; background: var(--conference-row-bg); }
-.conference-table .conference-month-start td { border-top: 2px solid var(--line-strong); }
+.conference-table .conference-month-start td { border-top: 2px solid var(--conference-line-strong); }
 .conference-table tbody tr:first-child td { border-top: 0; }
 .conference-table tr:last-child td { border-bottom: 0; }
 .conference-table :is(th, td):last-child { border-right: 0; }
@@ -2549,36 +2576,39 @@ pre[id^=code_] {
 .conference-table thead .conference-venue-column { z-index: 5; }
 
 .conference-month-column {
-  color: var(--accent-ink);
+  color: var(--conference-accent);
   font-family: var(--ff-display);
   font-weight: var(--fw-600);
 }
 
-.conference-venue-name { color: var(--ink); font-weight: var(--fw-600); }
+.conference-venue-name { color: var(--conference-text); font-weight: var(--fw-600); }
 
 .conference-cycle,
 .conference-location {
   display: block;
   margin-top: 4px;
-  color: var(--muted);
+  color: var(--conference-muted);
   font-size: 10px;
   line-height: 1.35;
 }
 
 .conference-date-link {
   display: inline-block;
-  color: var(--accent-ink);
+  color: var(--conference-accent);
   font-weight: var(--fw-600);
 }
 
 .conference-date-link:hover { text-decoration: underline; }
-.conference-empty { color: var(--muted-2); }
+.conference-empty { color: var(--conference-empty); }
 
 .conference-table :is(th, td).is-current-year {
-  box-shadow: inset 2px 0 var(--accent-soft), inset -2px 0 var(--accent-soft);
+  box-shadow: inset 2px 0 var(--conference-line-strong), inset -2px 0 var(--conference-line-strong);
 }
 
-.conference-table th.is-current-year { color: var(--accent-ink); }
+.conference-table th.is-current-year {
+  color: var(--conference-accent);
+  background: var(--conference-head-current);
+}
 
 .conference-cell-edit {
   position: absolute;
@@ -3050,5 +3080,5 @@ body.conference-layout .conferences {
   }
 
   body.conference-layout .conference-location,
-  body.conference-layout .conference-cycle { font-size: 9px; }
+  body.conference-layout .conference-cycle { font-size: 10px; }
 }

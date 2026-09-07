@@ -28,7 +28,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style.css?v=15">
+  <link rel="stylesheet" href="./assets/css/style.css?v=16">
 
   <!--
     - google font link
@@ -804,8 +804,8 @@ grow()</code></pre>
           </div>
           <div class="conference-controls-right">
             <button type="button" class="conference-admin-open" data-conference-admin-open>
-              <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
-              <span data-en="Manage" data-ko="관리"></span>
+              <ion-icon name="create-outline" aria-hidden="true"></ion-icon>
+              <span data-en="Suggest edit" data-ko="수정 요청"></span>
             </button>
             <label class="conference-search">
               <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
@@ -833,35 +833,17 @@ grow()</code></pre>
         <div class="conference-admin-card">
           <header class="conference-admin-header">
             <div>
-              <p class="conference-admin-eyebrow">ADMIN</p>
-              <h2 class="h2" data-en="Manage conference data" data-ko="학회 데이터 관리"></h2>
+              <p class="conference-admin-eyebrow">REQUEST</p>
+              <h2 class="h2" data-en="Request a conference update" data-ko="학회 정보 수정 요청"></h2>
             </div>
             <button type="button" class="conference-admin-close" data-conference-admin-close
               aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
           </header>
 
-          <section class="conference-login" data-conference-login>
-            <div class="conference-login-icon"><ion-icon name="logo-github"></ion-icon></div>
-            <p data-en="Sign in with the authorized GitHub account to add, update, and publish conference information."
-              data-ko="승인된 GitHub 계정으로 로그인하면 학회 정보를 추가·수정하고 바로 게시할 수 있습니다."></p>
-            <button type="button" class="conference-primary-btn" data-conference-login-btn>
-              <ion-icon name="logo-github"></ion-icon>
-              <span data-en="Sign in with GitHub" data-ko="GitHub로 로그인"></span>
-            </button>
-            <p class="conference-admin-message" data-conference-login-message role="status"></p>
-          </section>
-
-          <section class="conference-editor" data-conference-editor hidden>
-            <div class="conference-editor-session">
-              <p><span data-en="Signed in as" data-ko="로그인 계정"></span>
-                <strong data-conference-admin-user></strong></p>
-              <button type="button" data-conference-logout
-                data-en="Sign out" data-ko="로그아웃"></button>
-            </div>
-
+          <section class="conference-editor" data-conference-editor>
             <p class="conference-editor-help"
-              data-en="Choose an existing venue to update it, or type a new name. Adding a year creates an empty column for every venue, and each row is grouped automatically by the newest dated entry."
-              data-ko="기존 학회를 선택하면 정보를 수정하고, 새 이름을 입력하면 학회를 추가합니다. 새 연도를 추가하면 모든 학회에 빈 열이 생성되며, 각 행의 월은 날짜가 있는 가장 최신 연도 일정을 기준으로 자동 분류됩니다."></p>
+              data-en="Anyone with a GitHub account may submit a request. The data changes only after the repository owner reviews the Issue and approves it."
+              data-ko="GitHub 계정이 있으면 누구나 수정 요청을 제출할 수 있습니다. 저장소 소유자가 Issue를 검토하고 승인한 경우에만 실제 데이터가 변경됩니다."></p>
 
             <form class="conference-editor-form" data-conference-editor-form>
               <label>
@@ -909,11 +891,11 @@ grow()</code></pre>
               <div class="conference-editor-actions conference-field-wide">
                 <button type="submit" class="conference-secondary-btn">
                   <ion-icon name="add-circle-outline"></ion-icon>
-                  <span data-en="Add or update entry" data-ko="항목 추가 또는 수정"></span>
+                  <span data-en="Add to request" data-ko="요청에 변경 추가"></span>
                 </button>
                 <button type="button" class="conference-primary-btn" data-conference-publish disabled>
-                  <ion-icon name="cloud-upload-outline"></ion-icon>
-                  <span data-en="Publish changes" data-ko="변경 사항 게시"></span>
+                  <ion-icon name="logo-github"></ion-icon>
+                  <span data-en="Open GitHub request" data-ko="GitHub 요청 열기"></span>
                 </button>
               </div>
             </form>
@@ -947,8 +929,7 @@ grow()</code></pre>
   <!--
     - custom js link
   -->
-  <script src="./assets/js/conference-admin-config.js?v=1"></script>
-  <script src="./assets/js/script.js?v=14"></script>
+  <script src="./assets/js/script.js?v=16"></script>
 
   <!--
     - ionicon link

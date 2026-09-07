@@ -344,34 +344,28 @@ document.querySelectorAll('[data-go-publications]').forEach((btn) => {
 
 
 
-// ===== systems conferences: public table + authenticated editor =====
+// ===== systems conferences: public table + GitHub Issue request editor =====
 const conferenceTable = document.querySelector('[data-conference-table]');
 const conferenceStatus = document.querySelector('[data-conference-status]');
 const conferenceSearch = document.querySelector('[data-conference-search]');
 const conferenceViewButtons = document.querySelectorAll('[data-conference-view]');
 const conferenceSnapshot = document.querySelector('[data-conference-snapshot]');
-const conferenceArticle = document.querySelector('.conferences');
 const conferenceDialog = document.querySelector('[data-conference-admin-dialog]');
-const conferenceLoginPanel = document.querySelector('[data-conference-login]');
-const conferenceEditor = document.querySelector('[data-conference-editor]');
-const conferenceLoginMessage = document.querySelector('[data-conference-login-message]');
 const conferenceEditorMessage = document.querySelector('[data-conference-editor-message]');
 const conferenceEditorForm = document.querySelector('[data-conference-editor-form]');
 const conferenceVenueList = document.querySelector('[data-conference-venues]');
 const conferencePublishButton = document.querySelector('[data-conference-publish]');
-const conferenceAdminUser = document.querySelector('[data-conference-admin-user]');
-const conferenceApiBase = (window.CONFERENCE_ADMIN_CONFIG?.apiBase || '').replace(/\/$/, '');
-const CONFERENCE_SESSION_KEY = 'bmj-conference-admin-session';
+const CONFERENCE_REPOSITORY = 'bmj4004/bmj4004.github.io';
+const CONFERENCE_ISSUE_URL = `https://github.com/${CONFERENCE_REPOSITORY}/issues/new`;
+const CONFERENCE_ISSUE_TITLE = '[Conference schedule] Update request';
 const conferenceMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 let conferenceData = null;
 let conferencePublicData = null;
 let conferenceMode = 'deadline';
 let conferenceQuery = '';
-let conferenceAdminToken = sessionStorage.getItem(CONFERENCE_SESSION_KEY) || '';
-let conferenceAdminSha = '';
-let conferenceAdminLogin = '';
 let conferenceDirty = false;
+const conferencePendingChanges = new Map();
 
 const conferenceLang = () => localStorage.getItem('lang') || 'en';
 const conferenceText = (en, ko) => conferenceLang() === 'ko' ? ko : en;
@@ -387,7 +381,7 @@ const safeConferenceUrl = (value) => {
   if (!value) return '';
   try {
     const url = new URL(value);
-    return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+    return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password ? url.href : '';
   } catch (_) {
     return '';
   }
@@ -532,22 +526,20 @@ const renderConferenceTable = () => {
       }
       if (event.location) cell.append(createConferenceElement('span', 'conference-location', event.location));
 
-      if (conferenceAdminLogin) {
-        const editButton = createConferenceElement('button', 'conference-cell-edit');
-        editButton.type = 'button';
-        editButton.title = conferenceText('Edit this entry', '이 항목 수정');
-        editButton.setAttribute('aria-label', editButton.title);
-        const icon = document.createElement('ion-icon');
-        icon.setAttribute('name', 'create-outline');
-        editButton.append(icon);
-        editButton.addEventListener('click', (eventObject) => {
-          eventObject.preventDefault();
-          eventObject.stopPropagation();
-          populateConferenceEditor(row, event, conferenceMode);
-          openConferenceDialog();
-        });
-        cell.append(editButton);
-      }
+      const editButton = createConferenceElement('button', 'conference-cell-edit');
+      editButton.type = 'button';
+      editButton.title = conferenceText('Request a change to this entry', '이 항목의 수정 요청');
+      editButton.setAttribute('aria-label', editButton.title);
+      const icon = document.createElement('ion-icon');
+      icon.setAttribute('name', 'create-outline');
+      editButton.append(icon);
+      editButton.addEventListener('click', (eventObject) => {
+        eventObject.preventDefault();
+        eventObject.stopPropagation();
+        populateConferenceEditor(row, event, conferenceMode);
+        openConferenceDialog();
+      });
+      cell.append(editButton);
       tr.append(cell);
     });
     body.append(tr);
@@ -605,34 +597,10 @@ const openConferenceDialog = () => {
 const closeConferenceDialog = () => {
   if (!conferenceDialog) return;
   if (conferenceDirty && !window.confirm(conferenceText(
-    'Close without publishing your pending changes?',
-    '게시하지 않은 변경 사항을 두고 닫을까요?'
+    'Close without creating your GitHub request?',
+    'GitHub 요청을 만들지 않고 닫을까요?'
   ))) return;
   conferenceDialog.close();
-};
-
-const setConferenceAdminState = (authenticated, login = '') => {
-  conferenceAdminLogin = authenticated ? login : '';
-  if (conferenceLoginPanel) conferenceLoginPanel.hidden = authenticated;
-  if (conferenceEditor) conferenceEditor.hidden = !authenticated;
-  if (conferenceAdminUser) conferenceAdminUser.textContent = authenticated ? `@${login}` : '';
-  if (conferenceArticle) conferenceArticle.classList.toggle('conference-admin-active', authenticated);
-  renderConferenceTable();
-};
-
-const conferenceApi = async (path, options = {}) => {
-  if (!conferenceApiBase) throw new Error('ADMIN_NOT_CONFIGURED');
-  const headers = new Headers(options.headers || {});
-  if (conferenceAdminToken) headers.set('Authorization', `Bearer ${conferenceAdminToken}`);
-  if (options.body) headers.set('Content-Type', 'application/json');
-  const response = await fetch(`${conferenceApiBase}${path}`, { ...options, headers });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    const error = new Error(payload.error || `HTTP ${response.status}`);
-    error.status = response.status;
-    throw error;
-  }
-  return payload;
 };
 
 const rebuildConferenceVenueList = () => {
@@ -649,36 +617,6 @@ const rebuildConferenceVenueList = () => {
   conferenceVenueList.replaceChildren(...options);
 };
 
-const loadConferenceAdminData = async () => {
-  if (!conferenceAdminToken) {
-    setConferenceAdminState(false);
-    return;
-  }
-  setConferenceMessage(conferenceLoginMessage, conferenceText('Checking your session…', '로그인 상태를 확인하는 중…'));
-  try {
-    const payload = await conferenceApi('/api/data');
-    conferenceData = payload.data;
-    conferenceAdminSha = payload.sha;
-    conferenceDirty = false;
-    if (conferencePublishButton) conferencePublishButton.disabled = true;
-    setConferenceAdminState(true, payload.login);
-    rebuildConferenceVenueList();
-    setConferenceMessage(conferenceEditorMessage);
-  } catch (error) {
-    if (error.status === 401 || error.status === 403) {
-      sessionStorage.removeItem(CONFERENCE_SESSION_KEY);
-      conferenceAdminToken = '';
-    }
-    setConferenceAdminState(false);
-    setConferenceMessage(
-      conferenceLoginMessage,
-      error.message === 'ADMIN_NOT_CONFIGURED'
-        ? conferenceText('The admin API has not been configured yet.', '관리자 API가 아직 설정되지 않았습니다.')
-        : conferenceText('Your admin session is unavailable. Please sign in again.', '관리자 세션을 확인할 수 없습니다. 다시 로그인해 주세요.'),
-      'error'
-    );
-  }
-};
 
 const populateConferenceEditor = (row, event, mode) => {
   if (!conferenceEditorForm) return;
@@ -707,10 +645,62 @@ const normalizeConferenceYears = (view) => {
   });
 };
 
+const conferenceChangeKey = (change) => JSON.stringify([
+  change.mode,
+  change.venue.toLocaleLowerCase(),
+  change.cycle.toLocaleLowerCase(),
+  change.year,
+]);
+
+const validConferenceDate = (value, year) => {
+  const match = value.match(/^(\d{4})-(0[1-9]|1[0-2])-([0-2]\d|3[01])(?:\.\.([0-2]\d|3[01]))?$/);
+  if (!match || match[1] !== year) return false;
+  const date = new Date(`${match[1]}-${match[2]}-${match[3]}T00:00:00Z`);
+  return !Number.isNaN(date.getTime())
+    && String(date.getUTCFullYear()) === match[1]
+    && String(date.getUTCMonth() + 1).padStart(2, '0') === match[2]
+    && String(date.getUTCDate()).padStart(2, '0') === match[3];
+};
+
+const conferenceMarkdown = (value) => String(value || '')
+  .replace(/([\\`*_{}\[\]()<>#+\-.!|])/g, '\\$1')
+  .replace(/[\r\n]+/g, ' ');
+
+const buildConferenceIssueBody = () => {
+  const changes = [...conferencePendingChanges.values()];
+  const summary = changes.map((change, index) => [
+    `### ${index + 1}. ${conferenceMarkdown(change.venue)}${change.cycle ? ` — ${conferenceMarkdown(change.cycle)}` : ''}`,
+    `- View: ${conferenceMarkdown(change.mode)}`,
+    `- Year: ${conferenceMarkdown(change.year)}`,
+    `- Date: ${conferenceMarkdown(change.value)}`,
+    change.location ? `- Location: ${conferenceMarkdown(change.location)}` : '',
+    change.url ? `- Official URL: ${conferenceMarkdown(change.url)}` : '',
+    change.details ? `- Details: ${conferenceMarkdown(change.details)}` : '',
+  ].filter(Boolean).join('\n')).join('\n\n');
+
+  return [
+    '# Conference schedule update request',
+    '',
+    'This request was prepared with the conference editor on the website.',
+    'Please review the human-readable changes and official links below. Only the repository owner can apply this request by commenting exactly `/approve`.',
+    '',
+    '## Requested changes',
+    '',
+    summary,
+    '',
+    '## Machine-readable request',
+    '',
+    '<!-- Do not edit the JSON block below. Invalid or unexpected fields are rejected. -->',
+    '```json',
+    JSON.stringify({ version: 1, changes }, null, 2),
+    '```',
+  ].join('\n');
+};
+
 if (conferenceEditorForm) {
   conferenceEditorForm.addEventListener('submit', (eventObject) => {
     eventObject.preventDefault();
-    if (!conferenceData || !conferenceAdminLogin) return;
+    if (!conferenceData) return;
 
     const form = new FormData(conferenceEditorForm);
     const mode = String(form.get('mode'));
@@ -718,7 +708,44 @@ if (conferenceEditorForm) {
     const year = String(form.get('year')).trim();
     const venue = String(form.get('venue')).trim();
     const cycle = String(form.get('cycle')).trim();
+    const value = String(form.get('value')).trim();
+    const rawUrl = String(form.get('url')).trim();
+    const url = safeConferenceUrl(rawUrl);
     if (!view || !year || !venue) return;
+    if (!validConferenceDate(value, year)) {
+      setConferenceMessage(conferenceEditorMessage, conferenceText(
+        'Enter a valid date in YYYY-MM-DD or YYYY-MM-DD..DD format. Its year must match the Year field.',
+        'YYYY-MM-DD 또는 YYYY-MM-DD..DD 형식의 올바른 날짜를 입력하세요. 날짜의 연도와 연도 입력값도 같아야 합니다.'
+      ), 'error');
+      return;
+    }
+    if (rawUrl && !url) {
+      setConferenceMessage(conferenceEditorMessage, conferenceText(
+        'The official URL must start with http:// or https://.',
+        '공식 URL은 http:// 또는 https://로 시작해야 합니다.'
+      ), 'error');
+      return;
+    }
+
+    const change = {
+      mode,
+      venue,
+      fullName: String(form.get('fullName')).trim(),
+      cycle,
+      year,
+      value,
+      url,
+      location: String(form.get('location')).trim(),
+      details: String(form.get('details')).trim(),
+    };
+
+    if (Object.values(change).some((field) => String(field).includes('```'))) {
+      setConferenceMessage(conferenceEditorMessage, conferenceText(
+        'Three consecutive backticks are not allowed in a request.',
+        '요청 내용에는 백틱 3개를 연속해서 사용할 수 없습니다.'
+      ), 'error');
+      return;
+    }
 
     if (!view.years.includes(year)) view.years.push(year);
     normalizeConferenceYears(view);
@@ -731,7 +758,7 @@ if (conferenceEditorForm) {
       row = {
         month: conferenceMonths[0],
         venue,
-        fullName: String(form.get('fullName')).trim(),
+        fullName: change.fullName,
         cycle,
         events: view.years.map((itemYear) => ({
           year: itemYear, value: '-', url: '', location: '', details: ''
@@ -740,18 +767,19 @@ if (conferenceEditorForm) {
       view.rows.push(row);
     }
 
-    row.fullName = String(form.get('fullName')).trim();
+    row.fullName = change.fullName || row.fullName || '';
     row.cycle = cycle;
     const entry = row.events.find((candidate) => String(candidate.year) === year);
     Object.assign(entry, {
       year,
-      value: String(form.get('value')).trim(),
-      url: safeConferenceUrl(String(form.get('url')).trim()),
-      location: String(form.get('location')).trim(),
-      details: String(form.get('details')).trim(),
+      value: change.value,
+      url: change.url,
+      location: change.location,
+      details: change.details,
     });
 
     synchronizeConferenceMonths(view);
+    conferencePendingChanges.set(conferenceChangeKey(change), change);
     conferenceDirty = true;
     if (conferencePublishButton) conferencePublishButton.disabled = false;
     conferenceMode = mode;
@@ -760,47 +788,41 @@ if (conferenceEditorForm) {
     });
     rebuildConferenceVenueList();
     renderConferenceTable();
+    const requestCount = conferencePendingChanges.size;
     setConferenceMessage(conferenceEditorMessage, conferenceText(
-      'Preview updated. Publish when you are ready.',
-      '미리보기에 반영했습니다. 준비되면 게시하세요.'
+      `Preview updated. ${requestCount} change${requestCount === 1 ? '' : 's'} ready for a GitHub request.`,
+      `미리보기에 반영했습니다. GitHub 요청에 포함할 변경 ${requestCount}개가 준비되었습니다.`
     ), 'success');
   });
 }
 
 if (conferencePublishButton) {
-  conferencePublishButton.addEventListener('click', async () => {
-    if (!conferenceDirty || !conferenceData) return;
-    conferencePublishButton.disabled = true;
-    setConferenceMessage(conferenceEditorMessage, conferenceText('Publishing…', '게시하는 중…'));
-    try {
-      Object.values(conferenceData.views).forEach(synchronizeConferenceMonths);
-      conferenceData.snapshot = new Date().toISOString().slice(0, 10);
-      const payload = await conferenceApi('/api/data', {
-        method: 'PUT',
-        body: JSON.stringify({ data: conferenceData, sha: conferenceAdminSha }),
-      });
-      conferenceAdminSha = payload.sha;
-      conferenceDirty = false;
-      renderConferenceTable();
+  conferencePublishButton.addEventListener('click', () => {
+    if (!conferenceDirty || !conferencePendingChanges.size) return;
+    const body = buildConferenceIssueBody();
+    const issueUrl = `${CONFERENCE_ISSUE_URL}?${new URLSearchParams({
+      title: CONFERENCE_ISSUE_TITLE,
+      body,
+    })}`;
+    if (issueUrl.length > 7500) {
       setConferenceMessage(conferenceEditorMessage, conferenceText(
-        'Published. GitHub Pages will show the change after its next deployment.',
-        '게시했습니다. 다음 GitHub Pages 배포가 끝나면 변경 내용이 표시됩니다.'
-      ), 'success');
-    } catch (error) {
-      conferencePublishButton.disabled = false;
-      const conflict = error.status === 409;
-      setConferenceMessage(conferenceEditorMessage, conflict
-        ? conferenceText('The data changed elsewhere. Sign out and back in, then apply your edit again.', '다른 곳에서 데이터가 변경되었습니다. 다시 로그인한 뒤 수정 내용을 다시 적용해 주세요.')
-        : conferenceText(`Publish failed: ${error.message}`, `게시 실패: ${error.message}`), 'error');
+        'This request is too large for one link. Open a request with fewer changes first.',
+        '한 링크에 담기에는 요청이 너무 큽니다. 변경 수를 줄여 먼저 요청해 주세요.'
+      ), 'error');
+      return;
     }
+    window.open(issueUrl, '_blank', 'noopener,noreferrer');
+    setConferenceMessage(conferenceEditorMessage, conferenceText(
+      'GitHub opened in a new tab. Submit the Issue there; the data changes only after owner approval.',
+      '새 탭에서 GitHub가 열렸습니다. Issue를 등록해 주세요. 소유자가 승인해야 실제 데이터가 변경됩니다.'
+    ), 'success');
   });
 }
 
 document.querySelectorAll('[data-conference-admin-open]').forEach((button) => {
-  button.addEventListener('click', async () => {
+  button.addEventListener('click', () => {
     openConferenceDialog();
-    if (conferenceAdminToken && !conferenceAdminLogin) await loadConferenceAdminData();
-    if (!conferenceAdminToken) setConferenceAdminState(false);
+    rebuildConferenceVenueList();
   });
 });
 
@@ -814,57 +836,10 @@ if (conferenceDialog) {
   });
 }
 
-document.querySelectorAll('[data-conference-login-btn]').forEach((button) => {
-  button.addEventListener('click', () => {
-    if (!conferenceApiBase) {
-      setConferenceMessage(conferenceLoginMessage,
-        conferenceText('Deploy the admin Worker and set its URL in conference-admin-config.js first.', '관리자 Worker를 배포하고 conference-admin-config.js에 URL을 먼저 설정해 주세요.'),
-        'error');
-      return;
-    }
-    const returnTo = `${window.location.origin}${window.location.pathname}`;
-    window.location.assign(`${conferenceApiBase}/auth/start?return_to=${encodeURIComponent(returnTo)}`);
-  });
-});
-
-document.querySelectorAll('[data-conference-logout]').forEach((button) => {
-  button.addEventListener('click', () => {
-    sessionStorage.removeItem(CONFERENCE_SESSION_KEY);
-    conferenceAdminToken = '';
-    conferenceAdminSha = '';
-    conferenceDirty = false;
-    if (conferencePublicData) conferenceData = JSON.parse(JSON.stringify(conferencePublicData));
-    setConferenceAdminState(false);
-    setConferenceMessage(conferenceLoginMessage);
-  });
-});
-
-const captureConferenceAuthRedirect = () => {
-  if (!window.location.hash) return false;
-  const hash = new URLSearchParams(window.location.hash.slice(1));
-  const token = hash.get('conference-admin-token');
-  const error = hash.get('conference-admin-error');
-  if (!token && !error) return false;
-  window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
-  if (token) {
-    conferenceAdminToken = token;
-    sessionStorage.setItem(CONFERENCE_SESSION_KEY, token);
-  } else {
-    setConferenceMessage(conferenceLoginMessage, error || conferenceText('GitHub sign-in failed.', 'GitHub 로그인에 실패했습니다.'), 'error');
-  }
-  return Boolean(token);
-};
-
 const initializeConferencePage = async () => {
   if (!conferenceTable) return;
-  const returnedFromLogin = captureConferenceAuthRedirect();
   await loadPublicConferenceData();
-  if (returnedFromLogin) {
-    const navButton = document.querySelector('[data-nav-target="conferences"]');
-    if (navButton) navButton.click();
-    openConferenceDialog();
-    await loadConferenceAdminData();
-  }
+  rebuildConferenceVenueList();
 };
 
 initializeConferencePage();

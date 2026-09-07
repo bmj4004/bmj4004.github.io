@@ -2639,7 +2639,13 @@ pre[id^=code_] {
   background: var(--accent-soft);
 }
 
-.conference-admin-active .conference-cell-edit { display: flex; }
+.conference-table td:hover .conference-cell-edit,
+.conference-table td:focus-within .conference-cell-edit,
+.conference-cell-edit:focus-visible { display: flex; }
+
+@media (hover: none) {
+  .conference-cell-edit { display: flex; }
+}
 
 .conference-status {
   position: absolute;
@@ -2654,7 +2660,7 @@ pre[id^=code_] {
 
 .conference-status:empty { display: none; }
 
-/* Admin editor */
+/* Public GitHub Issue request editor */
 .conference-admin-dialog {
   width: min(760px, calc(100% - 24px));
   max-height: min(850px, calc(100vh - 40px));
